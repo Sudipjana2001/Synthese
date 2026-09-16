@@ -1,0 +1,259 @@
+.articleWrapper {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-20);
+}
+
+/* ── Top Breadcrumbs & Citation ── */
+.topMeta {
+  margin-bottom: var(--space-6);
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-3);
+}
+
+.breadcrumbLink {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.breadcrumbLink:hover {
+  color: var(--color-accent);
+}
+
+.citationBar {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Article Header ── */
+.articleHeader {
+  margin-bottom: var(--space-10);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-8);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+  font-weight: 400;
+  line-height: 1.24;
+  letter-spacing: 0.015em;
+  word-spacing: 0.2em;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-6);
+}
+
+.abstractBox {
+  background-color: var(--color-bg-secondary);
+  border-left: 3px solid var(--color-accent);
+  padding: var(--space-4) var(--space-6);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-bottom: var(--space-6);
+}
+
+.abstractLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.abstractText {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* ── Author & Meta Row ── */
+.metaBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.authorGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.avatarFallback {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.authorRole {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.publicationStats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.statPill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Content Layout (Main Prose + Sticky TOC) ── */
+.contentLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.proseCol {
+  max-width: 760px;
+  font-size: 1.0625rem;
+}
+
+.sidebarCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.paperMetaCard {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.paperMetaTitle {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-2);
+}
+
+.metaItem {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-secondary);
+}
+
+.metaItemValue {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+/* ── Author Bio Box (Bottom) ── */
+.authorBioBox {
+  margin-top: var(--space-16);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.bioAvatar {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-text-primary);
+  color: var(--color-text-inverse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.bioText {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.backLinkRow {
+  margin-top: var(--space-12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .contentLayout {
+    grid-template-columns: 1fr;
+  }
+  .sidebarCol {
+    display: none;
+  }
+}

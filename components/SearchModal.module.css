@@ -1,0 +1,119 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--z-modal, 1000);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(2rem, 10vh, 6rem) var(--space-4);
+  animation: fadeIn 0.2s var(--ease-out);
+}
+
+.modal {
+  width: 100%;
+  max-width: 580px;
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  animation: scaleIn 0.25s var(--ease-out);
+  display: flex;
+  flex-direction: column;
+}
+
+.searchHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.input {
+  flex: 1;
+  font-size: var(--text-base);
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--color-text-primary);
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.escKey {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-tertiary);
+}
+
+.resultsList {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: var(--space-2) 0;
+  list-style: none;
+}
+
+.categoryTitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  padding: var(--space-2) var(--space-5);
+}
+
+.resultItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.resultItem:hover,
+.resultItem:focus-visible {
+  background-color: var(--color-bg-secondary);
+}
+
+.resultTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.resultTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+.emptyState {
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96) translateY(-8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
