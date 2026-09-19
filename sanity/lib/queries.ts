@@ -125,6 +125,11 @@ export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0] {
     title,
     kicker,
+    name,
+    role,
+    affiliation,
+    location,
+    email,
     headline,
     abstract,
     profileImage,
