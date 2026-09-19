@@ -3,9 +3,14 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { SiteSettingsData, DEFAULT_SITE_SETTINGS } from '../lib/getSiteSettings'
 import styles from './Footer.module.css'
 
-export function Footer() {
+interface FooterProps {
+  settings?: SiteSettingsData
+}
+
+export function Footer({ settings = DEFAULT_SITE_SETTINGS }: FooterProps) {
   const pathname = usePathname()
 
   if (pathname?.startsWith('/studio')) {
@@ -16,8 +21,8 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.footerContainer}`}>
         <div className={styles.brandGroup}>
-          <span className={styles.brandName}>Synthese</span>
-          <span className={styles.brandSub}>An Open Scholarly Computational Press</span>
+          <span className={styles.brandName}>{settings?.siteName || 'Synthese'}</span>
+          <span className={styles.brandSub}>{settings?.footerBio || 'An Open Scholarly Computational Press'}</span>
         </div>
 
         <ul className={styles.navLinks}>

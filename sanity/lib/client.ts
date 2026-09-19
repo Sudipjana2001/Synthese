@@ -17,3 +17,16 @@ export const previewClient = createClient({
   token,
   perspective: 'previewDrafts',
 })
+
+/**
+ * Fetch helper that disables Next.js static caching for instant live updates upon publishing in Studio.
+ */
+export async function fetchSanity<T>(
+  query: string,
+  params: Record<string, any> = {}
+): Promise<T> {
+  return client.fetch<T>(query, params, {
+    next: { revalidate: 0 },
+  })
+}
+

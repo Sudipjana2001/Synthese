@@ -1,4 +1,4 @@
-import { client } from '../sanity/lib/client'
+import { fetchSanity } from '../sanity/lib/client'
 import {
   postsQuery,
   featuredPostQuery,
@@ -11,7 +11,7 @@ import { Post, BlogPageSettings, Category } from '../types/blog'
 
 export async function getAllPosts(): Promise<Post[]> {
   try {
-    const sanityPosts = await client.fetch<Post[]>(postsQuery)
+    const sanityPosts = await fetchSanity<Post[]>(postsQuery)
     if (sanityPosts && sanityPosts.length > 0) {
       return sanityPosts
     }
@@ -23,7 +23,7 @@ export async function getAllPosts(): Promise<Post[]> {
 
 export async function getFeaturedPost(): Promise<Post | null> {
   try {
-    const featured = await client.fetch<Post>(featuredPostQuery)
+    const featured = await fetchSanity<Post>(featuredPostQuery)
     if (featured) return featured
   } catch (error) {
     console.warn('Error fetching featured post from Sanity:', error)
@@ -33,7 +33,7 @@ export async function getFeaturedPost(): Promise<Post | null> {
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
-    const sanityPost = await client.fetch<Post>(postBySlugQuery, { slug })
+    const sanityPost = await fetchSanity<Post>(postBySlugQuery, { slug })
     if (sanityPost) return sanityPost
   } catch (error) {
     console.warn(`Error fetching post by slug "${slug}" from Sanity:`, error)
@@ -43,7 +43,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
 export async function getBlogSettings(): Promise<BlogPageSettings> {
   try {
-    const settings = await client.fetch<BlogPageSettings>(blogPageSettingsQuery)
+    const settings = await fetchSanity<BlogPageSettings>(blogPageSettingsQuery)
     if (settings) return settings
   } catch (error) {
     console.warn('Error fetching blog page settings from Sanity:', error)
@@ -62,7 +62,7 @@ export async function getBlogSettings(): Promise<BlogPageSettings> {
 
 export async function getAllCategories(): Promise<Category[]> {
   try {
-    const categories = await client.fetch<Category[]>(categoriesQuery)
+    const categories = await fetchSanity<Category[]>(categoriesQuery)
     if (categories && categories.length > 0) return categories
   } catch (error) {
     console.warn('Error fetching categories from Sanity:', error)
@@ -74,3 +74,4 @@ export async function getAllCategories(): Promise<Category[]> {
     { _id: 'cat-4', title: 'Philosophy of Mind', slug: { current: 'philosophy-of-mind' }, color: '#f59e0b' },
   ]
 }
+

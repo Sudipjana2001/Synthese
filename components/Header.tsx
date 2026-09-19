@@ -17,7 +17,13 @@ const NAV_TABS = [
   { label: 'About & Curriculum', href: '/about' },
 ]
 
-export function Header() {
+import { SiteSettingsData, DEFAULT_SITE_SETTINGS } from '../lib/getSiteSettings'
+
+interface HeaderProps {
+  settings?: SiteSettingsData
+}
+
+export function Header({ settings = DEFAULT_SITE_SETTINGS }: HeaderProps) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchModalOpen, setSearchModalOpen] = useState(false)
@@ -51,24 +57,28 @@ export function Header() {
     return pathname?.startsWith(href)
   }
 
+  const ticker = settings?.ticker || DEFAULT_SITE_SETTINGS.ticker
+
   return (
     <>
       {/* ── Top Issue / Metadata Ticker ── */}
-      <div className={styles.ticker}>
-        <div className={`container ${styles.tickerInner}`}>
-          <div className={styles.tickerLeft}>
-            <span className={styles.tickerDot} />
-            <span>Issue No. 10 • Vol. IV • Computational Epistemology</span>
-            <span>•</span>
-            <span>DOI: 10.48550/SYNTHESE.2026.04</span>
-          </div>
-          <div className={styles.tickerRight}>
-            <span>Sanity CMS Connected</span>
-            <span>•</span>
-            <span>Open Access CC-BY-4.0</span>
+      {ticker.showTicker !== false && (
+        <div className={styles.ticker}>
+          <div className={`container ${styles.tickerInner}`}>
+            <div className={styles.tickerLeft}>
+              <span className={styles.tickerDot} />
+              <span>{ticker.issueText}</span>
+              <span>•</span>
+              <span>{ticker.doi}</span>
+            </div>
+            <div className={styles.tickerRight}>
+              <span>Sanity CMS Connected</span>
+              <span>•</span>
+              <span>{ticker.rightBadge}</span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* ── Sticky Navigation Header ── */}
       <header className={styles.header}>

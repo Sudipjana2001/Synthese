@@ -9,6 +9,9 @@ import { TableOfContents } from '../../../components/TableOfContents'
 import { ReadingProgressBar } from '../../../components/ReadingProgressBar'
 import styles from './post.module.css'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 interface PageProps {
   params: Promise<{ slug: string }>
 }

@@ -120,18 +120,24 @@ export const blogPageSettingsQuery = groq`
   }
 `
 
-// Fetch about page singleton settings (bio, skills, headline, resume)
+// Fetch about page singleton settings (bio, skills, headline, resume, pillars, metrics)
 export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0] {
     title,
+    kicker,
     headline,
+    abstract,
     profileImage,
     bioStory,
-    resumeUrl,
+    orcid,
+    pgpKey,
+    metrics,
+    epistemicPillars,
     skillsHeadline,
     skills,
     showTimeline,
     timelineHeading,
+    resumeUrl,
     seo
   }
 `
@@ -149,3 +155,93 @@ export const timelineQuery = groq`
     order
   }
 `
+
+// Fetch home page singleton settings
+export const homePageQuery = groq`
+  *[_type == "homePage"][0] {
+    kicker,
+    heroHeadline,
+    heroSubheadline,
+    heroPrimaryCta,
+    heroSecondaryCta,
+    velocityCard,
+    epistemicQuote,
+    newsletter,
+    seo
+  }
+`
+
+// Fetch site settings (global brand, ticker, and metadata)
+export const siteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    siteName,
+    siteDescription,
+    authorName,
+    ticker,
+    socialLinks,
+    footerBio,
+    footerCopyright,
+    seo
+  }
+`
+
+// Fetch projects page singleton
+export const projectsPageQuery = groq`
+  *[_type == "projectsPage"][0] {
+    title,
+    description,
+    showFilter,
+    ctaBox,
+    seo
+  }
+`
+
+// Fetch all projects / interactive models
+export const projectsQuery = groq`
+  *[_type == "project"] | order(featured desc, _createdAt desc) {
+    _id,
+    title,
+    slug,
+    category,
+    disciplineTag,
+    modelType,
+    description,
+    metrics,
+    actionLabel,
+    stars,
+    tags,
+    demoUrl,
+    repoUrl,
+    featured
+  }
+`
+
+// Fetch digital garden singleton
+export const gardenPageQuery = groq`
+  *[_type == "gardenPage"][0] {
+    title,
+    description,
+    epistemicWarning,
+    showStats,
+    seo
+  }
+`
+
+// Fetch all digital garden notes
+export const gardenNotesQuery = groq`
+  *[_type == "gardenNote"] | order(stage desc, lastTended desc) {
+    _id,
+    noteId,
+    title,
+    slug,
+    stage,
+    discipline,
+    cluster,
+    summary,
+    formalLemma,
+    tags,
+    citationKey,
+    lastTended
+  }
+`
+

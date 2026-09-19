@@ -31,6 +31,8 @@ export interface InstrumentItem {
 }
 
 export interface AboutData {
+  title?: string
+  kicker?: string
   name: string
   role: string
   affiliation: string
@@ -38,6 +40,9 @@ export interface AboutData {
   email: string
   pgpKey: string
   orcid: string
+  profileImage?: any
+  profileImageUrl?: string
+  bioStory?: any
   metrics: {
     citations: string
     hIndex: string
@@ -51,6 +56,11 @@ export interface AboutData {
     discipline: string
     summary: string
   }>
+  skillsHeadline?: string
+  skills?: string[]
+  showTimeline?: boolean
+  timelineHeading?: string
+  resumeUrl?: string
   timeline: TimelineItem[]
   publications: PublicationItem[]
   instrumentarium: InstrumentItem[]

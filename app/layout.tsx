@@ -3,6 +3,10 @@ import './globals.css'
 import { ThemeProvider } from '../components/ThemeProvider'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
+import { getSiteSettings } from '../lib/getSiteSettings'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export const metadata: Metadata = {
   title: {
@@ -19,8 +23,8 @@ export const metadata: Metadata = {
     'digital garden',
     'architecture',
   ],
-  authors: [{ name: 'Sudip' }],
-  creator: 'Sudip',
+  authors: [{ name: 'Sudip Jana' }],
+  creator: 'Sudip Jana',
   metadataBase: new URL('https://synthese.blog'),
   openGraph: {
     type: 'website',
@@ -38,22 +42,25 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const settings = await getSiteSettings()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <Header />
+          <Header settings={settings} />
           <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
             {children}
           </div>
-          <Footer />
+          <Footer settings={settings} />
         </ThemeProvider>
       </body>
     </html>
   )
 }
+
