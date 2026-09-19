@@ -115,9 +115,9 @@ export default function HomePage() {
           </p>
 
           <div className={styles.ctaGroup}>
-            <Link href="/studio" className={styles.primaryCta} target="_blank">
-              <span>Open Admin Studio (/studio)</span>
-              <ArrowUpRight size={15} />
+            <Link href="/projects" className={styles.primaryCta}>
+              <span>Launch Interactive Lab</span>
+              <ArrowRight size={14} />
             </Link>
             <Link href="/blog" className={styles.secondaryCta}>
               <span>Read Manuscripts &amp; Math</span>

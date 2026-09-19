@@ -202,9 +202,9 @@ export default function ProjectsPage() {
               <span>{copiedEmbed ? 'Copied to Clipboard' : 'Copy Embed Tag'}</span>
             </button>
 
-            <Link href="/studio" className={styles.btnPrimaryAction} target="_blank">
+            <Link href="/blog" className={styles.btnPrimaryAction}>
               <BookOpen size={13} />
-              <span>Open in Writing Studio</span>
+              <span>Explore Manuscripts</span>
             </Link>
           </div>
         </div>

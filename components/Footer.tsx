@@ -42,8 +42,8 @@ export function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="/studio" className={styles.navLink} target="_blank">
-              Admin Studio
+            <Link href="/feed.xml" className={styles.navLink} target="_blank">
+              RSS Dispatch
             </Link>
           </li>
         </ul>

@@ -13,7 +13,6 @@ const NAV_TABS = [
   { label: 'JOURNAL & LAB', href: '/' },
   { label: 'Essays & Papers', href: '/blog' },
   { label: 'Interactive Lab', href: '/projects' },
-  { label: 'Writing Studio', href: '/studio' },
   { label: 'Digital Garden', href: '/garden' },
   { label: 'About & Curriculum', href: '/about' },
 ]
@@ -122,16 +121,6 @@ export function Header() {
 
             <ThemeToggle />
 
-            <Link
-              href="/studio"
-              className={styles.studioPill}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>Sandbox</span>
-              <ArrowUpRight size={13} />
-            </Link>
-
             <button
               type="button"
               className={styles.mobileMenuToggle}
@@ -205,17 +194,6 @@ export function Header() {
                 <span>Search Papers &amp; Systems</span>
                 <span className={styles.kbdShortcut}>⌘K</span>
               </button>
-
-              <Link
-                href="/studio"
-                className={styles.studioPill}
-                style={{ width: '100%', justifyContent: 'center' }}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Admin Studio (CMS)</span>
-                <ArrowUpRight size={13} />
-              </Link>
             </div>
           </aside>
         </>

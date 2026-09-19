@@ -40,7 +40,6 @@ const PAGE_LINKS: SearchResultItem[] = [
   { id: 'p-projects', title: 'Interactive Lab & Systems', subtitle: 'Continuous PDE & agent simulation sandboxes', href: '/projects', tag: 'Projects', icon: Sparkles, category: 'Pages' },
   { id: 'p-garden', title: 'Digital Garden & Archive', subtitle: 'Topological knowledge graph & Zettelkasten notes', href: '/garden', tag: 'Garden', icon: Sprout, category: 'Pages' },
   { id: 'p-about', title: 'About & Curriculum Dossier', subtitle: 'Scholar bio, academic timeline & laboratory instrumentarium', href: '/about', tag: 'About', icon: User, category: 'Pages' },
-  { id: 'p-studio', title: 'Writing Studio CMS', subtitle: 'Embedded Sanity Studio v3 editorial suite', href: '/studio', tag: 'Admin', icon: Sliders, category: 'Pages' },
 ]
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
