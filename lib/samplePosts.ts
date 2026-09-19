@@ -12,10 +12,10 @@ export const SAMPLE_POSTS: Post[] = [
     readingTime: 18,
     tags: ['ReinforcementLearning', 'NeuroTopology', 'DynamicalSystems'],
     author: {
-      _id: 'author-1',
-      name: 'Dr. Dana Vance',
-      role: 'Principal Investigator • Synthese Lab',
-      bio: 'Researching neural topology, complex adaptive systems, and mathematical epistemology.',
+      _id: 'author-sudip',
+      name: 'Sudip Jana',
+      role: 'Principal Investigator & Editorial Moderator • Synthese Press',
+      bio: 'Researching neural topology, thermodynamic computing substrates, and mathematical epistemology.',
     },
     categories: [
       {
@@ -150,10 +150,10 @@ class StochasticCouplingField(nn.Module):
     readingTime: 24,
     tags: ['Topology', 'GenerativeAI', 'Thermodynamics'],
     author: {
-      _id: 'author-2',
-      name: 'Julian Richter, Ph.D.',
-      role: 'Research Fellow • Computational Topology',
-      bio: 'Investigating high-dimensional persistent homology in foundation models.',
+      _id: 'author-sudip',
+      name: 'Sudip Jana',
+      role: 'Principal Investigator & Editorial Moderator • Synthese Press',
+      bio: 'Investigating high-dimensional persistent homology and non-equilibrium cognitive dynamics.',
     },
     categories: [
       {
@@ -216,10 +216,10 @@ class StochasticCouplingField(nn.Module):
     readingTime: 32,
     tags: ['BioComputing', 'Morphogenesis', 'NonVonNeumann'],
     author: {
-      _id: 'author-3',
-      name: 'Marcus Chen & Sarah Jenkins',
-      role: 'Hardware Synthesis Lab',
-      bio: 'Pioneering biomimetic substrates and unconventional computing paradigms.',
+      _id: 'author-sudip',
+      name: 'Sudip Jana',
+      role: 'Principal Investigator & Editorial Moderator • Synthese Press',
+      bio: 'Pioneering morphogenetic substrates, Turing logic, and unconventional computing paradigms.',
     },
     categories: [
       {
@@ -260,10 +260,10 @@ class StochasticCouplingField(nn.Module):
     readingTime: 20,
     tags: ['PhilosophyOfMind', 'AffectiveComputing', 'Cybernetics'],
     author: {
-      _id: 'author-1',
-      name: 'Dr. Dana Vance',
-      role: 'Principal Investigator • Synthese Lab',
-      bio: 'Researching neural topology, complex adaptive systems, and mathematical epistemology.',
+      _id: 'author-sudip',
+      name: 'Sudip Jana',
+      role: 'Principal Investigator & Editorial Moderator • Synthese Press',
+      bio: 'Researching neural topology, thermodynamic computing substrates, and mathematical epistemology.',
     },
     categories: [
       {

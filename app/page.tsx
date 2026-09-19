@@ -35,7 +35,7 @@ const HOME_PAPERS = [
     title: 'Topological Entropy and Semantic Drift in Deep Generative Latents',
     excerpt:
       'By analyzing vector manifold deformations through persistent homology, we identify the exact thermodynamic inflection point where autoregressive language models depart from ground truth grounding into hallucinatory self-referential hypertoruses.',
-    authorDate: 'Julian Richter, Ph.D. & Dana Vance • November 24, 2026',
+    authorDate: 'Sudip Jana • November 24, 2026',
   },
   {
     id: 'pr-01451',
@@ -47,7 +47,7 @@ const HOME_PAPERS = [
     title: 'Morphogenetic Computing: Reaction-Diffusion Substrates as Low-Power Logic Networks',
     excerpt:
       'Turing reaction-diffusion patterns implemented in synthetic biological gels offer non-von-Neumann asynchronous pattern recognition with sub-picowatt energy consumption.',
-    authorDate: 'Marcus Chen & Sarah Jenkins • October 19, 2026',
+    authorDate: 'Sudip Jana • October 19, 2026',
   },
   {
     id: 'pr-01450',
@@ -59,7 +59,7 @@ const HOME_PAPERS = [
     title: 'The Hard Problem of Machine Affect: Functionalism, Homeostasis, and Synthetic Interiority',
     excerpt:
       'We argue that sentiment in reinforcement learning cannot generate true experiential valence without metabolic somatic vulnerability. A formalization of synthetic allostasis.',
-    authorDate: 'Dr. Dana Vance • September 12, 2026',
+    authorDate: 'Sudip Jana • September 12, 2026',
   },
   {
     id: 'pr-01449',
@@ -71,7 +71,7 @@ const HOME_PAPERS = [
     title: 'Phase Transitions in Unconstrained Transformer Multi-Agent Ensembles',
     excerpt:
       'Theoretical derivation demonstrating geometric resonance across high-dimensional latent policy embeddings with zero external loss formulation.',
-    authorDate: 'Dr. Dana Vance • August 30, 2026',
+    authorDate: 'Sudip Jana • August 30, 2026',
   },
 ]
 

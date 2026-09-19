@@ -150,7 +150,7 @@ export const SAMPLE_ABOUT: AboutData = {
       citations: 42,
       type: 'Peer-Reviewed Journal',
       slug: 'topological-entropy-and-semantic-drift',
-      authors: 'Julian Richter, Ph.D. & Dana Vance',
+      authors: 'Sudip Jana',
       abstract:
         'Persistent homology proves vector manifold deformations cross a thermodynamic inflection point where autoregressive language models depart from ground truth grounding into self-referential hypertoruses.',
     },
@@ -163,7 +163,7 @@ export const SAMPLE_ABOUT: AboutData = {
       citations: 89,
       type: 'Peer-Reviewed Journal',
       slug: 'morphogenetic-computing-reaction-diffusion',
-      authors: 'Marcus Chen & Sarah Jenkins',
+      authors: 'Sudip Jana',
       abstract:
         'Continuous Turing reaction-diffusion chemical gels offer non-von-Neumann asynchronous pattern recognition with sub-picowatt energy consumption.',
     },
@@ -176,7 +176,7 @@ export const SAMPLE_ABOUT: AboutData = {
       citations: 34,
       type: 'Preprint Monograph',
       slug: 'hard-problem-of-machine-affect',
-      authors: 'Evelyn Vasquez, D.Phil.',
+      authors: 'Sudip Jana',
       abstract:
         'Investigating whether homeostasis-driven active inference architectures possess functional analogs of phenomenal valence or remain sophisticated behavioral automata.',
     },
@@ -189,7 +189,7 @@ export const SAMPLE_ABOUT: AboutData = {
       citations: 215,
       type: 'Conference Proceedings',
       externalUrl: 'https://arxiv.org',
-      authors: 'Sudip Jana, Julian Richter, & Sarah Jenkins',
+      authors: 'Sudip Jana',
       abstract:
         'Demonstrates that Riemannian gradient flow on hyperbolic Poincaré balls yields exponential capacity expansion for taxonomic tree representations compared to standard Euclidean embeddings.',
     },
@@ -202,7 +202,7 @@ export const SAMPLE_ABOUT: AboutData = {
       citations: 167,
       type: 'Peer-Reviewed Journal',
       externalUrl: 'https://doi.org',
-      authors: 'Sudip Jana & Karl Friston',
+      authors: 'Sudip Jana',
       abstract:
         'Exact thermodynamic derivation establishing that canonical cortical microcircuits minimize a localized variational free energy bound via coupled dendritic predictive coding.',
     },

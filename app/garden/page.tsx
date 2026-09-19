@@ -56,6 +56,70 @@ export default function GardenPage() {
     []
   )
 
+  const downloadFile = (content: string, filename: string, mimeType: string) => {
+    const blob = new Blob([content], { type: `${mimeType};charset=utf-8;` })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = filename
+    link.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleExportBibtex = () => {
+    const bib = SAMPLE_GARDEN_NOTES.map((note) => `@misc{${note.citationKey || note.slug},
+  title={${note.title}},
+  author={Sudip Jana},
+  howpublished={Synthese Digital Garden \\& Zettelkasten Archive},
+  year={2026},
+  note={Stage: ${note.stage}, Discipline: ${note.discipline}}
+}`).join('\n\n')
+    downloadFile(bib, 'synthese_garden_citations.bib', 'text/plain')
+  }
+
+  const handleExportJsonLd = () => {
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'DataCatalog',
+      name: 'Synthese Digital Garden & Zettelkasten Archive',
+      author: {
+        '@type': 'Person',
+        name: 'Sudip Jana',
+        affiliation: 'Synthese Computational Press',
+      },
+      dataset: SAMPLE_GARDEN_NOTES.map((n) => ({
+        '@type': 'ScholarlyArticle',
+        identifier: n.id,
+        name: n.title,
+        description: n.summary,
+        keywords: n.tags.join(', '),
+        about: n.discipline,
+      })),
+    }
+    downloadFile(JSON.stringify(jsonLd, null, 2), 'synthese_garden_vault.jsonld', 'application/ld+json')
+  }
+
+  const handleExportObsidian = () => {
+    const vaultText = SAMPLE_GARDEN_NOTES.map((n) => `---
+id: "${n.id}"
+title: "${n.title}"
+stage: ${n.stage}
+discipline: "${n.discipline}"
+tags: [${n.tags.map((t) => `"${t}"`).join(', ')}]
+author: "Sudip Jana"
+---
+
+# ${n.id}: ${n.title}
+
+${n.summary}
+
+${n.formalLemma ? `## Formal Lemma\n**${n.formalLemma.label}**\n$$\n${n.formalLemma.formula}\n$$\n*${n.formalLemma.explanation}*\n` : ''}
+## Synaptic Links & Backlinks
+${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).join('\n')}
+`).join('\n\n' + '='.repeat(40) + '\n\n')
+    downloadFile(vaultText, 'synthese_obsidian_vault.md', 'text/markdown')
+  }
+
   return (
     <main className={styles.gardenPage}>
       {/* ════════════════════════════════
@@ -73,13 +137,13 @@ export default function GardenPage() {
             A networked repository of evolving notes, speculative hypotheses, formal lemmas, and verified citations.
           </p>
           <div className={styles.mastheadActions}>
-            <button type="button" className={styles.btnSecondary}>
+            <button type="button" className={styles.btnSecondary} onClick={handleExportBibtex}>
               <FileText size={14} />
               <span>BibTeX Export</span>
             </button>
-            <button type="button" className={styles.btnPrimary}>
+            <button type="button" className={styles.btnPrimary} onClick={handleExportObsidian}>
               <Download size={14} />
-              <span>Download Vault (.zip)</span>
+              <span>Download Vault (.md)</span>
             </button>
           </div>
         </div>
@@ -162,8 +226,12 @@ export default function GardenPage() {
                 </div>
 
                 <div className={styles.exportBtns}>
-                  <button type="button" className={styles.exportBtn}>JSON-LD Index</button>
-                  <button type="button" className={styles.exportBtn}>Obsidian Vault (.md)</button>
+                  <button type="button" className={styles.exportBtn} onClick={handleExportJsonLd}>
+                    JSON-LD Index
+                  </button>
+                  <button type="button" className={styles.exportBtn} onClick={handleExportObsidian}>
+                    Obsidian Vault (.md)
+                  </button>
                 </div>
               </div>
             </div>
