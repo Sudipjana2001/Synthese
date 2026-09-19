@@ -73,38 +73,37 @@ export function Header() {
       {/* ── Sticky Navigation Header ── */}
       <header className={styles.header}>
         <div className={`container ${styles.navContainer}`}>
-          {/* Logo & Nav Tabs */}
-          <div className={styles.brandWrapper}>
-            <Link href="/" className={styles.brandLink} aria-label="Synthese Home">
-              <Image
-                src="/images/synthese-icon.png"
-                alt="Synthese Icon"
-                width={28}
-                height={28}
-                priority
-                className={styles.brandIcon}
-              />
-              <span className={styles.brandName}>Synthese</span>
-            </Link>
+          {/* Left: Brand Logo & Title */}
+          <Link href="/" className={styles.brandLink} aria-label="Synthese Home">
+            <Image
+              src="/images/synthese-icon.png"
+              alt="Synthese Icon"
+              width={28}
+              height={28}
+              priority
+              className={styles.brandIcon}
+            />
+            <span className={styles.brandName}>Synthese</span>
+          </Link>
 
-            <nav aria-label="Main Navigation">
-              <ul className={styles.navTabs}>
-                {NAV_TABS.map((tab) => {
-                  const active = isTabActive(tab.href)
-                  return (
-                    <li key={tab.href}>
-                      <Link
-                        href={tab.href}
-                        className={`${styles.tabItem} ${active ? styles.activeTab : ''}`}
-                      >
-                        {tab.label}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </nav>
-          </div>
+          {/* Middle: Centered Navigation Tabs */}
+          <nav aria-label="Main Navigation" className={styles.mainNav}>
+            <ul className={styles.navTabs}>
+              {NAV_TABS.map((tab) => {
+                const active = isTabActive(tab.href)
+                return (
+                  <li key={tab.href}>
+                    <Link
+                      href={tab.href}
+                      className={`${styles.tabItem} ${active ? styles.activeTab : ''}`}
+                    >
+                      {tab.label}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
 
           {/* Right Actions: Search + Theme + Sandbox/Studio + Mobile */}
           <div className={styles.actionsWrapper}>

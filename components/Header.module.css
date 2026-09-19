@@ -68,20 +68,20 @@
   gap: var(--space-4);
 }
 
-/* ── Brand: Transparent Icon + Themed "Synthese" Text ── */
-.brandWrapper {
-  display: flex;
-  align-items: center;
-  gap: var(--space-6);
-  flex-shrink: 0;
-}
-
 .brandLink {
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
   flex-shrink: 0;
+  min-width: 140px;
+}
+
+.mainNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .brandIcon {
@@ -162,8 +162,10 @@
 .actionsWrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-2);
   flex-shrink: 0;
+  min-width: 140px;
 }
 
 .searchTrigger {
@@ -325,6 +327,7 @@
 
 /* ── Responsive Rules ── */
 @media (max-width: 1040px) {
+  .mainNav,
   .navTabs {
     display: none;
   }
