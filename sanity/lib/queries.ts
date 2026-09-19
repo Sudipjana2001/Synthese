@@ -119,3 +119,33 @@ export const blogPageSettingsQuery = groq`
     seo
   }
 `
+
+// Fetch about page singleton settings (bio, skills, headline, resume)
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage"][0] {
+    title,
+    headline,
+    profileImage,
+    bioStory,
+    resumeUrl,
+    skillsHeadline,
+    skills,
+    showTimeline,
+    timelineHeading,
+    seo
+  }
+`
+
+// Fetch timeline entries ordered by custom order and date
+export const timelineQuery = groq`
+  *[_type == "timeline"] | order(order asc, dateRange desc) {
+    _id,
+    dateRange,
+    title,
+    company,
+    location,
+    description,
+    technologies,
+    order
+  }
+`
