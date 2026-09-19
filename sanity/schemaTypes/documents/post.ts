@@ -96,6 +96,12 @@ export const post = defineType({
       ],
     },
     {
+      name: 'categories',
+      title: 'Categories',
+      type: 'array',
+      of: [{ type: 'reference', to: { type: 'category' } }],
+    },
+    {
       name: 'tags',
       title: 'Taxonomy Tags',
       type: 'array',

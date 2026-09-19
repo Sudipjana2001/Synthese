@@ -19,6 +19,19 @@ export const aboutPage = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'profileImage',
+      title: 'Profile Portrait Image',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alt Text',
+        },
+      ],
+    },
+    {
       name: 'headline',
       title: 'Epistemic Thesis Headline',
       type: 'text',
@@ -32,6 +45,11 @@ export const aboutPage = defineType({
       rows: 4,
       initialValue:
         'Our laboratory focuses on the fundamental question: How do self-organizing physical substrates spontaneously compute, minimize informational entropy, and manifest cognitive invariants? By unifying Turing reaction-diffusion dynamics, Friston variational mechanics, and differential geometric latent representations, Synthese operates as both a formal theoretical press and an executable experimental sandbox.',
+    },
+    {
+      name: 'bioStory',
+      title: 'Full Extended Biography (Portable Text)',
+      type: 'blockContent',
     },
     {
       name: 'orcid',
@@ -89,6 +107,31 @@ export const aboutPage = defineType({
       ],
     },
     {
+      name: 'skillsHeadline',
+      title: 'Skills Section Title',
+      type: 'string',
+      initialValue: 'Core Competencies & Tooling',
+    },
+    {
+      name: 'skills',
+      title: 'Skills / Tech List',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+    },
+    {
+      name: 'showTimeline',
+      title: 'Show Experience / Career Timeline',
+      type: 'boolean',
+      initialValue: true,
+    },
+    {
+      name: 'timelineHeading',
+      title: 'Timeline Section Heading',
+      type: 'string',
+      initialValue: 'Experience & Milestones',
+    },
+    {
       name: 'resumeUrl',
       title: 'External Resume / PDF CV URL (Optional)',
       type: 'string',
@@ -103,6 +146,7 @@ export const aboutPage = defineType({
     select: {
       title: 'title',
       subtitle: 'headline',
+      media: 'profileImage',
     },
   },
 })
