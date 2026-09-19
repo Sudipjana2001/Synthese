@@ -119,9 +119,9 @@ export const homePage = defineType({
             },
           ],
           initialValue: [
-            { label: 'Peer-Reviewed Papers', value: '38', subtext: '2024–2026' },
-            { label: 'Executable Simulations', value: '14', subtext: '• Real-Time WebGL' },
-            { label: 'Model Telemetry', value: '120k', subtext: 'Active Runs' },
+            { _key: 'metric-1', label: 'Peer-Reviewed Papers', value: '38', subtext: '2024–2026' },
+            { _key: 'metric-2', label: 'Executable Simulations', value: '14', subtext: '• Real-Time WebGL' },
+            { _key: 'metric-3', label: 'Model Telemetry', value: '120k', subtext: 'Active Runs' },
           ],
         },
       ],

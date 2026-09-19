@@ -125,18 +125,21 @@ export const aboutPage = defineType({
       ],
       initialValue: [
         {
+          _key: 'pillar-1',
           title: 'Thermodynamic Morphogenesis',
           discipline: 'Nonlinear PDEs & Physical Substrates',
           summary:
             'Continuous reaction-diffusion Turing substrates functioning as asynchronous, ultra-low-power logic networks that bypass von Neumann architectural constraints.',
         },
         {
+          _key: 'pillar-2',
           title: 'Geometric Deep Learning & Manifolds',
           discipline: 'Differential Geometry & Information Theory',
           summary:
             'Analyzing neural representation spaces through persistent homology and hyperbolic embeddings to prevent semantic drift and characterize latent manifold curvature.',
         },
         {
+          _key: 'pillar-3',
           title: 'Variational Neurodynamics',
           discipline: 'Free Energy Principle & Bayesian Mechanics',
           summary:
