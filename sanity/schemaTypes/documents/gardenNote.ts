@@ -2,9 +2,17 @@ import { defineType } from 'sanity'
 
 export const gardenNote = defineType({
   name: 'gardenNote',
-  title: 'Digital Garden Note',
+  title: 'Digital Garden Note & Lemma',
   type: 'document',
   fields: [
+    {
+      name: 'noteId',
+      title: 'Scholarly Note ID',
+      type: 'string',
+      description: 'e.g. "§ 2024.11-FEP.04" or "§ GEOM-084"',
+      initialValue: '§ NOTE-01',
+      validation: (Rule) => Rule.required(),
+    },
     {
       name: 'title',
       title: 'Title',
@@ -27,38 +35,75 @@ export const gardenNote = defineType({
       type: 'string',
       options: {
         list: [
-          { title: '🌱 Seedling (Rough thought / initial idea)', value: 'seedling' },
-          { title: '🌿 Budding (Developing / work in progress)', value: 'budding' },
-          { title: '🌳 Evergreen (Polished / mature idea)', value: 'evergreen' },
+          { title: '🌱 Sprout (Initial conjecture / exploratory)', value: 'sprout' },
+          { title: '🌿 Budding (Formalizing / working lemma)', value: 'budding' },
+          { title: '🌳 Evergreen (Established foundational note)', value: 'evergreen' },
         ],
         layout: 'radio',
       },
-      initialValue: 'seedling',
+      initialValue: 'sprout',
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'topics',
-      title: 'Topics / Tags',
+      name: 'discipline',
+      title: 'Discipline Category',
+      type: 'string',
+      options: {
+        list: [
+          'Cognitive Science',
+          'Differential Geometry',
+          'Complex Systems',
+          'Category Theory',
+          'Information Geometry',
+          'Computational Neuroscience',
+        ],
+      },
+      initialValue: 'Cognitive Science',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'cluster',
+      title: 'Topological Cluster',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Cluster 01 // Variational Inference', value: 'cluster-01' },
+          { title: 'Cluster 02 // Nonlinear Topologies', value: 'cluster-02' },
+          { title: 'Cluster 03 // Dynamical Systems', value: 'cluster-03' },
+          { title: 'Cluster 04 // Speculative Frontiers', value: 'cluster-04' },
+        ],
+      },
+      initialValue: 'cluster-01',
+    },
+    {
+      name: 'summary',
+      title: 'Scholarly Abstract / Summary',
+      type: 'text',
+      rows: 3,
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'formalLemma',
+      title: 'Formal Mathematical Lemma (Optional)',
+      type: 'object',
+      fields: [
+        { name: 'label', type: 'string', title: 'Lemma Label (e.g. "FORMAL LEMMA A.2")' },
+        { name: 'formula', type: 'string', title: 'LaTeX / Unicode Math Formula' },
+        { name: 'explanation', type: 'text', rows: 2, title: 'Mathematical Explanation' },
+      ],
+    },
+    {
+      name: 'tags',
+      title: 'Taxonomy Tags',
       type: 'array',
       of: [{ type: 'string' }],
       options: { layout: 'tags' },
     },
     {
-      name: 'summary',
-      title: 'Quick Summary',
-      type: 'text',
-      rows: 2,
-    },
-    {
-      name: 'body',
-      title: 'Note Content',
-      type: 'blockContent',
-    },
-    {
-      name: 'relatedNotes',
-      title: 'Connected Notes (Backlinks / Graph)',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'gardenNote' }] }],
+      name: 'citationKey',
+      title: 'BibTeX Citation Key',
+      type: 'string',
+      description: 'e.g. "jana2026fep"',
     },
     {
       name: 'lastTended',
@@ -70,20 +115,20 @@ export const gardenNote = defineType({
   preview: {
     select: {
       title: 'title',
+      noteId: 'noteId',
       stage: 'stage',
-      date: 'lastTended',
+      discipline: 'discipline',
     },
-    prepare({ title, stage, date }) {
+    prepare({ title, noteId, stage, discipline }) {
       const icons: Record<string, string> = {
-        seedling: '🌱',
+        sprout: '🌱',
         budding: '🌿',
         evergreen: '🌳',
       }
       const icon = stage ? icons[stage] || '📝' : '📝'
-      const formattedDate = date ? new Date(date).toLocaleDateString() : ''
       return {
-        title: `${icon} ${title}`,
-        subtitle: `${stage ? stage.toUpperCase() : ''} • Tended ${formattedDate}`,
+        title: `${noteId ? noteId + ': ' : ''}${title}`,
+        subtitle: `${icon} ${discipline || ''} [${stage ? stage.toUpperCase() : ''}]`,
       }
     },
   },

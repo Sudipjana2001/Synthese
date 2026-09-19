@@ -2,7 +2,7 @@ import { defineType } from 'sanity'
 
 export const post = defineType({
   name: 'post',
-  title: 'Blog Post',
+  title: 'Blog Post & Manuscript',
   type: 'document',
   fields: [
     {
@@ -22,11 +22,54 @@ export const post = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'volume',
+      title: 'Volume & Article Number',
+      type: 'string',
+      description: 'e.g. "Vol. 4 • Art. 12"',
+      initialValue: 'Vol. 4 • Art. 12',
+    },
+    {
+      name: 'status',
+      title: 'Publication Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Peer Reviewed', value: 'Peer Reviewed' },
+          { title: 'Preprint (Under Review)', value: 'Preprint (Under Review)' },
+          { title: 'Working Paper', value: 'Working Paper' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'Peer Reviewed',
+    },
+    {
+      name: 'discipline',
+      title: 'Academic Discipline',
+      type: 'string',
+      options: {
+        list: [
+          'Cognitive Computation',
+          'Physical Substrates',
+          'Philosophy of Mind',
+          'Dynamical Systems',
+          'Differential Geometry',
+          'Complex Systems',
+        ],
+      },
+      initialValue: 'Cognitive Computation',
+    },
+    {
+      name: 'doi',
+      title: 'DOI Identifier',
+      type: 'string',
+      description: 'e.g. "10.5821/synthese.2026.01452"',
+    },
+    {
       name: 'excerpt',
-      title: 'Excerpt / Summary',
+      title: 'Abstract / Excerpt',
       type: 'text',
       rows: 3,
-      description: 'Short summary displayed in post cards and previews',
+      description: 'Short summary displayed in manuscript cards and previews',
     },
     {
       name: 'author',
@@ -53,14 +96,8 @@ export const post = defineType({
       ],
     },
     {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
-    },
-    {
       name: 'tags',
-      title: 'Tags',
+      title: 'Taxonomy Tags',
       type: 'array',
       of: [{ type: 'string' }],
       options: {
@@ -75,7 +112,7 @@ export const post = defineType({
     },
     {
       name: 'featured',
-      title: 'Featured Post',
+      title: 'Featured Manuscript',
       type: 'boolean',
       description: 'Highlight this article at the top of the blog page and homepage',
       initialValue: false,
@@ -84,11 +121,11 @@ export const post = defineType({
       name: 'readingTime',
       title: 'Reading Time (Minutes)',
       type: 'number',
-      description: 'Estimated reading time in minutes (optional, auto-calculated if empty)',
+      description: 'Estimated reading time in minutes',
     },
     {
       name: 'body',
-      title: 'Article Body',
+      title: 'Manuscript Body (Portable Text & Code)',
       type: 'blockContent',
     },
     {
@@ -110,13 +147,13 @@ export const post = defineType({
         },
         {
           name: 'showRelatedPosts',
-          title: 'Show Related Posts',
+          title: 'Show Related Treatises',
           type: 'boolean',
           initialValue: true,
         },
         {
           name: 'showShareButtons',
-          title: 'Show Social Share Buttons',
+          title: 'Show Citation / Share Buttons',
           type: 'boolean',
           initialValue: true,
         },
@@ -134,13 +171,14 @@ export const post = defineType({
       author: 'author.name',
       media: 'mainImage',
       date: 'publishedAt',
+      volume: 'volume',
     },
     prepare(selection) {
-      const { author, date } = selection
+      const { title, author, date, volume } = selection
       const formattedDate = date ? new Date(date).toLocaleDateString() : 'Draft'
       return {
-        ...selection,
-        subtitle: author ? `${author} • ${formattedDate}` : formattedDate,
+        title: title,
+        subtitle: `${volume || ''} • ${author || 'Sudip Jana'} • ${formattedDate}`,
       }
     },
   },

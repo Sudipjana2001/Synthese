@@ -2,7 +2,7 @@ import { defineType } from 'sanity'
 
 export const project = defineType({
   name: 'project',
-  title: 'Project',
+  title: 'Interactive Project & Simulation',
   type: 'document',
   fields: [
     {
@@ -22,84 +22,112 @@ export const project = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'tagline',
-      title: 'Tagline / Short Pitch',
+      name: 'category',
+      title: 'Discipline Category',
       type: 'string',
-      description: 'One sentence punchline (e.g. "An AI-powered design generator")',
+      options: {
+        list: [
+          'Agent-Based Simulations',
+          'Probability & Inference',
+          'Neural Networks',
+          'Dynamical Systems',
+          'Information Theory',
+        ],
+      },
+      initialValue: 'Dynamical Systems',
+      validation: (Rule) => Rule.required(),
     },
     {
-      name: 'summary',
-      title: 'Summary',
+      name: 'disciplineTag',
+      title: 'Sub-Discipline Tag',
+      type: 'string',
+      description: 'e.g. "Linear Algebra", "Inference & DAG", "Agent-Based Models"',
+      initialValue: 'Linear Algebra',
+    },
+    {
+      name: 'modelType',
+      title: 'Simulation Kernel Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Gray-Scott Reaction-Diffusion', value: 'gray-scott' },
+          { title: 'Boids Swarm Simulator', value: 'boids' },
+          { title: 'Bayesian Belief Network DAG', value: 'bayes' },
+          { title: 'Fourier Signal Decomposition', value: 'fourier' },
+          { title: 'Loss Landscape Descent', value: 'loss-landscape' },
+          { title: 'Markov Stochastic Matrix', value: 'markov' },
+          { title: 'Matrix Eigenvalue Plane', value: 'matrix' },
+        ],
+        layout: 'dropdown',
+      },
+      initialValue: 'gray-scott',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'description',
+      title: 'Abstract & Mechanics Description',
       type: 'text',
       rows: 3,
-      description: 'Concise summary for project card previews',
+      validation: (Rule) => Rule.required(),
     },
     {
-      name: 'coverImage',
-      title: 'Cover Image',
-      type: 'image',
-      options: { hotspot: true },
+      name: 'metrics',
+      title: 'Live Telemetry Metrics Pair',
+      type: 'object',
       fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative Text',
-        },
+        { name: 'label1', type: 'string', title: 'Metric 1 Label', initialValue: 'det(A)' },
+        { name: 'value1', type: 'string', title: 'Metric 1 Value', initialValue: '-1.91' },
+        { name: 'label2', type: 'string', title: 'Metric 2 Label', initialValue: 'Trace' },
+        { name: 'value2', type: 'string', title: 'Metric 2 Value', initialValue: '1.64' },
       ],
     },
     {
-      name: 'techStack',
-      title: 'Tech Stack',
-      type: 'array',
-      of: [{ type: 'string' }],
-      options: {
-        layout: 'tags',
-      },
+      name: 'actionLabel',
+      title: 'Launch Button Label',
+      type: 'string',
+      initialValue: 'Launch Simulation Canvas',
     },
     {
-      name: 'liveUrl',
-      title: 'Live Demo URL',
+      name: 'stars',
+      title: 'Citations / Stars Counter',
+      type: 'number',
+      initialValue: 500,
+    },
+    {
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+    },
+    {
+      name: 'demoUrl',
+      title: 'Live Demo URL (Optional)',
       type: 'url',
     },
     {
       name: 'repoUrl',
-      title: 'Source Code / GitHub URL',
+      title: 'Repository URL (Optional)',
       type: 'url',
     },
     {
       name: 'featured',
-      title: 'Featured Project',
+      title: 'Featured Model',
       type: 'boolean',
       initialValue: false,
-    },
-    {
-      name: 'order',
-      title: 'Display Order',
-      type: 'number',
-      description: 'Lower numbers show first',
-      initialValue: 0,
-    },
-    {
-      name: 'publishedAt',
-      title: 'Year / Date',
-      type: 'date',
-    },
-    {
-      name: 'description',
-      title: 'Case Study / Description',
-      type: 'blockContent',
-    },
-    {
-      name: 'seo',
-      title: 'SEO Settings',
-      type: 'seo',
     },
   ],
   preview: {
     select: {
       title: 'title',
-      subtitle: 'tagline',
-      media: 'coverImage',
+      subtitle: 'category',
+      modelType: 'modelType',
+    },
+    prepare({ title, subtitle, modelType }) {
+      return {
+        title: title,
+        subtitle: `${subtitle || ''} [Kernel: ${modelType || 'custom'}]`,
+      }
     },
   },
 })
