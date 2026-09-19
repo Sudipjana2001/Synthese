@@ -9,7 +9,9 @@ export const gardenPage = defineType({
       name: 'title',
       title: 'Page Title',
       type: 'string',
-      initialValue: 'Digital Garden',
+      description: '📍 Where it appears: Main heading on /garden.',
+      placeholder: 'The Digital Garden & Zettelkasten Archive',
+      initialValue: 'The Digital Garden & Zettelkasten Archive',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -17,26 +19,24 @@ export const gardenPage = defineType({
       title: 'Page Description / Subtitle',
       type: 'text',
       rows: 3,
+      description: '📍 Where it appears: Subtitle on /garden.',
+      placeholder: 'A networked repository of evolving notes, speculative hypotheses, formal lemmas, and verified citations.',
       initialValue:
-        'A collection of living, evolving thoughts, rough notes, mental models, and explorations that grow over time.',
-    },
-    {
-      name: 'showStageLegend',
-      title: 'Show Growth Stages Legend (Seedling / Budding / Evergreen)',
-      type: 'boolean',
-      initialValue: true,
+        'A networked repository of evolving notes, speculative hypotheses, formal lemmas, and verified citations.',
     },
     {
       name: 'showInteractiveGraph',
-      title: 'Show Interactive 2D Knowledge Graph',
+      title: 'Show Interactive 2D Synaptic Graph',
       type: 'boolean',
+      description: 'Toggle on to display the interactive physics-directed graph canvas.',
       initialValue: true,
     },
     {
-      name: 'graphHeadline',
-      title: 'Graph Section Title',
+      name: 'epistemicWarning',
+      title: 'Epistemic Warning Banner',
       type: 'string',
-      initialValue: 'Interactive Concept Network',
+      description: '📍 Where it appears: Optional note banner explaining active research status.',
+      placeholder: 'Notes in this garden represent live working hypotheses across varying stages of formal maturity.',
     },
     {
       name: 'seo',
@@ -50,7 +50,7 @@ export const gardenPage = defineType({
     },
     prepare({ title }) {
       return {
-        title: 'Garden Page Settings',
+        title: 'Digital Garden Page Settings',
         subtitle: title || 'Configure digital garden page',
       }
     },

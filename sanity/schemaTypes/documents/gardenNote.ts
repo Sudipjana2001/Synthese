@@ -9,7 +9,8 @@ export const gardenNote = defineType({
       name: 'noteId',
       title: 'Scholarly Note ID',
       type: 'string',
-      description: 'e.g. "§ 2024.11-FEP.04" or "§ GEOM-084"',
+      description: '📍 Where it appears: Top badge on garden card and inspector (e.g. "§ 2024.11-FEP.04" or "§ GEOM-084").',
+      placeholder: '§ GEOM-084',
       initialValue: '§ NOTE-01',
       validation: (Rule) => Rule.required(),
     },
@@ -17,6 +18,8 @@ export const gardenNote = defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
+      description: '📍 Where it appears: Heading in the card grid and node label in the graph.',
+      placeholder: 'Topological Invariants in High-Dimensional Embedding Manifolds',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -33,6 +36,7 @@ export const gardenNote = defineType({
       name: 'stage',
       title: 'Growth Stage',
       type: 'string',
+      description: 'Select maturity stage. Dictates node color in the knowledge graph.',
       options: {
         list: [
           { title: '🌱 Sprout (Initial conjecture / exploratory)', value: 'sprout' },
@@ -48,6 +52,7 @@ export const gardenNote = defineType({
       name: 'discipline',
       title: 'Discipline Category',
       type: 'string',
+      description: 'Used by the filter pills on /garden.',
       options: {
         list: [
           'Cognitive Science',
@@ -80,16 +85,36 @@ export const gardenNote = defineType({
       title: 'Scholarly Abstract / Summary',
       type: 'text',
       rows: 3,
+      description: 'The body text displayed in the card grid and Synaptic Inspector.',
+      placeholder: 'Persistent homology groups H_k characterize persistent topological cavities within high-dimensional neural activation tensors.',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'formalLemma',
       title: 'Formal Mathematical Lemma (Optional)',
       type: 'object',
+      description: 'Rendered in LaTeX math block in the Synaptic Inspector drawer.',
       fields: [
-        { name: 'label', type: 'string', title: 'Lemma Label (e.g. "FORMAL LEMMA A.2")' },
-        { name: 'formula', type: 'string', title: 'LaTeX / Unicode Math Formula' },
-        { name: 'explanation', type: 'text', rows: 2, title: 'Mathematical Explanation' },
+        {
+          name: 'label',
+          type: 'string',
+          title: 'Lemma Label',
+          placeholder: 'FORMAL LEMMA A.2 // BOUND DEFINITION',
+          initialValue: 'FORMAL LEMMA A.2',
+        },
+        {
+          name: 'formula',
+          type: 'string',
+          title: 'LaTeX / Math Formula',
+          placeholder: 'D_{KL}(q(s) || p(s)) \\ge 0',
+        },
+        {
+          name: 'explanation',
+          type: 'text',
+          rows: 2,
+          title: 'Mathematical Explanation',
+          placeholder: 'Lower bound on variational surprise ensures non-divergence of internal representations.',
+        },
       ],
     },
     {
@@ -103,7 +128,7 @@ export const gardenNote = defineType({
       name: 'citationKey',
       title: 'BibTeX Citation Key',
       type: 'string',
-      description: 'e.g. "jana2026fep"',
+      placeholder: 'jana2026geom',
     },
     {
       name: 'lastTended',

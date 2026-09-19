@@ -9,6 +9,8 @@ export const project = defineType({
       name: 'title',
       title: 'Project Title',
       type: 'string',
+      description: '📍 Where it appears: Heading of the simulation card in the Lab.',
+      placeholder: 'Matrix Transformations: Determinants as Geometric Scaling',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -25,6 +27,7 @@ export const project = defineType({
       name: 'category',
       title: 'Discipline Category',
       type: 'string',
+      description: 'Used by the filter pills at the top of the lab.',
       options: {
         list: [
           'Agent-Based Simulations',
@@ -34,6 +37,7 @@ export const project = defineType({
           'Information Theory',
         ],
       },
+      placeholder: 'Dynamical Systems',
       initialValue: 'Dynamical Systems',
       validation: (Rule) => Rule.required(),
     },
@@ -41,13 +45,15 @@ export const project = defineType({
       name: 'disciplineTag',
       title: 'Sub-Discipline Tag',
       type: 'string',
-      description: 'e.g. "Linear Algebra", "Inference & DAG", "Agent-Based Models"',
+      description: 'Small tag pill on top of the card (e.g. "Linear Algebra", "Inference & DAG").',
+      placeholder: 'Linear Algebra',
       initialValue: 'Linear Algebra',
     },
     {
       name: 'modelType',
       title: 'Simulation Kernel Type',
       type: 'string',
+      description: 'Selects the live interactive WebGL/Canvas mathematical animation to render.',
       options: {
         list: [
           { title: 'Gray-Scott Reaction-Diffusion', value: 'gray-scott' },
@@ -68,29 +74,34 @@ export const project = defineType({
       title: 'Abstract & Mechanics Description',
       type: 'text',
       rows: 3,
+      description: 'Paragraph explaining the physical or mathematical phenomenon.',
+      placeholder: 'Drag the 2D basis vectors to transform the coordinate grid. Watch the unit square distort into a parallelogram.',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'metrics',
       title: 'Live Telemetry Metrics Pair',
       type: 'object',
+      description: 'Two live numerical telemetry values shown at the bottom of the card.',
       fields: [
-        { name: 'label1', type: 'string', title: 'Metric 1 Label', initialValue: 'det(A)' },
-        { name: 'value1', type: 'string', title: 'Metric 1 Value', initialValue: '-1.91' },
-        { name: 'label2', type: 'string', title: 'Metric 2 Label', initialValue: 'Trace' },
-        { name: 'value2', type: 'string', title: 'Metric 2 Value', initialValue: '1.64' },
+        { name: 'label1', type: 'string', title: 'Metric 1 Label', placeholder: 'det(A)', initialValue: 'det(A)' },
+        { name: 'value1', type: 'string', title: 'Metric 1 Value', placeholder: '-1.91', initialValue: '-1.91' },
+        { name: 'label2', type: 'string', title: 'Metric 2 Label', placeholder: 'Trace', initialValue: 'Trace' },
+        { name: 'value2', type: 'string', title: 'Metric 2 Value', placeholder: '1.64', initialValue: '1.64' },
       ],
     },
     {
       name: 'actionLabel',
       title: 'Launch Button Label',
       type: 'string',
+      placeholder: 'Launch Simulation Canvas',
       initialValue: 'Launch Simulation Canvas',
     },
     {
       name: 'stars',
       title: 'Citations / Stars Counter',
       type: 'number',
+      placeholder: '1420',
       initialValue: 500,
     },
     {
@@ -102,7 +113,7 @@ export const project = defineType({
     },
     {
       name: 'demoUrl',
-      title: 'Live Demo URL (Optional)',
+      title: 'External Live Demo URL (Optional)',
       type: 'url',
     },
     {

@@ -4,17 +4,29 @@ export const post = defineType({
   name: 'post',
   title: 'Blog Post & Manuscript',
   type: 'document',
+  groups: [
+    { name: 'content', title: '✍️ Manuscript Content', default: true },
+    { name: 'metadata', title: '🏷️ Taxonomy & Author' },
+    { name: 'media', title: '🖼️ Cover Image' },
+    { name: 'display', title: '⚙️ Display Options' },
+    { name: 'seo', title: '🔍 SEO' },
+  ],
   fields: [
     {
       name: 'title',
       title: 'Title',
       type: 'string',
+      group: 'content',
+      description: '📍 Where it appears: Manuscript title at the top of the article and on cards.',
+      placeholder: 'Topological Entropy and Semantic Drift in Deep Generative Latents',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
-      title: 'Slug',
+      title: 'URL Slug',
       type: 'slug',
+      group: 'content',
+      description: '📍 Where it appears: Web page URL (e.g. /blog/topological-entropy)',
       options: {
         source: 'title',
         maxLength: 96,
@@ -25,13 +37,17 @@ export const post = defineType({
       name: 'volume',
       title: 'Volume & Article Number',
       type: 'string',
-      description: 'e.g. "Vol. 4 • Art. 12"',
+      group: 'metadata',
+      description: '📍 Where it appears: Top tag on card (e.g. "Vol. 4 • Art. 12")',
+      placeholder: 'Vol. 4 • Art. 12',
       initialValue: 'Vol. 4 • Art. 12',
     },
     {
       name: 'status',
       title: 'Publication Status',
       type: 'string',
+      group: 'metadata',
+      description: 'Badge indicating peer-review status on the card.',
       options: {
         list: [
           { title: 'Peer Reviewed', value: 'Peer Reviewed' },
@@ -46,6 +62,8 @@ export const post = defineType({
       name: 'discipline',
       title: 'Academic Discipline',
       type: 'string',
+      group: 'metadata',
+      description: 'Category tag displayed on the top-right of the article card.',
       options: {
         list: [
           'Cognitive Computation',
@@ -62,25 +80,32 @@ export const post = defineType({
       name: 'doi',
       title: 'DOI Identifier',
       type: 'string',
-      description: 'e.g. "10.5821/synthese.2026.01452"',
+      group: 'metadata',
+      description: '📍 Where it appears: Direct DOI link in the article footer and citation drawer.',
+      placeholder: '10.48550/SYNTHESE.2026.04229',
     },
     {
       name: 'excerpt',
       title: 'Abstract / Excerpt',
       type: 'text',
       rows: 3,
-      description: 'Short summary displayed in manuscript cards and previews',
+      group: 'content',
+      description: '📍 Where it appears: Summary text shown on cards and under the title.',
+      placeholder: 'By analyzing vector manifold deformations through persistent homology, we identify the exact thermodynamic inflection point where autoregressive language models depart from ground truth grounding.',
     },
     {
       name: 'author',
       title: 'Author',
       type: 'reference',
+      group: 'metadata',
       to: [{ type: 'author' }],
     },
     {
       name: 'mainImage',
       title: 'Cover Image',
       type: 'image',
+      group: 'media',
+      description: 'Header image shown at the top of the article.',
       options: { hotspot: true },
       fields: [
         {
@@ -99,12 +124,15 @@ export const post = defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
+      group: 'metadata',
       of: [{ type: 'reference', to: { type: 'category' } }],
     },
     {
       name: 'tags',
       title: 'Taxonomy Tags',
       type: 'array',
+      group: 'metadata',
+      description: 'Hashtags shown on cards (e.g. #ReinforcementLearning).',
       of: [{ type: 'string' }],
       options: {
         layout: 'tags',
@@ -114,30 +142,37 @@ export const post = defineType({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
+      group: 'metadata',
       initialValue: () => new Date().toISOString(),
     },
     {
       name: 'featured',
       title: 'Featured Manuscript',
       type: 'boolean',
-      description: 'Highlight this article at the top of the blog page and homepage',
+      group: 'content',
+      description: 'Highlight this article at the top of the homepage and blog page.',
       initialValue: false,
     },
     {
       name: 'readingTime',
       title: 'Reading Time (Minutes)',
       type: 'number',
-      description: 'Estimated reading time in minutes',
+      group: 'metadata',
+      placeholder: '18',
+      initialValue: 18,
     },
     {
       name: 'body',
-      title: 'Manuscript Body (Portable Text & Code)',
+      title: 'Manuscript Body (Portable Text, Headings & Code)',
       type: 'blockContent',
+      group: 'content',
+      description: 'Full mathematical treatise content with headings, paragraphs, and code.',
     },
     {
       name: 'displayOptions',
       title: 'Display & Layout Options',
       type: 'object',
+      group: 'display',
       fields: [
         {
           name: 'showTableOfContents',
@@ -169,6 +204,7 @@ export const post = defineType({
       name: 'seo',
       title: 'SEO Settings',
       type: 'seo',
+      group: 'seo',
     },
   ],
   preview: {
