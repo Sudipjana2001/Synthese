@@ -48,16 +48,16 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  background-color: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--color-border);
   transition: border-color var(--duration-normal) var(--ease-out),
               background-color var(--duration-normal) var(--ease-out);
 }
 
 [data-theme='dark'] .header {
-  background-color: rgba(10, 10, 10, 0.94);
+  background-color: rgba(10, 12, 16, 0.98);
 }
 
 .navContainer {
@@ -339,5 +339,17 @@
   }
   .tickerRight {
     display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .studioPill {
+    display: none;
+  }
+  .brandName {
+    font-size: 21px;
+  }
+  .navContainer {
+    height: 56px;
   }
 }

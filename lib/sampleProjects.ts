@@ -1,0 +1,118 @@
+import { Project } from '../types/project'
+
+export const SAMPLE_PROJECTS: Project[] = [
+  {
+    _id: 'proj-1',
+    title: 'Bayesian Belief Network Graph',
+    slug: { current: 'bayesian-belief-network-graph' },
+    category: 'Probability & Inference',
+    disciplineTag: 'Inference & DAG',
+    stars: 412,
+    description:
+      "Dynamic node DAG with Pearl's belief propagation algorithm. Drag conditional evidence nodes to propagate posterior probabilities in real time.",
+    metrics: {
+      label1: 'Graph Nodes',
+      value1: '12',
+      label2: 'Markov Blanket',
+      value2: 'Active',
+    },
+    actionLabel: 'Launch Graph Playground',
+    modelType: 'bayes',
+    tags: ['Bayesian', 'DAG', 'Inference'],
+  },
+  {
+    _id: 'proj-2',
+    title: 'Boids Flocking Swarm Simulator',
+    slug: { current: 'boids-flocking-swarm-simulator' },
+    category: 'Agent-Based Simulations',
+    disciplineTag: 'Agent-Based Models',
+    stars: 894,
+    description:
+      'Craig Reynolds heuristic 3-vector flocking engine: cohesion, alignment, separation. Includes dynamic predator disturbance and obstacle repulsion.',
+    metrics: {
+      label1: 'Boids',
+      value1: '256',
+      label2: 'Cohesion Factor',
+      value2: '0.85',
+    },
+    actionLabel: 'Launch Flocking Canvas',
+    modelType: 'boids',
+    tags: ['SwarmIntelligence', 'Flocking', 'AgentBased'],
+  },
+  {
+    _id: 'proj-3',
+    title: 'Matrix Eigenvalue Visualizer',
+    slug: { current: 'matrix-eigenvalue-visualizer' },
+    category: 'Dynamical Systems',
+    disciplineTag: 'Linear Algebra',
+    stars: 561,
+    description:
+      '2D affine space shear and rotation transformer. Drag basis vectors T and V to watch characteristic polynomial roots & invariant eigenspaces morph.',
+    metrics: {
+      label1: 'det(A)',
+      value1: '-1.91',
+      label2: 'Trace',
+      value2: '1.64',
+    },
+    actionLabel: 'Transform Matrix Grid',
+    modelType: 'matrix',
+    tags: ['LinearAlgebra', 'Eigenvalues', 'AffineGeometry'],
+  },
+  {
+    _id: 'proj-4',
+    title: 'Markov Chain Text Generator',
+    slug: { current: 'markov-chain-text-generator' },
+    category: 'Information Theory',
+    disciplineTag: 'Stochastic NLP',
+    stars: 320,
+    description:
+      'N-gram transition probability matrices with live softmax temperature scaling, entropy calculation, and branch divergence trees.',
+    metrics: {
+      label1: 'N-gram Order',
+      value1: '3',
+      label2: 'Corpus',
+      value2: 'Kant (94k)',
+    },
+    actionLabel: 'Generate Transitions',
+    modelType: 'markov',
+    tags: ['MarkovChains', 'InformationTheory', 'Entropy'],
+  },
+  {
+    _id: 'proj-5',
+    title: 'Loss Landscape Explorer',
+    slug: { current: 'loss-landscape-explorer' },
+    category: 'Neural Networks',
+    disciplineTag: 'Optimization & DL',
+    stars: 1208,
+    description:
+      'Topographical contour map of non-convex optimization manifolds. Compare SGD with Momentum against Adam across narrow saddle points and ravines.',
+    metrics: {
+      label1: 'Manifold',
+      value1: 'Beale Function',
+      label2: 'Learning Rate',
+      value2: '1e-3',
+    },
+    actionLabel: 'Launch Gradient Descent',
+    modelType: 'loss-landscape',
+    tags: ['DeepLearning', 'Optimization', 'LossLandscape'],
+  },
+  {
+    _id: 'proj-6',
+    title: 'Signal Fourier Transform Decomposition',
+    slug: { current: 'signal-fourier-transform-decomposition' },
+    category: 'Dynamical Systems',
+    disciplineTag: 'Harmonic Analysis',
+    stars: 745,
+    description:
+      'Deconstruct complex audio waveforms and arbitrary periodic timeseries into fundamental sin/cos harmonics via continuous Fast Fourier Transform.',
+    metrics: {
+      label1: 'Harmonics',
+      value1: '16 orders',
+      label2: 'Nyquist Limit',
+      value2: '44.1 kHz',
+    },
+    actionLabel: 'Decompose Waveform',
+    modelType: 'fourier',
+    tags: ['FourierTransform', 'Harmonics', 'SignalProcessing'],
+  },
+]

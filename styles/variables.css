@@ -84,7 +84,7 @@
   --container-max: 1260px;
   --container-wide: 1260px;
   --container-narrow: 760px;
-  --container-padding: clamp(1.5rem, 4vw, 3rem);
+  --container-padding: clamp(1rem, 3.5vw, 2.5rem);
   --nav-height: 64px;
 
   /* ── Border Radius ── */

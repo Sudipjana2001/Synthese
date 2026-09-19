@@ -1,0 +1,621 @@
+/* ============================================
+   Digital Garden — /garden page styles
+   ============================================ */
+
+.gardenPage {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ════════════════════════════════
+   Section 01 — Masthead
+   ════════════════════════════════ */
+
+.mastheadSection {
+  padding: var(--container-padding-top, 120px) var(--container-padding-x, 80px) 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.mastheadContainer {
+  max-width: 900px;
+}
+
+.kicker {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.6));
+  margin-bottom: 16px;
+}
+
+.mastheadTitle {
+  font-family: var(--font-serif, 'Instrument Serif', Georgia, serif);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0 0 12px 0;
+}
+
+.mastheadSubtitle {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0 0 24px 0;
+  max-width: 640px;
+}
+
+.mastheadActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnSecondary:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--text-primary);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--text-primary);
+  color: var(--bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnPrimary:hover {
+  opacity: 0.85;
+}
+
+/* ════════════════════════════════
+   Section 02 — Graph + Inspector
+   ════════════════════════════════ */
+
+.graphSection {
+  padding: 40px var(--container-padding-x, 80px) 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.graphInspectorGrid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.graphColumn {
+  min-width: 0;
+}
+
+.inspectorColumn {
+  min-width: 0;
+}
+
+/* ════════════════════════════════
+   Section 03 — Explorer
+   ════════════════════════════════ */
+
+.explorerSection {
+  padding: 40px var(--container-padding-x, 80px) 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.explorerHeader {
+  margin-bottom: 28px;
+}
+
+.explorerTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.explorerLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+}
+
+.explorerCount {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+  letter-spacing: 0.05em;
+}
+
+/* ── Controls ── */
+
+.explorerControls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.searchWrapper {
+  position: relative;
+  max-width: 420px;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  padding: 9px 12px 9px 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface, #fff);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.searchInput::placeholder {
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+}
+
+.searchInput:focus {
+  border-color: var(--accent, #6366f1);
+}
+
+[data-theme='dark'] .searchInput {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.filterRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filterPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.filterPill {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.filterPill:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.filterPillActive {
+  background: var(--text-primary);
+  color: var(--bg);
+  border-color: var(--text-primary);
+}
+
+.filterRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stagePills {
+  display: flex;
+  gap: 4px;
+}
+
+.exportBtns {
+  display: flex;
+  gap: 4px;
+}
+
+.exportBtn {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.58rem;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.exportBtn:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+/* ── Card Grid ── */
+
+.explorerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.noteCard {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface, #fff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.noteCard:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='dark'] .noteCard {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+[data-theme='dark'] .noteCard:hover {
+  background: rgba(15, 23, 42, 0.6);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.noteCardSelected {
+  border-color: var(--accent, #6366f1);
+  box-shadow: 0 0 0 1px var(--accent, #6366f1);
+}
+
+.noteCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.noteCardId {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--accent, #6366f1);
+  letter-spacing: 0.05em;
+}
+
+.noteCardTime {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.55rem;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+}
+
+.noteCardTitle {
+  font-family: var(--font-serif, 'Instrument Serif', Georgia, serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+}
+
+.noteCardDesc {
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.noteCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.noteCardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.noteCardTag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.52rem;
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.6));
+  letter-spacing: 0.03em;
+}
+
+.noteCardLinks {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+}
+
+.emptyExplorer {
+  text-align: center;
+  padding: 48px 20px;
+}
+
+.emptyExplorer p {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+}
+
+/* ════════════════════════════════
+   Section 04 — Scratchpad
+   ════════════════════════════════ */
+
+.scratchpadSection {
+  padding: 40px var(--container-padding-x, 80px) 64px;
+}
+
+.scratchpadHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.scratchpadLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scratchpadKicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-primary);
+}
+
+.scratchpadSubtitle {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 580px;
+}
+
+.viewAllBtn {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.viewAllBtn:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+/* ── Memo Grid ── */
+
+.memoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.memoCard {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface-inset, #f8fafc);
+}
+
+[data-theme='dark'] .memoCard {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(148, 163, 184, 0.08);
+}
+
+.memoTimestamp {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.58rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+  margin-bottom: 8px;
+}
+
+.memoTitle {
+  font-family: var(--font-serif, 'Instrument Serif', Georgia, serif);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.memoBody {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+  white-space: pre-line;
+}
+
+.memoFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.memoTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.memoTag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.55rem;
+  color: var(--accent, #6366f1);
+  letter-spacing: 0.03em;
+}
+
+.memoLinked {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.55rem;
+  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+  letter-spacing: 0.03em;
+}
+
+/* ════════════════════════════════
+   Responsive
+   ════════════════════════════════ */
+
+@media (max-width: 1080px) {
+  .graphInspectorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .explorerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mastheadSection {
+    padding: var(--container-padding-top, 100px) var(--container-padding-x, 24px) 32px;
+  }
+
+  .graphSection {
+    padding: 24px var(--container-padding-x, 24px) 32px;
+  }
+
+  .explorerSection {
+    padding: 24px var(--container-padding-x, 24px) 32px;
+  }
+
+  .scratchpadSection {
+    padding: 24px var(--container-padding-x, 24px) 48px;
+  }
+
+  .explorerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .memoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .filterRow {
+    flex-direction: column;
+  }
+
+  .filterRight {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mastheadActions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .mastheadTitle {
+    font-size: 1.6rem;
+  }
+
+  .filterPills {
+    gap: 3px;
+  }
+
+  .filterPill {
+    font-size: 0.55rem;
+    padding: 3px 7px;
+  }
+
+  .scratchpadHeader {
+    flex-direction: column;
+  }
+}
