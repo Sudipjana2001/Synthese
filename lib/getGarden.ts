@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { fetchSanity } from '../sanity/lib/client'
 import { gardenNotesQuery, gardenPageQuery } from '../sanity/lib/queries'
 import { SAMPLE_GARDEN_NOTES, MEMO_SLIPS } from './sampleGarden'
@@ -19,7 +20,7 @@ export interface GardenPageSettings {
   memos?: MemoSlip[]
 }
 
-export async function getGardenData(): Promise<{
+export const getGardenData = cache(async function getGardenData(): Promise<{
   notes: GardenNote[]
   settings: GardenPageSettings
 }> {
@@ -94,4 +95,4 @@ export async function getGardenData(): Promise<{
   }
 
   return { notes, settings }
-}
+})

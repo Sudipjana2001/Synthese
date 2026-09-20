@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { fetchSanity } from '../sanity/lib/client'
 import {
   postsQuery,
@@ -9,7 +10,7 @@ import {
 import { SAMPLE_POSTS } from './samplePosts'
 import { Post, BlogPageSettings, Category } from '../types/blog'
 
-export async function getAllPosts(): Promise<Post[]> {
+export const getAllPosts = cache(async function getAllPosts(): Promise<Post[]> {
   try {
     const sanityPosts = await fetchSanity<Post[]>(postsQuery)
     if (sanityPosts && sanityPosts.length > 0) {
@@ -19,9 +20,9 @@ export async function getAllPosts(): Promise<Post[]> {
     console.warn('Error fetching posts from Sanity, falling back to sample data:', error)
   }
   return SAMPLE_POSTS
-}
+})
 
-export async function getFeaturedPost(): Promise<Post | null> {
+export const getFeaturedPost = cache(async function getFeaturedPost(): Promise<Post | null> {
   try {
     const featured = await fetchSanity<Post>(featuredPostQuery)
     if (featured) return featured
@@ -29,9 +30,9 @@ export async function getFeaturedPost(): Promise<Post | null> {
     console.warn('Error fetching featured post from Sanity:', error)
   }
   return SAMPLE_POSTS.find((p) => p.featured) || SAMPLE_POSTS[0] || null
-}
+})
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
+export const getPostBySlug = cache(async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
     const sanityPost = await fetchSanity<Post>(postBySlugQuery, { slug })
     if (sanityPost) return sanityPost
@@ -39,9 +40,9 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     console.warn(`Error fetching post by slug "${slug}" from Sanity:`, error)
   }
   return SAMPLE_POSTS.find((p) => p.slug.current === slug) || null
-}
+})
 
-export async function getBlogSettings(): Promise<BlogPageSettings> {
+export const getBlogSettings = cache(async function getBlogSettings(): Promise<BlogPageSettings> {
   try {
     const settings = await fetchSanity<BlogPageSettings>(blogPageSettingsQuery)
     if (settings) return settings
@@ -61,9 +62,9 @@ export async function getBlogSettings(): Promise<BlogPageSettings> {
     searchPlaceholder: 'Search by title, topic, or keyword...',
     showCategoryFilter: true,
   }
-}
+})
 
-export async function getAllCategories(): Promise<Category[]> {
+export const getAllCategories = cache(async function getAllCategories(): Promise<Category[]> {
   try {
     const categories = await fetchSanity<Category[]>(categoriesQuery)
     if (categories && categories.length > 0) return categories
@@ -76,5 +77,6 @@ export async function getAllCategories(): Promise<Category[]> {
     { _id: 'cat-3', title: 'Physical Substrates', slug: { current: 'physical-substrates' }, color: '#8b5cf6' },
     { _id: 'cat-4', title: 'Philosophy of Mind', slug: { current: 'philosophy-of-mind' }, color: '#f59e0b' },
   ]
-}
+})
+
 

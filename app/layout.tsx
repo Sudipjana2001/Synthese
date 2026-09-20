@@ -4,6 +4,7 @@ import { ThemeProvider } from '../components/ThemeProvider'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import { DevConsoleFilter } from '../components/DevConsoleFilter'
+import { NavigationProgress } from '../components/NavigationProgress'
 import { getSiteSettings } from '../lib/getSiteSettings'
 
 export const dynamic = 'force-dynamic'
@@ -54,6 +55,7 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <DevConsoleFilter />
+        <NavigationProgress />
         <ThemeProvider>
           <Header settings={settings} />
           <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>

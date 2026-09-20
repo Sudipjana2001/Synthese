@@ -105,6 +105,7 @@ export function Header({ settings = DEFAULT_SITE_SETTINGS }: HeaderProps) {
                   <li key={tab.href}>
                     <Link
                       href={tab.href}
+                      prefetch={true}
                       className={`${styles.tabItem} ${active ? styles.activeTab : ''}`}
                     >
                       {tab.label}
@@ -179,6 +180,7 @@ export function Header({ settings = DEFAULT_SITE_SETTINGS }: HeaderProps) {
                   <li key={tab.href}>
                     <Link
                       href={tab.href}
+                      prefetch={true}
                       className={`${styles.drawerNavItem} ${active ? styles.drawerActiveTab : ''}`}
                     >
                       <span>{tab.label}</span>

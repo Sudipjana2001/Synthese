@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { fetchSanity } from '../sanity/lib/client'
 import { projectsQuery, projectsPageQuery } from '../sanity/lib/queries'
 import { SAMPLE_PROJECTS } from './sampleProjects'
@@ -25,7 +26,7 @@ export interface ProjectsPageSettings {
   }
 }
 
-export async function getProjectsData(): Promise<{
+export const getProjectsData = cache(async function getProjectsData(): Promise<{
   projects: Project[]
   settings: ProjectsPageSettings
 }> {
@@ -112,4 +113,4 @@ export async function getProjectsData(): Promise<{
   }
 
   return { projects, settings }
-}
+})

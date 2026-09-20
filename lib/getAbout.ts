@@ -1,9 +1,10 @@
+import { cache } from 'react'
 import { fetchSanity } from '../sanity/lib/client'
 import { aboutPageQuery, timelineQuery } from '../sanity/lib/queries'
 import { urlForImage } from '../sanity/lib/image'
 import { SAMPLE_ABOUT, AboutData, TimelineItem } from './sampleAbout'
 
-export async function getAboutData(): Promise<AboutData> {
+export const getAboutData = cache(async function getAboutData(): Promise<AboutData> {
   try {
     const [sanityAbout, sanityTimeline] = await Promise.all([
       fetchSanity<any>(aboutPageQuery),
@@ -89,4 +90,4 @@ export async function getAboutData(): Promise<AboutData> {
   }
 
   return SAMPLE_ABOUT
-}
+})

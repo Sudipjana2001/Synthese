@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { fetchSanity } from '../sanity/lib/client'
 import { homePageQuery, postsQuery, siteSettingsQuery } from '../sanity/lib/queries'
 import { Post } from '../types/blog'
@@ -128,7 +129,7 @@ const DEFAULT_HOME_PAPERS: HomePaper[] = [
   },
 ]
 
-export async function getHomePageData(): Promise<HomePageData> {
+export const getHomePageData = cache(async function getHomePageData(): Promise<HomePageData> {
   let sanityHome: any = null
   let sanityPosts: Post[] = []
   let siteSettings: any = null
@@ -286,4 +287,4 @@ export async function getHomePageData(): Promise<HomePageData> {
     },
     papers,
   }
-}
+})

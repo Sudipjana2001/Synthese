@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { fetchSanity } from '../sanity/lib/client'
 import { siteSettingsQuery } from '../sanity/lib/queries'
 
@@ -34,7 +35,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettingsData = {
   footerCopyright: '© 2026 Synthese Lab. ISSN 2769-188X. Open Access CC-BY-4.0.',
 }
 
-export async function getSiteSettings(): Promise<SiteSettingsData> {
+export const getSiteSettings = cache(async function getSiteSettings(): Promise<SiteSettingsData> {
   try {
     const sanitySettings = await fetchSanity<any>(siteSettingsQuery)
     if (sanitySettings) {
@@ -59,4 +60,4 @@ export async function getSiteSettings(): Promise<SiteSettingsData> {
   }
 
   return DEFAULT_SITE_SETTINGS
-}
+})
