@@ -228,27 +228,46 @@
 
 .filterPill {
   font-family: var(--font-mono, monospace);
-  font-size: 0.6rem;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
+  font-size: 0.65rem;
+  padding: 5px 12px;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 4px);
-  background: transparent;
-  color: var(--text-secondary);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
 
-.filterPill:hover {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
+.filterPill:hover:not(.filterPillActive) {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
 }
 
 .filterPillActive {
-  background: var(--text-primary);
-  color: var(--bg);
-  border-color: var(--text-primary);
+  background-color: var(--color-text-primary) !important;
+  color: var(--color-text-inverse) !important;
+  border-color: var(--color-text-primary) !important;
+  font-weight: 600;
+}
+
+.filterPillActive:hover {
+  background-color: var(--color-text-primary) !important;
+  color: var(--color-text-inverse) !important;
+  opacity: 0.92;
+}
+
+[data-theme='dark'] .filterPillActive {
+  background-color: #f1f5f9 !important;
+  color: #0a0a0a !important;
+  border-color: #f1f5f9 !important;
+}
+
+[data-theme='dark'] .filterPillActive:hover {
+  background-color: #ffffff !important;
+  color: #0a0a0a !important;
 }
 
 .filterRight {
@@ -270,12 +289,12 @@
 
 .exportBtn {
   font-family: var(--font-mono, monospace);
-  font-size: 0.58rem;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
+  font-size: 0.62rem;
+  padding: 5px 12px;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 4px);
-  background: transparent;
-  color: var(--text-tertiary, rgba(148, 163, 184, 0.5));
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
   letter-spacing: 0.03em;
@@ -283,8 +302,9 @@
 }
 
 .exportBtn:hover {
-  border-color: var(--text-secondary);
-  color: var(--text-secondary);
+  border-color: var(--color-border-dark);
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
 }
 
 /* ── Card Grid ── */
