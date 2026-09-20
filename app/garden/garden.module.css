@@ -4,8 +4,8 @@
 
 .gardenPage {
   width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-20);
 }
 
 /* ════════════════════════════════
@@ -13,7 +13,7 @@
    ════════════════════════════════ */
 
 .mastheadSection {
-  padding: var(--container-padding-top, 120px) var(--container-padding-x, 80px) 48px;
+  padding: 0 0 var(--space-8) 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -107,7 +107,7 @@
    ════════════════════════════════ */
 
 .graphSection {
-  padding: 40px var(--container-padding-x, 80px) 48px;
+  padding: var(--space-8) 0 var(--space-10) 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -131,7 +131,7 @@
    ════════════════════════════════ */
 
 .explorerSection {
-  padding: 40px var(--container-padding-x, 80px) 48px;
+  padding: var(--space-10) 0 var(--space-12) 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -417,7 +417,7 @@
    ════════════════════════════════ */
 
 .scratchpadSection {
-  padding: 40px var(--container-padding-x, 80px) 64px;
+  padding: var(--space-10) 0 var(--space-16) 0;
 }
 
 .scratchpadHeader {

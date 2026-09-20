@@ -123,7 +123,7 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
   }
 
   return (
-    <main className={styles.gardenPage}>
+    <main className={`container ${styles.gardenPage}`}>
       {/* ════════════════════════════════
           Section 01 — Masthead
           ════════════════════════════════ */}

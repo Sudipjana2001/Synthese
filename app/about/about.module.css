@@ -392,9 +392,9 @@
 
 .timelineStream {
   position: relative;
-  max-width: 900px;
-  margin: var(--space-8) auto 0;
-  padding-left: var(--space-8);
+  max-width: 1000px;
+  margin-top: var(--space-8);
+  padding-left: 36px;
 }
 
 .timelineStream::before {
@@ -402,7 +402,7 @@
   position: absolute;
   top: 8px;
   bottom: 8px;
-  left: 11px;
+  left: 7px;
   width: 2px;
   background: linear-gradient(
     to bottom,
@@ -422,10 +422,10 @@
 
 .timelineMarker {
   position: absolute;
-  left: calc(-1 * var(--space-8) + 5px);
+  left: -36px;
   top: 6px;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background-color: var(--color-bg);
   border: 2px solid var(--color-accent);
@@ -434,7 +434,7 @@
 }
 
 .timelineNode:hover .timelineMarker {
-  transform: scale(1.25);
+  transform: scale(1.2);
   background-color: var(--color-accent);
 }
 

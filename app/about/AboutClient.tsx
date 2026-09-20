@@ -310,12 +310,12 @@ ${about.publications
       {about.showTimeline !== false && (
         <section className={styles.timelineSection}>
           <div className="container">
-            <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
+            <div className={styles.sectionHeader}>
               <span className={styles.kicker}>{about.timelineKicker || 'CHRONOLOGY OF RESEARCH'}</span>
               <h2 className={styles.sectionHeading}>
                 {about.timelineHeading || 'Curriculum Temporale & Appointments'}
               </h2>
-              <p className={styles.pageSubtitle} style={{ margin: '0 auto' }}>
+              <p className={styles.pageSubtitle}>
                 {about.timelineSubtitle || 'Academic milestones, fellowships, institutional directorships, and foundational research degrees.'}
               </p>
             </div>

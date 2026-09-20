@@ -326,7 +326,7 @@
 }
 
 /* ── Responsive Rules ── */
-@media (max-width: 1040px) {
+@media (max-width: 880px) {
   .mainNav,
   .navTabs {
     display: none;
