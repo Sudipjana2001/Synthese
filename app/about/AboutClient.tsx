@@ -239,7 +239,7 @@ ${about.publications
               </div>
             </aside>
 
-            {/* Right Column: Editorial Statement & Research Pillars */}
+            {/* Right Column: Editorial Statement */}
             <main className={styles.statementColumn}>
               <div>
                 <h2 className={styles.sectionHeading}>{about.statementHeading || 'The Epistemic Thesis of Synthese'}</h2>
@@ -258,51 +258,49 @@ ${about.publications
                   )}
                 </div>
               </div>
-
-              {/* Research Pillars */}
-              <div>
-                <h3 className={styles.sectionHeading} style={{ fontSize: '1.5rem' }}>
-                  {about.pillarsHeading || 'Core Theoretical Pillars'}
-                </h3>
-                <div className={styles.pillarsGrid}>
-                  {about.epistemicPillars.map((pillar, idx) => (
-                    <div key={idx} className={styles.pillarCard}>
-                      <span className={styles.pillarDiscipline}>{pillar.discipline}</span>
-                      <h4 className={styles.pillarTitle}>{pillar.title}</h4>
-                      <p className={styles.pillarSummary}>{pillar.summary}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Skills and competencies if provided */}
-              {about.skills && about.skills.length > 0 && (
-                <div style={{ marginTop: 'var(--space-8)' }}>
-                  <h3 className={styles.sectionHeading} style={{ fontSize: '1.25rem' }}>
-                    {about.skillsHeadline || 'Core Competencies & Tooling'}
-                  </h3>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '12px' }}>
-                    {about.skills.map((skill, sIdx) => (
-                      <span
-                        key={sIdx}
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '12px',
-                          padding: '4px 10px',
-                          backgroundColor: 'var(--color-bg-alt)',
-                          border: '1px solid var(--color-border)',
-                          borderRadius: 'var(--radius-sm)',
-                          color: 'var(--color-text)',
-                        }}
-                      >
-                        #{skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
             </main>
           </div>
+        </div>
+      </section>
+
+      {/* ── Section 03: Core Theoretical Pillars & Competencies ── */}
+      <section className={styles.pillarsSection}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <span className={styles.kicker}>THEORETICAL FOUNDATIONS</span>
+            <h2 className={styles.sectionHeading}>
+              {about.pillarsHeading || 'Core Theoretical Pillars'}
+            </h2>
+            <p className={styles.pageSubtitle}>
+              Foundational mathematical axioms, non-equilibrium thermodynamic models, and cognitive invariants underpinning our research.
+            </p>
+          </div>
+
+          <div className={styles.pillarsGrid}>
+            {about.epistemicPillars.map((pillar, idx) => (
+              <div key={idx} className={styles.pillarCard}>
+                <span className={styles.pillarDiscipline}>{pillar.discipline}</span>
+                <h4 className={styles.pillarTitle}>{pillar.title}</h4>
+                <p className={styles.pillarSummary}>{pillar.summary}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Core Competencies & Tooling */}
+          {about.skills && about.skills.length > 0 && (
+            <div className={styles.competenciesBox}>
+              <h3 className={styles.competenciesTitle}>
+                {about.skillsHeadline || 'Core Competencies & Tooling'}
+              </h3>
+              <div className={styles.skillsTagRow}>
+                {about.skills.map((skill, sIdx) => (
+                  <span key={sIdx} className={styles.skillTag}>
+                    #{skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
