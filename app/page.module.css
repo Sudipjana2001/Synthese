@@ -123,6 +123,19 @@
   flex-direction: column;
   gap: var(--space-6);
   box-shadow: var(--shadow-xs);
+  transition: transform var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              border-color var(--duration-normal, 200ms) ease;
+}
+
+.velocityCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-border-dark);
+}
+
+[data-theme='dark'] .velocityCard:hover {
+  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .velocityHeader {
@@ -150,6 +163,7 @@
   background-color: var(--color-accent-light);
   color: var(--color-accent);
   font-weight: 600;
+  transition: all var(--duration-fast) ease;
 }
 
 .velocityStats {
@@ -163,6 +177,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  transition: transform var(--duration-fast, 150ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.statItem:hover {
+  transform: translateY(-2px);
 }
 
 .statVal {
@@ -202,11 +221,19 @@
   grid-template-columns: 1.2fr 1fr;
   gap: var(--space-8);
   box-shadow: var(--shadow-sm);
-  transition: border-color var(--duration-normal) var(--ease-out);
+  transition: transform var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              border-color var(--duration-normal, 200ms) ease;
 }
 
 .featuredPaperCard:hover {
   border-color: var(--color-border-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] .featuredPaperCard:hover {
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .paperMetaPills {
@@ -320,12 +347,24 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
 .simNetworkSvg {
   width: 100%;
   height: 100%;
 }
+
+.simDashedLine {
+  stroke-dasharray: 4 4;
+  animation: lineFlow 4s linear infinite;
+}
+
+.simNode1 { animation: nodeFloat 3.8s ease-in-out infinite; animation-delay: 0s; transform-origin: center; }
+.simNode2 { animation: nodeFloat 4.2s ease-in-out infinite; animation-delay: 0.7s; transform-origin: center; }
+.simNode3 { animation: nodeFloat 3.5s ease-in-out infinite; animation-delay: 1.4s; transform-origin: center; }
+.simNode4 { animation: nodeFloat 4.5s ease-in-out infinite; animation-delay: 2.1s; transform-origin: center; }
+.simNode5 { animation: nodeFloat 3.9s ease-in-out infinite; animation-delay: 2.8s; transform-origin: center; }
 
 .simFooter {
   display: flex;
@@ -353,6 +392,17 @@
   align-items: center;
   gap: var(--space-1);
   text-decoration: none;
+  transition: all var(--duration-fast, 150ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.simBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  background-color: var(--color-accent-hover);
+}
+
+.simBtn:active {
+  transform: scale(0.97);
 }
 
 /* ── Main Content Two-Column Grid: Essays (Left) + Widgets (Right) ── */
@@ -467,13 +517,19 @@
   border-radius: var(--radius-lg);
   padding: var(--space-6);
   background-color: var(--color-bg-primary);
-  transition: all var(--duration-normal) var(--ease-out);
+  transition: transform var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              border-color var(--duration-normal, 200ms) ease;
 }
 
 .essayCard:hover {
   border-color: var(--color-border-dark);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] .essayCard:hover {
+  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .essayTopRow {
@@ -498,6 +554,14 @@
   word-spacing: 0.18em;
   color: var(--color-text-primary);
   margin-bottom: var(--space-2);
+}
+
+.essayTitle a {
+  transition: color var(--duration-fast) ease;
+}
+
+.essayTitle a:hover {
+  color: var(--color-accent);
 }
 
 .essayExcerpt {
@@ -529,6 +593,11 @@
   border-radius: var(--radius-lg);
   background-color: var(--color-bg-secondary);
   padding: var(--space-5);
+  transition: border-color var(--duration-normal) ease, box-shadow var(--duration-normal) ease;
+}
+
+.widgetBox:hover {
+  border-color: var(--color-border-dark);
 }
 
 .widgetHeader {
@@ -550,6 +619,11 @@
 .gardenNoteItem {
   border-bottom: 1px solid var(--color-border-light);
   padding-bottom: var(--space-3);
+  transition: transform var(--duration-fast, 150ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gardenNoteItem:hover {
+  transform: translateX(3px);
 }
 
 .gardenNoteItem:last-child {
@@ -579,6 +653,15 @@
   padding: var(--space-4) var(--space-5);
   background-color: var(--color-bg-secondary);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  transition: border-left-color var(--duration-normal) ease,
+              transform var(--duration-normal) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--duration-normal) ease;
+}
+
+.quoteBox:hover {
+  border-left-color: var(--color-accent);
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
 }
 
 .quoteText {
@@ -607,6 +690,15 @@
   border: 1px solid #1a2236;
   position: relative;
   overflow: hidden;
+  transition: transform var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              border-color var(--duration-normal, 200ms) ease;
+}
+
+.newsletterCard:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -8px rgba(37, 99, 235, 0.2);
 }
 
 .newsletterBadge {

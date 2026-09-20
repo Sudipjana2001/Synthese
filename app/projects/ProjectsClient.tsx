@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { ReactionDiffusionCanvas } from '../../components/ReactionDiffusionCanvas'
 import { EnclosurePreview } from '../../components/EnclosurePreview'
+import { ScrollReveal } from '../../components/ScrollReveal'
 import { Project } from '../../types/project'
 import { ProjectsPageSettings } from '../../lib/getProjects'
 import styles from './projects.module.css'
@@ -135,90 +136,94 @@ export function ProjectsClient({ projects, settings }: ProjectsClientProps) {
         </div>
 
         <div className={styles.enclosuresGrid}>
-          {filteredProjects.map((project) => (
-            <article key={project._id} className={styles.enclosureCard}>
-              <div className={styles.cardContent}>
-                <div className={styles.cardTopMeta}>
-                  <span className={styles.disciplinePill}>{project.disciplineTag}</span>
-                  <span className={styles.starsRow}>
-                    <Star size={12} className={styles.starIcon} fill="#f59e0b" />
-                    <span>{project.stars.toLocaleString()}</span>
-                  </span>
+          {filteredProjects.map((project, idx) => (
+            <ScrollReveal key={project._id} direction="up" delay={Math.min(idx * 60, 240)}>
+              <article className={styles.enclosureCard}>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardTopMeta}>
+                    <span className={styles.disciplinePill}>{project.disciplineTag}</span>
+                    <span className={styles.starsRow}>
+                      <Star size={12} className={styles.starIcon} fill="#f59e0b" />
+                      <span>{project.stars.toLocaleString()}</span>
+                    </span>
+                  </div>
+
+                  <h3 className={styles.cardTitle}>{project.title}</h3>
+                  <p className={styles.cardDesc}>{project.description}</p>
+
+                  {/* Living Graphic Preview */}
+                  <div className={styles.previewContainer}>
+                    <EnclosurePreview modelType={project.modelType} />
+                  </div>
                 </div>
 
-                <h3 className={styles.cardTitle}>{project.title}</h3>
-                <p className={styles.cardDesc}>{project.description}</p>
+                {/* Card Footer Metrics & Action */}
+                <div className={styles.cardFooter}>
+                  <div className={styles.metricsRow}>
+                    <span>
+                      <span className={styles.metricKey}>{project.metrics.label1}: </span>
+                      <span className={styles.metricVal}>{project.metrics.value1}</span>
+                    </span>
+                    <span>
+                      <span className={styles.metricKey}>{project.metrics.label2}: </span>
+                      <span className={styles.metricVal}>{project.metrics.value2}</span>
+                    </span>
+                  </div>
 
-                {/* Living Graphic Preview */}
-                <div className={styles.previewContainer}>
-                  <EnclosurePreview modelType={project.modelType} />
+                  <button
+                    type="button"
+                    className={styles.launchBtn}
+                    onClick={() => setActiveModalProject(project)}
+                  >
+                    <Play size={11} />
+                    <span>{project.actionLabel}</span>
+                  </button>
                 </div>
-              </div>
-
-              {/* Card Footer Metrics & Action */}
-              <div className={styles.cardFooter}>
-                <div className={styles.metricsRow}>
-                  <span>
-                    <span className={styles.metricKey}>{project.metrics.label1}: </span>
-                    <span className={styles.metricVal}>{project.metrics.value1}</span>
-                  </span>
-                  <span>
-                    <span className={styles.metricKey}>{project.metrics.label2}: </span>
-                    <span className={styles.metricVal}>{project.metrics.value2}</span>
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  className={styles.launchBtn}
-                  onClick={() => setActiveModalProject(project)}
-                >
-                  <Play size={11} />
-                  <span>{project.actionLabel}</span>
-                </button>
-              </div>
-            </article>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
       </section>
 
       {/* ── 06: Embed Live Models Callout Card ── */}
       {settings.ctaBox?.show !== false && (
-        <section className={styles.embedBox}>
-          <span className={styles.embedKicker}>Integrate Into Your Writing</span>
-          <h2 className={styles.embedTitle}>{settings.ctaBox?.title || 'Embed Live Models in Academic Manuscripts'}</h2>
-          <p className={styles.embedDesc}>
-            {settings.ctaBox?.description ||
-              'Every widget in Synthese Lab compiles to a standalone, zero-dependency Web Component. Include fully interactive, parameter-persisted mathematical figures in your Substack, Quarto document, or HTML publication.'}
-          </p>
+        <ScrollReveal direction="up" delay={60}>
+          <section className={styles.embedBox}>
+            <span className={styles.embedKicker}>Integrate Into Your Writing</span>
+            <h2 className={styles.embedTitle}>{settings.ctaBox?.title || 'Embed Live Models in Academic Manuscripts'}</h2>
+            <p className={styles.embedDesc}>
+              {settings.ctaBox?.description ||
+                'Every widget in Synthese Lab compiles to a standalone, zero-dependency Web Component. Include fully interactive, parameter-persisted mathematical figures in your Substack, Quarto document, or HTML publication.'}
+            </p>
 
-          <div className={styles.embedCodeRow}>
-            <div className={styles.codeSnippet}>
-              <code>{settings.ctaBox?.snippetText || '<synthese-model type="gray-scott" f="0.054" k="0.062" />'}</code>
+            <div className={styles.embedCodeRow}>
+              <pre className={styles.codeSnippet}>
+                <code>{settings.ctaBox?.snippetText || '<synthese-model type="gray-scott" f="0.054" k="0.062" />'}</code>
+              </pre>
+
+              <div className={styles.embedButtons}>
+                <button
+                  type="button"
+                  className={styles.btnSecondaryAction}
+                  onClick={() => {
+                    navigator.clipboard.writeText(settings.ctaBox?.snippetText || '<synthese-model type="gray-scott" f="0.054" k="0.062" />')
+                    setCopiedEmbed(true)
+                    setTimeout(() => setCopiedEmbed(false), 2000)
+                  }}
+                  aria-label="Copy embed code"
+                >
+                  {copiedEmbed ? <Check size={13} color="var(--color-success)" /> : <Copy size={13} />}
+                  <span>{copiedEmbed ? 'Copied to Clipboard' : 'Copy Embed Tag'}</span>
+                </button>
+
+                <Link href={settings.ctaBox?.buttonUrl || '/blog'} className={styles.btnPrimaryAction}>
+                  <BookOpen size={13} />
+                  <span>{settings.ctaBox?.buttonText || 'Explore Manuscripts'}</span>
+                </Link>
+              </div>
             </div>
-
-            <div className={styles.embedButtons}>
-              <button
-                type="button"
-                className={styles.btnSecondaryAction}
-                onClick={() => {
-                  navigator.clipboard.writeText(settings.ctaBox?.snippetText || '<synthese-model type="gray-scott" f="0.054" k="0.062" />')
-                  setCopiedEmbed(true)
-                  setTimeout(() => setCopiedEmbed(false), 2000)
-                }}
-                aria-label="Copy embed code"
-              >
-                {copiedEmbed ? <Check size={13} color="var(--color-success)" /> : <Copy size={13} />}
-                <span>{copiedEmbed ? 'Copied to Clipboard' : 'Copy Embed Tag'}</span>
-              </button>
-
-              <Link href={settings.ctaBox?.buttonUrl || '/blog'} className={styles.btnPrimaryAction}>
-                <BookOpen size={13} />
-                <span>{settings.ctaBox?.buttonText || 'Explore Manuscripts'}</span>
-              </Link>
-            </div>
-          </div>
-        </section>
+          </section>
+        </ScrollReveal>
       )}
 
       {/* ── Interactive Modal for Simulation Sandboxes ── */}

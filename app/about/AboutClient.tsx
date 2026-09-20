@@ -16,6 +16,7 @@ import {
   MapPin,
 } from 'lucide-react'
 import { AboutData, PublicationItem } from '../../lib/sampleAbout'
+import { ScrollReveal } from '../../components/ScrollReveal'
 import styles from './about.module.css'
 
 interface AboutClientProps {
@@ -156,7 +157,7 @@ ${about.publications
         <div className="container">
           <div className={styles.profileGrid}>
             {/* Left Column: Scholar Profile Card */}
-            <aside className={styles.profileCard}>
+            <ScrollReveal direction="up" delay={60} as="aside" className={styles.profileCard}>
               <div className={styles.portraitContainer}>
                 {about.profileImageUrl ? (
                   <img
@@ -237,10 +238,10 @@ ${about.publications
                   </a>
                 </div>
               </div>
-            </aside>
+            </ScrollReveal>
 
             {/* Right Column: Editorial Statement */}
-            <main className={styles.statementColumn}>
+            <ScrollReveal direction="up" delay={120} as="main" className={styles.statementColumn}>
               <div>
                 <h2 className={styles.sectionHeading}>{about.statementHeading || 'The Epistemic Thesis of Synthese'}</h2>
                 <blockquote className={styles.statementLead}>
@@ -258,7 +259,7 @@ ${about.publications
                   )}
                 </div>
               </div>
-            </main>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -278,11 +279,13 @@ ${about.publications
 
           <div className={styles.pillarsGrid}>
             {about.epistemicPillars.map((pillar, idx) => (
-              <div key={idx} className={styles.pillarCard}>
-                <span className={styles.pillarDiscipline}>{pillar.discipline}</span>
-                <h4 className={styles.pillarTitle}>{pillar.title}</h4>
-                <p className={styles.pillarSummary}>{pillar.summary}</p>
-              </div>
+              <ScrollReveal key={idx} direction="up" delay={Math.min(idx * 70, 280)}>
+                <div className={styles.pillarCard}>
+                  <span className={styles.pillarDiscipline}>{pillar.discipline}</span>
+                  <h4 className={styles.pillarTitle}>{pillar.title}</h4>
+                  <p className={styles.pillarSummary}>{pillar.summary}</p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
 
@@ -319,29 +322,31 @@ ${about.publications
             </div>
 
             <div className={styles.timelineStream}>
-              {about.timeline.map((item) => (
-                <div key={item._id} className={styles.timelineNode}>
-                  <div className={styles.timelineMarker} />
-                  <div className={styles.timelineContent}>
-                    <div className={styles.timelineTop}>
-                      <span className={styles.timelineDate}>{item.dateRange}</span>
-                      <span className={styles.timelineLocation}>
-                        <MapPin size={11} style={{ display: 'inline', marginRight: '3px' }} />
-                        {item.location}
-                      </span>
-                    </div>
-                    <h3 className={styles.timelineRole}>{item.title}</h3>
-                    <div className={styles.timelineCompany}>{item.company}</div>
-                    <p className={styles.timelineDesc}>{item.description}</p>
-                    <div className={styles.timelineTags}>
-                      {item.technologies.map((tech, i) => (
-                        <span key={i} className={styles.timelineTag}>
-                          #{tech}
+              {about.timeline.map((item, tIdx) => (
+                <ScrollReveal key={item._id} direction="up" delay={Math.min(tIdx * 60, 240)}>
+                  <div className={styles.timelineNode}>
+                    <div className={styles.timelineMarker} />
+                    <div className={styles.timelineContent}>
+                      <div className={styles.timelineTop}>
+                        <span className={styles.timelineDate}>{item.dateRange}</span>
+                        <span className={styles.timelineLocation}>
+                          <MapPin size={11} style={{ display: 'inline', marginRight: '3px' }} />
+                          {item.location}
                         </span>
-                      ))}
+                      </div>
+                      <h3 className={styles.timelineRole}>{item.title}</h3>
+                      <div className={styles.timelineCompany}>{item.company}</div>
+                      <p className={styles.timelineDesc}>{item.description}</p>
+                      <div className={styles.timelineTags}>
+                        {item.technologies.map((tech, i) => (
+                          <span key={i} className={styles.timelineTag}>
+                            #{tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -366,65 +371,67 @@ ${about.publications
           </div>
 
           <div className={styles.pubList}>
-            {about.publications.map((pub) => (
-              <article key={pub.id} className={styles.pubCard}>
-                <div className={styles.pubHeader}>
-                  <span className={styles.pubBadge}>{pub.type}</span>
-                  <span className={styles.pubYear}>{pub.year}</span>
-                </div>
-
-                <h3 className={styles.pubTitle}>
-                  {pub.slug ? (
-                    <Link href={`/blog/${pub.slug}`}>
-                      {pub.title}
-                    </Link>
-                  ) : pub.externalUrl ? (
-                    <a href={pub.externalUrl} target="_blank" rel="noopener noreferrer">
-                      {pub.title}
-                    </a>
-                  ) : (
-                    pub.title
-                  )}
-                </h3>
-
-                <div className={styles.pubAuthors}>{pub.authors}</div>
-                <div className={styles.pubVenue}>{pub.venue}</div>
-                <p className={styles.pubAbstract}>{pub.abstract}</p>
-
-                <div className={styles.pubFooter}>
-                  <span className={styles.pubDoi}>
-                    <FileText size={12} />
-                    DOI: {pub.doi}
-                  </span>
-
-                  <div className={styles.pubActions}>
-                    <button
-                      className={styles.secondaryBtn}
-                      style={{ padding: '4px 10px', fontSize: '11px' }}
-                      onClick={() => handleCopySingleBibtex(pub)}
-                    >
-                      {copiedDoiId === pub.id ? <Check size={12} /> : <Copy size={12} />}
-                      {copiedDoiId === pub.id ? 'BibTeX Copied' : 'BibTeX'}
-                    </button>
-
-                    {pub.slug && (
-                      <Link href={`/blog/${pub.slug}`} className={styles.pubActionLink}>
-                        Read Manuscript <ArrowUpRight size={13} />
-                      </Link>
-                    )}
-                    {pub.externalUrl && (
-                      <a
-                        href={pub.externalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.pubActionLink}
-                      >
-                        External Link <ExternalLink size={13} />
-                      </a>
-                    )}
+            {about.publications.map((pub, pIdx) => (
+              <ScrollReveal key={pub.id} direction="up" delay={Math.min(pIdx * 60, 240)}>
+                <article className={styles.pubCard}>
+                  <div className={styles.pubHeader}>
+                    <span className={styles.pubBadge}>{pub.type}</span>
+                    <span className={styles.pubYear}>{pub.year}</span>
                   </div>
-                </div>
-              </article>
+
+                  <h3 className={styles.pubTitle}>
+                    {pub.slug ? (
+                      <Link href={`/blog/${pub.slug}`}>
+                        {pub.title}
+                      </Link>
+                    ) : pub.externalUrl ? (
+                      <a href={pub.externalUrl} target="_blank" rel="noopener noreferrer">
+                        {pub.title}
+                      </a>
+                    ) : (
+                      pub.title
+                    )}
+                  </h3>
+
+                  <div className={styles.pubAuthors}>{pub.authors}</div>
+                  <div className={styles.pubVenue}>{pub.venue}</div>
+                  <p className={styles.pubAbstract}>{pub.abstract}</p>
+
+                  <div className={styles.pubFooter}>
+                    <span className={styles.pubDoi}>
+                      <FileText size={12} />
+                      DOI: {pub.doi}
+                    </span>
+
+                    <div className={styles.pubActions}>
+                      <button
+                        className={styles.secondaryBtn}
+                        style={{ padding: '4px 10px', fontSize: '11px' }}
+                        onClick={() => handleCopySingleBibtex(pub)}
+                      >
+                        {copiedDoiId === pub.id ? <Check size={12} /> : <Copy size={12} />}
+                        {copiedDoiId === pub.id ? 'BibTeX Copied' : 'BibTeX'}
+                      </button>
+
+                      {pub.slug && (
+                        <Link href={`/blog/${pub.slug}`} className={styles.pubActionLink}>
+                          Read Manuscript <ArrowUpRight size={13} />
+                        </Link>
+                      )}
+                      {pub.externalUrl && (
+                        <a
+                          href={pub.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.pubActionLink}
+                        >
+                          External Link <ExternalLink size={13} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -441,18 +448,20 @@ ${about.publications
 
           <div className={styles.instrumentGrid}>
             {about.instrumentarium.map((inst, i) => (
-              <div key={i} className={styles.instrumentCard}>
-                <span className={styles.instrumentCategory}>{inst.category}</span>
-                <h3 className={styles.instrumentName}>{inst.name}</h3>
-                <p className={styles.instrumentDesc}>{inst.description}</p>
-                <ul className={styles.specList}>
-                  {inst.specs.map((spec, j) => (
-                    <li key={j} className={styles.specItem}>
-                      {spec}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ScrollReveal key={i} direction="up" delay={Math.min(i * 60, 240)}>
+                <div className={styles.instrumentCard}>
+                  <span className={styles.instrumentCategory}>{inst.category}</span>
+                  <h3 className={styles.instrumentName}>{inst.name}</h3>
+                  <p className={styles.instrumentDesc}>{inst.description}</p>
+                  <ul className={styles.specList}>
+                    {inst.specs.map((spec, j) => (
+                      <li key={j} className={styles.specItem}>
+                        {spec}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
 

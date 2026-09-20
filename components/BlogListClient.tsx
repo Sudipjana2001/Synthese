@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Search, ArrowRight, BookOpen, Clock, Tag } from 'lucide-react'
 import { Post, Category } from '../types/blog'
+import { ScrollReveal } from './ScrollReveal'
 import styles from '../app/blog/blog.module.css'
 
 interface BlogListClientProps {
@@ -107,40 +108,42 @@ export function BlogListClient({
 
       {/* ── Featured Post Highlight (Only show when not actively searching) ── */}
       {!searchQuery && selectedCategory === 'all' && featuredPost && (
-        <section className={styles.featuredBox}>
-          <div className={styles.featuredLabel}>
-            <span className="status-dot status-dot-active" />
-            <span>{featuredBadge}</span>
-          </div>
+        <ScrollReveal direction="up" delay={60}>
+          <section className={styles.featuredBox}>
+            <div className={styles.featuredLabel}>
+              <span className="status-dot status-dot-active" />
+              <span>{featuredBadge}</span>
+            </div>
 
-          <h2 className={styles.featuredTitle}>
-            <Link href={`/blog/${featuredPost.slug.current}`}>{featuredPost.title}</Link>
-          </h2>
+            <h2 className={styles.featuredTitle}>
+              <Link href={`/blog/${featuredPost.slug.current}`}>{featuredPost.title}</Link>
+            </h2>
 
-          <p className={styles.featuredExcerpt}>{featuredPost.excerpt}</p>
+            <p className={styles.featuredExcerpt}>{featuredPost.excerpt}</p>
 
-          <div className={styles.metaRow}>
-            <span>
-              {featuredPost.author?.name || 'Synthese Lab'} •{' '}
-              {new Date(featuredPost.publishedAt).toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })}
-            </span>
+            <div className={styles.metaRow}>
+              <span>
+                {featuredPost.author?.name || 'Synthese Lab'} •{' '}
+                {new Date(featuredPost.publishedAt).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
+              </span>
 
-            <Link href={`/blog/${featuredPost.slug.current}`} className={styles.readLink}>
-              <span>{readManuscriptLabel}</span>
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-        </section>
+              <Link href={`/blog/${featuredPost.slug.current}`} className={styles.readLink}>
+                <span>{readManuscriptLabel}</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </section>
+        </ScrollReveal>
       )}
 
       {/* ── Articles Grid ── */}
       {filteredPosts.length > 0 ? (
         <section className={styles.articlesGrid}>
-          {filteredPosts.map((post) => {
+          {filteredPosts.map((post, idx) => {
             const primaryCategory = post.categories?.[0]?.title || post.tags?.[0] || 'Paper'
             const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
               month: 'short',
@@ -149,28 +152,30 @@ export function BlogListClient({
             })
 
             return (
-              <article key={post._id} className={styles.card}>
-                <div className={styles.cardHeader}>
-                  <span className={styles.categoryPill}>{primaryCategory}</span>
-                  <span className={styles.readingTime}>
-                    {post.readingTime ? `${post.readingTime} min read` : '15 min read'}
-                  </span>
-                </div>
+              <ScrollReveal key={post._id} direction="up" delay={Math.min(idx * 60, 240)}>
+                <article className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <span className={styles.categoryPill}>{primaryCategory}</span>
+                    <span className={styles.readingTime}>
+                      {post.readingTime ? `${post.readingTime} min read` : '15 min read'}
+                    </span>
+                  </div>
 
-                <h3 className={styles.cardTitle}>
-                  <Link href={`/blog/${post.slug.current}`}>{post.title}</Link>
-                </h3>
+                  <h3 className={styles.cardTitle}>
+                    <Link href={`/blog/${post.slug.current}`}>{post.title}</Link>
+                  </h3>
 
-                <p className={styles.cardExcerpt}>{post.excerpt}</p>
+                  <p className={styles.cardExcerpt}>{post.excerpt}</p>
 
-                <div className={styles.cardFooter}>
-                  <span className={styles.authorName}>{post.author?.name || 'Synthese'}</span>
-                  <Link href={`/blog/${post.slug.current}`} className={styles.readLink}>
-                    <span>Read Paper</span>
-                    <ArrowRight size={13} />
-                  </Link>
-                </div>
-              </article>
+                  <div className={styles.cardFooter}>
+                    <span className={styles.authorName}>{post.author?.name || 'Synthese'}</span>
+                    <Link href={`/blog/${post.slug.current}`} className={styles.readLink}>
+                      <span>Read Paper</span>
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
+                </article>
+              </ScrollReveal>
             )
           })}
         </section>

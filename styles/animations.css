@@ -20,7 +20,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -31,7 +31,7 @@
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-16px);
   }
   to {
     opacity: 1;
@@ -42,7 +42,7 @@
 @keyframes fadeInLeft {
   from {
     opacity: 0;
-    transform: translateX(-24px);
+    transform: translateX(-20px);
   }
   to {
     opacity: 1;
@@ -53,7 +53,7 @@
 @keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateX(24px);
+    transform: translateX(20px);
   }
   to {
     opacity: 1;
@@ -64,7 +64,7 @@
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.96);
   }
   to {
     opacity: 1;
@@ -78,8 +78,50 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.7;
-    transform: scale(1.05);
+    opacity: 0.75;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes radarPing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+  70% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+  }
+  50% {
+    box-shadow: 0 0 16px 2px rgba(37, 99, 235, 0.16);
+  }
+}
+
+@keyframes nodeFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes lineFlow {
+  0% {
+    stroke-dashoffset: 24;
+  }
+  100% {
+    stroke-dashoffset: 0;
   }
 }
 
@@ -103,19 +145,19 @@
 
 /* ── Utility Animation Classes ── */
 .animate-fade-in {
-  animation: fadeIn 0.4s var(--ease-out) forwards;
+  animation: fadeIn 0.4s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
 }
 
 .animate-fade-up {
-  animation: fadeInUp 0.6s var(--ease-out) forwards;
+  animation: fadeInUp 0.55s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
 }
 
 .animate-fade-down {
-  animation: fadeInDown 0.5s var(--ease-out) forwards;
+  animation: fadeInDown 0.45s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.35s var(--ease-out) forwards;
+  animation: scaleIn 0.35s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
 }
 
 .animate-float {
@@ -126,68 +168,117 @@
   animation: pulseSubtle 2.5s ease-in-out infinite;
 }
 
+/* ── Staggered Entrance Reveal Classes ── */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.reveal-fade-init {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-fade-visible {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
 /* ── Animation Delay Helpers ── */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-50  { animation-delay: 50ms;  transition-delay: 50ms; }
+.delay-100 { animation-delay: 100ms; transition-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; transition-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; transition-delay: 200ms; }
+.delay-250 { animation-delay: 250ms; transition-delay: 250ms; }
+.delay-300 { animation-delay: 300ms; transition-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; transition-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; transition-delay: 500ms; }
 
 /* ── Hover Transitions & Micro-Interactions ── */
 .interactive-card {
-  transition: transform var(--duration-normal) var(--ease-out),
-              box-shadow var(--duration-normal) var(--ease-out),
-              border-color var(--duration-normal) var(--ease-out),
-              background-color var(--duration-normal) var(--ease-out);
+  transition: transform var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--duration-normal, 200ms) cubic-bezier(0.16, 1, 0.3, 1),
+              border-color var(--duration-normal, 200ms) ease,
+              background-color var(--duration-normal, 200ms) ease;
+  will-change: transform, box-shadow;
 }
 
 .interactive-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-accent-muted);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.08), 0 4px 10px -4px rgba(0, 0, 0, 0.04);
+  border-color: var(--color-border-dark);
+}
+
+[data-theme='dark'] .interactive-card:hover {
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .interactive-button {
-  transition: transform var(--duration-fast) var(--ease-out),
-              background-color var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-fast, 150ms) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--duration-fast, 150ms) ease,
+              color var(--duration-fast, 150ms) ease,
+              box-shadow var(--duration-fast, 150ms) ease;
   position: relative;
   overflow: hidden;
 }
 
 .interactive-button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
 
 .interactive-button:active {
-  transform: translateY(1px);
+  transform: translateY(0px) scale(0.98);
 }
 
-/* ── Status Indicator Pulse ── */
+/* ── Arrow Micro-Nudge Helper ── */
+.arrow-nudge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.arrow-nudge svg {
+  transition: transform var(--duration-fast, 150ms) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arrow-nudge:hover svg,
+*:hover > .arrow-nudge svg {
+  transform: translateX(3px);
+}
+
+/* ── Status Indicator Pulse & Radar Ping ── */
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   display: inline-block;
   position: relative;
-}
-
-.status-dot::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: inherit;
-  animation: pulseSubtle 2s ease-out infinite;
+  flex-shrink: 0;
 }
 
 .status-dot-active {
-  background-color: var(--color-success);
+  background-color: var(--color-success, #10b981);
+}
+
+.status-dot-active::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: inherit;
+  animation: radarPing 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  pointer-events: none;
 }
 
 /* ── Skeleton Loading Shimmer ── */
@@ -212,5 +303,11 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .reveal-init,
+  .reveal-fade-init {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

@@ -7,6 +7,7 @@ import { SynapticInspector } from '../../components/SynapticInspector'
 import { DISCIPLINES, MEMO_SLIPS } from '../../lib/sampleGarden'
 import { GardenNote, GrowthStage } from '../../types/garden'
 import { GardenPageSettings } from '../../lib/getGarden'
+import { ScrollReveal } from '../../components/ScrollReveal'
 import styles from './garden.module.css'
 
 const STAGE_BORDER_COLORS: Record<GrowthStage, string> = {
@@ -243,32 +244,33 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
 
         {/* Card Grid */}
         <div className={styles.explorerGrid}>
-          {filteredNotes.map((note) => (
-            <button
-              key={note.id}
-              type="button"
-              className={`${styles.noteCard} ${selectedNodeId === note.id ? styles.noteCardSelected : ''}`}
-              onClick={() => handleCardClick(note.id)}
-              style={{ borderLeftColor: STAGE_BORDER_COLORS[note.stage] }}
-            >
-              <div className={styles.noteCardHeader}>
-                <span className={styles.noteCardId}>§ {note.id.toUpperCase()}</span>
-                <span className={styles.noteCardTime}>{note.updatedAt}</span>
-              </div>
-              <h3 className={styles.noteCardTitle}>{note.title}</h3>
-              <p className={styles.noteCardDesc}>{note.summary}</p>
-              <div className={styles.noteCardFooter}>
-                <div className={styles.noteCardTags}>
-                  {note.tags.slice(0, 3).map((t) => (
-                    <span key={t} className={styles.noteCardTag}>{t}</span>
-                  ))}
+          {filteredNotes.map((note, idx) => (
+            <ScrollReveal key={note.id} direction="up" delay={Math.min(idx * 50, 250)}>
+              <button
+                type="button"
+                className={`${styles.noteCard} ${selectedNodeId === note.id ? styles.noteCardSelected : ''}`}
+                onClick={() => handleCardClick(note.id)}
+                style={{ borderLeftColor: STAGE_BORDER_COLORS[note.stage] }}
+              >
+                <div className={styles.noteCardHeader}>
+                  <span className={styles.noteCardId}>§ {note.id.toUpperCase()}</span>
+                  <span className={styles.noteCardTime}>{note.updatedAt}</span>
                 </div>
-                <span className={styles.noteCardLinks}>
-                  <BookOpen size={10} />
-                  {note.backlinksCount}
-                </span>
-              </div>
-            </button>
+                <h3 className={styles.noteCardTitle}>{note.title}</h3>
+                <p className={styles.noteCardDesc}>{note.summary}</p>
+                <div className={styles.noteCardFooter}>
+                  <div className={styles.noteCardTags}>
+                    {note.tags.slice(0, 3).map((t) => (
+                      <span key={t} className={styles.noteCardTag}>{t}</span>
+                    ))}
+                  </div>
+                  <span className={styles.noteCardLinks}>
+                    <BookOpen size={10} />
+                    {note.backlinksCount}
+                  </span>
+                </div>
+              </button>
+            </ScrollReveal>
           ))}
         </div>
 
@@ -297,22 +299,24 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
         </div>
 
         <div className={styles.memoGrid}>
-          {(settings.memos || MEMO_SLIPS).map((memo) => (
-            <div key={memo.id} className={styles.memoCard}>
-              <div className={styles.memoTimestamp}>{memo.timestamp}</div>
-              <h4 className={styles.memoTitle}>{memo.title}</h4>
-              <p className={styles.memoBody}>{memo.body}</p>
-              <div className={styles.memoFooter}>
-                <div className={styles.memoTags}>
-                  {memo.tags.map((t) => (
-                    <span key={t} className={styles.memoTag}>{t}</span>
-                  ))}
+          {(settings.memos || MEMO_SLIPS).map((memo, mIdx) => (
+            <ScrollReveal key={memo.id} direction="up" delay={Math.min(mIdx * 60, 240)}>
+              <div className={styles.memoCard}>
+                <div className={styles.memoTimestamp}>{memo.timestamp}</div>
+                <h4 className={styles.memoTitle}>{memo.title}</h4>
+                <p className={styles.memoBody}>{memo.body}</p>
+                <div className={styles.memoFooter}>
+                  <div className={styles.memoTags}>
+                    {memo.tags.map((t) => (
+                      <span key={t} className={styles.memoTag}>{t}</span>
+                    ))}
+                  </div>
+                  <span className={styles.memoLinked}>
+                    Linked to {memo.linkedNoteIds.length} card{memo.linkedNoteIds.length > 1 ? 's' : ''}
+                  </span>
                 </div>
-                <span className={styles.memoLinked}>
-                  Linked to {memo.linkedNoteIds.length} card{memo.linkedNoteIds.length > 1 ? 's' : ''}
-                </span>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </section>
