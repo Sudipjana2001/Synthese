@@ -130,7 +130,7 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
       <section className={styles.mastheadSection}>
         <div className={styles.mastheadContainer}>
           <span className={styles.kicker}>
-            REPOSITORY INDEX // V4.19 &bull; {notes.length} Active Nodes &bull; 1,294 Synaptic Edges
+            {settings.mastheadKicker || 'REPOSITORY INDEX // V4.19'} &bull; {notes.length} Active Nodes &bull; 1,294 Synaptic Edges
           </span>
           <h1 className={styles.mastheadTitle}>
             {settings.title || 'The Digital Garden & Zettelkasten Archive'}
@@ -142,11 +142,11 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
           <div className={styles.mastheadActions}>
             <button type="button" className={styles.btnSecondary} onClick={handleExportBibtex}>
               <FileText size={14} />
-              <span>BibTeX Export</span>
+              <span>{settings.bibtexBtnText || 'BibTeX Export'}</span>
             </button>
             <button type="button" className={styles.btnPrimary} onClick={handleExportObsidian}>
               <Download size={14} />
-              <span>Download Vault (.md)</span>
+              <span>{settings.vaultBtnText || 'Download Vault (.md)'}</span>
             </button>
           </div>
         </div>
@@ -182,7 +182,7 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
           <div className={styles.explorerTitleRow}>
             <div className={styles.explorerLabel}>
               <Database size={14} />
-              <span>CATALOGUS FOLIIS</span>
+              <span>{settings.explorerLabel || 'CATALOGUS FOLIIS'}</span>
             </div>
             <span className={styles.explorerCount}>{filteredNotes.length} of {notes.length} notes</span>
           </div>
@@ -194,7 +194,7 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
               <input
                 type="text"
                 className={styles.searchInput}
-                placeholder="Search title, lemma, or tag..."
+                placeholder={settings.searchPlaceholder || 'Search title, lemma, or tag...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -285,18 +285,19 @@ ${(n.backlinks || []).map((b) => `- [[${b.title}]] (${b.id}): ${b.excerpt}`).joi
       <section className={styles.scratchpadSection}>
         <div className={styles.scratchpadHeader}>
           <div className={styles.scratchpadLabel}>
-            <span className={styles.scratchpadKicker}>EPISTEMIC SCRATCHPAD</span>
+            <span className={styles.scratchpadKicker}>{settings.scratchpadKicker || 'EPISTEMIC SCRATCHPAD'}</span>
             <span className={styles.scratchpadSubtitle}>
-              Unfiltered analytical dispatches, preliminary proofs, and marginal commentary recorded in the field.
+              {settings.scratchpadSubtitle ||
+                'Unfiltered analytical dispatches, preliminary proofs, and marginal commentary recorded in the field.'}
             </span>
           </div>
           <button type="button" className={styles.viewAllBtn}>
-            View all 74 scratchpad slips →
+            {settings.scratchpadBtnText || 'View all 74 scratchpad slips →'}
           </button>
         </div>
 
         <div className={styles.memoGrid}>
-          {MEMO_SLIPS.map((memo) => (
+          {(settings.memos || MEMO_SLIPS).map((memo) => (
             <div key={memo.id} className={styles.memoCard}>
               <div className={styles.memoTimestamp}>{memo.timestamp}</div>
               <h4 className={styles.memoTitle}>{memo.title}</h4>

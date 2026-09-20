@@ -14,17 +14,52 @@ export interface HomePaper {
   authorDate: string
 }
 
+export interface FeaturedPaperCardData {
+  badge: string
+  readTime: string
+  accessTag: string
+  title: string
+  summary: string
+  tags: string[]
+  buttonLabel: string
+  buttonUrl: string
+  doi: string
+  simulationTitle: string
+  simulationSubtitle: string
+  simulationMetric1: string
+  simulationMetric2: string
+  simulationButtonText: string
+  simulationButtonUrl: string
+}
+
+export interface FieldNoteItem {
+  date: string
+  timeAgo: string
+  text: string
+}
+
 export interface HomePageData {
   kicker: string
   authorName: string
+  authorSubtitle: string
   heroHeadline: string
   heroSubheadline: string
   heroPrimaryCta: { label: string; url: string }
   heroSecondaryCta: { label: string; url: string }
   velocityCard: {
     title: string
+    tag: string
     metrics: Array<{ label: string; value: string; subtext?: string }>
+    licenseText: string
+    versionText: string
   }
+  featuredPaperCard: FeaturedPaperCardData
+  essaysSectionHeading: string
+  fieldNotesTitle: string
+  fieldNotesBadge: string
+  fieldNotesLinkText: string
+  fieldNotesLinkUrl: string
+  fieldNotes: FieldNoteItem[]
   epistemicQuote: {
     badge: string
     quoteText: string
@@ -35,6 +70,9 @@ export interface HomePageData {
     badge: string
     title: string
     description: string
+    placeholder: string
+    buttonText: string
+    privacyPerks: string[]
   }
   papers: HomePaper[]
 }
@@ -144,6 +182,7 @@ export async function getHomePageData(): Promise<HomePageData> {
   return {
     kicker: sanityHome?.kicker || "Editor's Foreword",
     authorName: siteSettings?.authorName || 'Sudip Jana',
+    authorSubtitle: sanityHome?.authorSubtitle || 'Principal Investigator',
     heroHeadline:
       sanityHome?.heroHeadline ||
       'Exploring the intersection of artificial cognition, complex adaptive systems, and interactive computation.',
@@ -160,6 +199,7 @@ export async function getHomePageData(): Promise<HomePageData> {
     },
     velocityCard: {
       title: sanityHome?.velocityCard?.title || 'Research Velocity',
+      tag: sanityHome?.velocityCard?.tag || '2024–2026',
       metrics:
         sanityHome?.velocityCard?.metrics && sanityHome?.velocityCard?.metrics.length > 0
           ? sanityHome.velocityCard.metrics
@@ -168,7 +208,53 @@ export async function getHomePageData(): Promise<HomePageData> {
               { label: 'Executable Simulations', value: '14', subtext: '• Real-Time WebGL' },
               { label: 'Model Telemetry', value: '120k', subtext: 'Active Runs' },
             ],
+      licenseText: sanityHome?.velocityCard?.licenseText || 'Curated under CC-BY-4.0 Computational Press',
+      versionText: sanityHome?.velocityCard?.versionText || 'v2.4',
     },
+    featuredPaperCard: {
+      badge: sanityHome?.featuredPaperCard?.badge || 'Featured Computational Paper',
+      readTime: sanityHome?.featuredPaperCard?.readTime || '18 min read',
+      accessTag: sanityHome?.featuredPaperCard?.accessTag || 'Open Access',
+      title:
+        sanityHome?.featuredPaperCard?.title ||
+        'Emergence of Spontaneous Coordination in Multi-Agent Neural Topologies',
+      summary:
+        sanityHome?.featuredPaperCard?.summary ||
+        'We demonstrate how high-dimensional stochastic coupling between decentralized transformer-based agents yields phase transitions toward macro-scale consensus without external reward gradients. Read the mathematical derivation alongside live parameter perturbation.',
+      tags:
+        sanityHome?.featuredPaperCard?.tags && sanityHome?.featuredPaperCard?.tags.length > 0
+          ? sanityHome.featuredPaperCard.tags
+          : ['#ReinforcementLearning', '#NeuroTopology', '#DynamicalSystems'],
+      buttonLabel: sanityHome?.featuredPaperCard?.buttonLabel || 'Read Manuscript & Math',
+      buttonUrl: sanityHome?.featuredPaperCard?.buttonUrl || '/blog',
+      doi: sanityHome?.featuredPaperCard?.doi || 'DOI: 10.48550/SYNTHESE.2026.04229',
+      simulationTitle: sanityHome?.featuredPaperCard?.simulationTitle || 'Simulation Sandbox Preview',
+      simulationSubtitle: sanityHome?.featuredPaperCard?.simulationSubtitle || 'WebGL • Canvas 01',
+      simulationMetric1: sanityHome?.featuredPaperCard?.simulationMetric1 || 'AGENTS: 256',
+      simulationMetric2: sanityHome?.featuredPaperCard?.simulationMetric2 || 'COUPLING: 0.72',
+      simulationButtonText: sanityHome?.featuredPaperCard?.simulationButtonText || 'Launch Full Sandbox',
+      simulationButtonUrl: sanityHome?.featuredPaperCard?.simulationButtonUrl || '/projects',
+    },
+    essaysSectionHeading: sanityHome?.essaysSectionHeading || 'Recent Essays & Working Papers',
+    fieldNotesTitle: sanityHome?.fieldNotesTitle || 'Micro-Thoughts & Field Notes',
+    fieldNotesBadge: sanityHome?.fieldNotesBadge || 'Live RSS',
+    fieldNotesLinkText: sanityHome?.fieldNotesLinkText || 'Explore all 1,200+ garden notes ↗',
+    fieldNotesLinkUrl: sanityHome?.fieldNotesLinkUrl || '/garden',
+    fieldNotes:
+      sanityHome?.fieldNotes && sanityHome?.fieldNotes.length > 0
+        ? sanityHome.fieldNotes
+        : [
+            {
+              date: '#Log:2026-03-14',
+              timeAgo: '2h ago',
+              text: 'If attention mechanisms in transformers can be isomorphic to spatial graph diffusion clustering, why do we still evaluate attention purely as linguistic weights rather than physical field interactions?',
+            },
+            {
+              date: '#Log:2026-03-11',
+              timeAgo: '4d ago',
+              text: 'Finished benchmarking puny layers on Monte Carlo model on DDIM parameter manifolds. Convergence speeds double when we penalize entropy extremes early in training.',
+            },
+          ],
     epistemicQuote: {
       badge: sanityHome?.epistemicQuote?.badge || 'Epistemic Stance',
       quoteText:
@@ -188,6 +274,15 @@ export async function getHomePageData(): Promise<HomePageData> {
       description:
         sanityHome?.newsletter?.description ||
         'Receive newly verified mathematical models, long-form philosophical inquiries, and downloadable Jupyter & WebGL environments directly in your inbox every second Thursday. No marketing drivel; purely executable research.',
+      placeholder:
+        sanityHome?.newsletter?.placeholder ||
+        'researcher@institute.edu or scholar@domain.org',
+      buttonText:
+        sanityHome?.newsletter?.buttonText || 'Subscribe to Dispatch →',
+      privacyPerks:
+        sanityHome?.newsletter?.privacyPerks && sanityHome?.newsletter?.privacyPerks.length > 0
+          ? sanityHome.newsletter.privacyPerks
+          : ['🔒 PGP Encrypted Alerts', 'No Ad Tracking Pixels', 'Instant Unsubscribe'],
     },
     papers,
   }

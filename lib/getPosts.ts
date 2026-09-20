@@ -49,9 +49,12 @@ export async function getBlogSettings(): Promise<BlogPageSettings> {
     console.warn('Error fetching blog page settings from Sanity:', error)
   }
   return {
-    title: 'Writings & Working Papers',
+    kicker: 'Public Archive • Section 02',
+    title: 'Essays & Working Papers',
     description:
       'Long-form peer-reviewed computational treatises, architectural proofs, and theoretical essays exploring biological computation and synthetic cognition.',
+    featuredBadge: 'Featured Treatise & Mathematical Model',
+    readManuscriptLabel: 'Read Full Manuscript',
     featuredSectionTitle: 'Featured Treatise',
     allPostsTitle: 'All Publications & Manuscripts',
     showSearchBar: true,

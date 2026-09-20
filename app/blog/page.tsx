@@ -28,7 +28,7 @@ export default async function BlogIndexPage() {
     <div className={`container ${styles.blogContainer}`}>
       {/* Page Header */}
       <header className={styles.headerSection}>
-        <span className={styles.kicker}>Public Archive • Section 02</span>
+        <span className={styles.kicker}>{settings.kicker || 'Public Archive • Section 02'}</span>
         <h1 className={styles.pageTitle}>{settings.title || 'Essays & Working Papers'}</h1>
         <p className={styles.pageDesc}>
           {settings.description ||
@@ -44,6 +44,8 @@ export default async function BlogIndexPage() {
         showSearchBar={settings.showSearchBar ?? true}
         searchPlaceholder={settings.searchPlaceholder}
         showCategoryFilter={settings.showCategoryFilter ?? true}
+        featuredBadge={settings.featuredBadge}
+        readManuscriptLabel={settings.readManuscriptLabel}
       />
     </div>
   )

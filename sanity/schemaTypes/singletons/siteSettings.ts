@@ -11,6 +11,7 @@ export const siteSettings = defineType({
     { name: 'seo', title: '🔍 Global SEO' },
   ],
   fields: [
+    // ── 01: General & Author ──
     {
       name: 'siteName',
       title: 'Site Name / Brand',
@@ -42,6 +43,23 @@ export const siteSettings = defineType({
       initialValue: 'Sudip Jana',
     },
     {
+      name: 'authorRole',
+      title: 'Author Academic Title',
+      type: 'string',
+      group: 'general',
+      placeholder: 'Principal Investigator',
+      initialValue: 'Principal Investigator',
+    },
+    {
+      name: 'socialLinks',
+      title: 'Social & Research Links',
+      type: 'array',
+      group: 'general',
+      of: [{ type: 'socialLink' }],
+    },
+
+    // ── 02: Top Ticker Bar ──
+    {
       name: 'ticker',
       title: 'Top Ticker Bar Settings',
       type: 'object',
@@ -70,6 +88,13 @@ export const siteSettings = defineType({
           initialValue: 'DOI: 10.48550/SYNTHESE.2026.04',
         },
         {
+          name: 'statusText',
+          type: 'string',
+          title: 'CMS Connection Status Text (Right)',
+          placeholder: 'Sanity CMS Connected',
+          initialValue: 'Sanity CMS Connected',
+        },
+        {
           name: 'rightBadge',
           type: 'string',
           title: 'Right Badge / License',
@@ -78,13 +103,8 @@ export const siteSettings = defineType({
         },
       ],
     },
-    {
-      name: 'socialLinks',
-      title: 'Social & Research Links',
-      type: 'array',
-      group: 'general',
-      of: [{ type: 'socialLink' }],
-    },
+
+    // ── 03: Footer & Legal ──
     {
       name: 'footerBio',
       title: 'Footer Brand Subtitle',
@@ -103,6 +123,8 @@ export const siteSettings = defineType({
       placeholder: '© 2026 Synthese Lab. ISSN 2769-188X. Open Access CC-BY-4.0.',
       initialValue: '© 2026 Synthese Lab. ISSN 2769-188X. Open Access CC-BY-4.0.',
     },
+
+    // ── 04: Global SEO ──
     {
       name: 'seo',
       title: 'Global Default SEO',

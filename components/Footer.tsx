@@ -54,7 +54,7 @@ export function Footer({ settings = DEFAULT_SITE_SETTINGS }: FooterProps) {
         </ul>
 
         <div className={styles.copyright}>
-          &copy; {new Date().getFullYear()} Synthese Lab. ISSN 2769-188X. Open Access CC-BY-4.0.
+          {settings?.footerCopyright || `© ${new Date().getFullYear()} Synthese Lab. ISSN 2769-188X. Open Access CC-BY-4.0.`}
         </div>
       </div>
     </footer>

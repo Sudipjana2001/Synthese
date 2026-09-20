@@ -13,6 +13,8 @@ interface BlogListClientProps {
   showSearchBar?: boolean
   searchPlaceholder?: string
   showCategoryFilter?: boolean
+  featuredBadge?: string
+  readManuscriptLabel?: string
 }
 
 export function BlogListClient({
@@ -22,6 +24,8 @@ export function BlogListClient({
   showSearchBar = true,
   searchPlaceholder = 'Search by title, topic, or keyword...',
   showCategoryFilter = true,
+  featuredBadge = 'Featured Treatise & Mathematical Model',
+  readManuscriptLabel = 'Read Full Manuscript',
 }: BlogListClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
@@ -106,7 +110,7 @@ export function BlogListClient({
         <section className={styles.featuredBox}>
           <div className={styles.featuredLabel}>
             <span className="status-dot status-dot-active" />
-            <span>Featured Treatise &amp; Mathematical Model</span>
+            <span>{featuredBadge}</span>
           </div>
 
           <h2 className={styles.featuredTitle}>
@@ -126,7 +130,7 @@ export function BlogListClient({
             </span>
 
             <Link href={`/blog/${featuredPost.slug.current}`} className={styles.readLink}>
-              <span>Read Full Manuscript</span>
+              <span>{readManuscriptLabel}</span>
               <ArrowRight size={14} />
             </Link>
           </div>

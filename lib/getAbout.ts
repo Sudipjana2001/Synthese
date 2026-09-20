@@ -30,8 +30,14 @@ export async function getAboutData(): Promise<AboutData> {
         affiliation: sanityAbout.affiliation || SAMPLE_ABOUT.affiliation,
         location: sanityAbout.location || SAMPLE_ABOUT.location,
         email: sanityAbout.email || SAMPLE_ABOUT.email,
+        githubUrl: sanityAbout.githubUrl || SAMPLE_ABOUT.githubUrl,
+        cvDownloadLabel: sanityAbout.cvDownloadLabel || SAMPLE_ABOUT.cvDownloadLabel,
+        bibtexArchiveLabel: sanityAbout.bibtexArchiveLabel || SAMPLE_ABOUT.bibtexArchiveLabel,
         headline: sanityAbout.headline || SAMPLE_ABOUT.headline,
+        statementHeading: sanityAbout.statementHeading || SAMPLE_ABOUT.statementHeading,
+        statementParagraph1: sanityAbout.statementParagraph1 || SAMPLE_ABOUT.statementParagraph1,
         abstract: sanityAbout.abstract || SAMPLE_ABOUT.abstract,
+        statementParagraph3: sanityAbout.statementParagraph3 || SAMPLE_ABOUT.statementParagraph3,
         profileImage: sanityAbout.profileImage,
         profileImageUrl,
         bioStory: sanityAbout.bioStory,
@@ -43,6 +49,7 @@ export async function getAboutData(): Promise<AboutData> {
           publications: sanityAbout.metrics?.publications || SAMPLE_ABOUT.metrics.publications,
           activeSimulations: sanityAbout.metrics?.activeSimulations || SAMPLE_ABOUT.metrics.activeSimulations,
         },
+        pillarsHeading: sanityAbout.pillarsHeading || SAMPLE_ABOUT.pillarsHeading,
         epistemicPillars:
           sanityAbout.epistemicPillars && sanityAbout.epistemicPillars.length > 0
             ? sanityAbout.epistemicPillars
@@ -50,9 +57,31 @@ export async function getAboutData(): Promise<AboutData> {
         skillsHeadline: sanityAbout.skillsHeadline || 'Core Competencies & Tooling',
         skills: sanityAbout.skills || [],
         showTimeline: sanityAbout.showTimeline !== false,
-        timelineHeading: sanityAbout.timelineHeading || 'Curriculum Temporale & Appointments',
+        timelineKicker: sanityAbout.timelineKicker || SAMPLE_ABOUT.timelineKicker,
+        timelineHeading: sanityAbout.timelineHeading || SAMPLE_ABOUT.timelineHeading,
+        timelineSubtitle: sanityAbout.timelineSubtitle || SAMPLE_ABOUT.timelineSubtitle,
         resumeUrl: sanityAbout.resumeUrl,
         timeline,
+        publicationsKicker: sanityAbout.publicationsKicker || SAMPLE_ABOUT.publicationsKicker,
+        publicationsHeading: sanityAbout.publicationsHeading || SAMPLE_ABOUT.publicationsHeading,
+        publicationsSubtitle: sanityAbout.publicationsSubtitle || SAMPLE_ABOUT.publicationsSubtitle,
+        publicationsButtonText: sanityAbout.publicationsButtonText || SAMPLE_ABOUT.publicationsButtonText,
+        publicationsButtonUrl: sanityAbout.publicationsButtonUrl || SAMPLE_ABOUT.publicationsButtonUrl,
+        publications:
+          sanityAbout.publications && sanityAbout.publications.length > 0
+            ? sanityAbout.publications
+            : SAMPLE_ABOUT.publications,
+        instrumentariumKicker: sanityAbout.instrumentariumKicker || SAMPLE_ABOUT.instrumentariumKicker,
+        instrumentariumHeading: sanityAbout.instrumentariumHeading || SAMPLE_ABOUT.instrumentariumHeading,
+        instrumentariumSubtitle: sanityAbout.instrumentariumSubtitle || SAMPLE_ABOUT.instrumentariumSubtitle,
+        instrumentarium:
+          sanityAbout.instrumentarium && sanityAbout.instrumentarium.length > 0
+            ? sanityAbout.instrumentarium
+            : SAMPLE_ABOUT.instrumentarium,
+        contactCards:
+          sanityAbout.contactCards && sanityAbout.contactCards.length > 0
+            ? sanityAbout.contactCards
+            : SAMPLE_ABOUT.contactCards,
       }
     }
   } catch (error) {

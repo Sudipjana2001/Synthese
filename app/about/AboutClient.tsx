@@ -124,18 +124,18 @@ ${about.publications
                 className={styles.primaryBtn}
               >
                 <Download size={14} />
-                Download Complete CV (.pdf / .md)
+                {about.cvDownloadLabel || 'Download Complete CV (.pdf / .md)'}
               </a>
             ) : (
               <button className={styles.primaryBtn} onClick={handleDownloadCv}>
                 <Download size={14} />
-                Download Complete CV (.md / .pdf)
+                {about.cvDownloadLabel || 'Download Complete CV (.md / .pdf)'}
               </button>
             )}
 
             <button className={styles.secondaryBtn} onClick={handleCopyAllBibtex}>
               {copiedBibtex ? <Check size={14} /> : <Copy size={14} />}
-              {copiedBibtex ? 'BibTeX Copied' : 'BibTeX Archive (.bib)'}
+              {copiedBibtex ? 'BibTeX Copied' : (about.bibtexArchiveLabel || 'BibTeX Archive (.bib)')}
             </button>
 
             <button
@@ -220,12 +220,12 @@ ${about.publications
                 <div className={styles.idRow}>
                   <span>Repository</span>
                   <a
-                    href="https://github.com/Sudipjana2001/Synthese"
+                    href={about.githubUrl || 'https://github.com/Sudipjana2001/Synthese'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.idVal}
                   >
-                    Sudipjana2001/Synthese
+                    {about.githubUrl ? about.githubUrl.replace(/^https?:\/\/(www\.)?github\.com\//, '') : 'Sudipjana2001/Synthese'}
                     <ArrowUpRight size={12} />
                   </a>
                 </div>
@@ -242,27 +242,27 @@ ${about.publications
             {/* Right Column: Editorial Statement & Research Pillars */}
             <main className={styles.statementColumn}>
               <div>
-                <h2 className={styles.sectionHeading}>The Epistemic Thesis of Synthese</h2>
+                <h2 className={styles.sectionHeading}>{about.statementHeading || 'The Epistemic Thesis of Synthese'}</h2>
                 <blockquote className={styles.statementLead}>
                   &ldquo;{about.headline}&rdquo;
                 </blockquote>
                 <div className={styles.statementBody}>
-                  <p>
-                    Modern artificial intelligence is overwhelmingly framed through the lens of static Euclidean parameter optimization in deep feed-forward topologies. While empirically formidable, this paradigm often neglects the thermodynamic and continuous dynamical substrates that give rise to physical morphogenesis and biological cognition.
-                  </p>
-                  <p>
-                    {about.abstract}
-                  </p>
-                  <p>
-                    Through the Synthese Computational Press, all theoretical treatises are formally accompanied by browser-native, interactive numerical simulations. Reviewers and fellows can directly perturb physical parameters, test boundary conditions, and verify mathematical lemmas in real time.
-                  </p>
+                  {about.statementParagraph1 && (
+                    <p>{about.statementParagraph1}</p>
+                  )}
+                  {about.abstract && (
+                    <p>{about.abstract}</p>
+                  )}
+                  {about.statementParagraph3 && (
+                    <p>{about.statementParagraph3}</p>
+                  )}
                 </div>
               </div>
 
               {/* Research Pillars */}
               <div>
                 <h3 className={styles.sectionHeading} style={{ fontSize: '1.5rem' }}>
-                  Core Theoretical Pillars
+                  {about.pillarsHeading || 'Core Theoretical Pillars'}
                 </h3>
                 <div className={styles.pillarsGrid}>
                   {about.epistemicPillars.map((pillar, idx) => (
@@ -311,12 +311,12 @@ ${about.publications
         <section className={styles.timelineSection}>
           <div className="container">
             <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto' }}>
-              <span className={styles.kicker}>CHRONOLOGY OF RESEARCH</span>
+              <span className={styles.kicker}>{about.timelineKicker || 'CHRONOLOGY OF RESEARCH'}</span>
               <h2 className={styles.sectionHeading}>
                 {about.timelineHeading || 'Curriculum Temporale & Appointments'}
               </h2>
               <p className={styles.pageSubtitle} style={{ margin: '0 auto' }}>
-                Academic milestones, fellowships, institutional directorships, and foundational research degrees.
+                {about.timelineSubtitle || 'Academic milestones, fellowships, institutional directorships, and foundational research degrees.'}
               </p>
             </div>
 
@@ -355,15 +355,15 @@ ${about.publications
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
-              <span className={styles.kicker}>BIBLIOMETRIC RECORD</span>
-              <h2 className={styles.sectionHeading}>Selected Treatises & Preprints</h2>
+              <span className={styles.kicker}>{about.publicationsKicker || 'BIBLIOMETRIC RECORD'}</span>
+              <h2 className={styles.sectionHeading}>{about.publicationsHeading || 'Selected Treatises & Preprints'}</h2>
               <p className={styles.pageSubtitle} style={{ marginBottom: 0 }}>
-                Peer-reviewed papers, computational monographs, and conference proceedings with verified DOIs.
+                {about.publicationsSubtitle || 'Peer-reviewed papers, computational monographs, and conference proceedings with verified DOIs.'}
               </p>
             </div>
-            <Link href="/blog" className={styles.secondaryBtn}>
+            <Link href={about.publicationsButtonUrl || '/blog'} className={styles.secondaryBtn}>
               <BookOpen size={14} />
-              View Full Journal Archive →
+              {about.publicationsButtonText || 'View Full Journal Archive →'}
             </Link>
           </div>
 
@@ -435,10 +435,10 @@ ${about.publications
       {/* ── Computational Substrates & Instrumentarium ── */}
       <section className={styles.instrumentariumSection}>
         <div className="container">
-          <span className={styles.kicker}>LABORATORY INFRASTRUCTURE</span>
-          <h2 className={styles.sectionHeading}>Computational Substrates & Tooling</h2>
+          <span className={styles.kicker}>{about.instrumentariumKicker || 'LABORATORY INFRASTRUCTURE'}</span>
+          <h2 className={styles.sectionHeading}>{about.instrumentariumHeading || 'Computational Substrates & Tooling'}</h2>
           <p className={styles.pageSubtitle}>
-            Specialized hardware nodes, formal verification engines, and numerical runtime kernels supporting Synthese press publications.
+            {about.instrumentariumSubtitle || 'Specialized hardware nodes, formal verification engines, and numerical runtime kernels supporting Synthese press publications.'}
           </p>
 
           <div className={styles.instrumentGrid}>
@@ -459,25 +459,17 @@ ${about.publications
           </div>
 
           {/* Institutional Contact Drawer */}
-          <div className={styles.contactBox}>
-            <div className={styles.contactCol}>
-              <span className={styles.contactHeading}>Academic Inquiries</span>
-              <div className={styles.contactVal}>investigator@synthese.press</div>
-              <div className={styles.contactSub}>Encrypted PGP submissions encouraged</div>
+          {about.contactCards && about.contactCards.length > 0 && (
+            <div className={styles.contactBox}>
+              {about.contactCards.map((card, idx) => (
+                <div key={idx} className={styles.contactCol}>
+                  <span className={styles.contactHeading}>{card.heading}</span>
+                  <div className={styles.contactVal}>{card.value}</div>
+                  {card.subtext && <div className={styles.contactSub}>{card.subtext}</div>}
+                </div>
+              ))}
             </div>
-
-            <div className={styles.contactCol}>
-              <span className={styles.contactHeading}>Laboratory Location</span>
-              <div className={styles.contactVal}>Synthese Computational Press Labs</div>
-              <div className={styles.contactSub}>Room 402, Inst. for Non-Equilibrium Systems</div>
-            </div>
-
-            <div className={styles.contactCol}>
-              <span className={styles.contactHeading}>Fellowships & Sabbaticals</span>
-              <div className={styles.contactVal}>Visiting Scholar Program</div>
-              <div className={styles.contactSub}>Applications open annually for Autumn semester</div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </div>

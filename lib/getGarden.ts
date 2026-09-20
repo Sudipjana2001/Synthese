@@ -1,13 +1,22 @@
 import { fetchSanity } from '../sanity/lib/client'
 import { gardenNotesQuery, gardenPageQuery } from '../sanity/lib/queries'
-import { SAMPLE_GARDEN_NOTES } from './sampleGarden'
-import { GardenNote, GrowthStage, Discipline } from '../types/garden'
+import { SAMPLE_GARDEN_NOTES, MEMO_SLIPS } from './sampleGarden'
+import { GardenNote, GrowthStage, Discipline, MemoSlip } from '../types/garden'
 
 export interface GardenPageSettings {
+  mastheadKicker?: string
   title?: string
   description?: string
+  bibtexBtnText?: string
+  vaultBtnText?: string
+  showInteractiveGraph?: boolean
   epistemicWarning?: string
-  showStats?: boolean
+  explorerLabel?: string
+  searchPlaceholder?: string
+  scratchpadKicker?: string
+  scratchpadSubtitle?: string
+  scratchpadBtnText?: string
+  memos?: MemoSlip[]
 }
 
 export async function getGardenData(): Promise<{
@@ -16,10 +25,21 @@ export async function getGardenData(): Promise<{
 }> {
   let notes = SAMPLE_GARDEN_NOTES
   let settings: GardenPageSettings = {
-    title: 'The Epistemic Digital Garden & Synaptic Graph',
+    mastheadKicker: 'REPOSITORY INDEX // V4.19',
+    title: 'The Digital Garden & Zettelkasten Archive',
     description:
-      'A non-linear, topological Zettelkasten knowledge base mapping evolving hypotheses, formal lemmas, and interdisciplinary connections across cognitive science, differential geometry, and theoretical physics.',
-    showStats: true,
+      'A networked repository of evolving notes, speculative hypotheses, formal lemmas, and verified citations.',
+    bibtexBtnText: 'BibTeX Export',
+    vaultBtnText: 'Download Vault (.md)',
+    showInteractiveGraph: true,
+    epistemicWarning: 'Notes in this garden represent live working hypotheses across varying stages of formal maturity.',
+    explorerLabel: 'CATALOGUS FOLIIS',
+    searchPlaceholder: 'Search title, lemma, or tag...',
+    scratchpadKicker: 'EPISTEMIC SCRATCHPAD',
+    scratchpadSubtitle:
+      'Unfiltered analytical dispatches, preliminary proofs, and marginal commentary recorded in the field.',
+    scratchpadBtnText: 'View all 74 scratchpad slips →',
+    memos: MEMO_SLIPS,
   }
 
   try {
@@ -54,10 +74,19 @@ export async function getGardenData(): Promise<{
 
     if (sanitySettings) {
       settings = {
+        mastheadKicker: sanitySettings.mastheadKicker || settings.mastheadKicker,
         title: sanitySettings.title || settings.title,
         description: sanitySettings.description || settings.description,
-        epistemicWarning: sanitySettings.epistemicWarning,
-        showStats: sanitySettings.showStats !== false,
+        bibtexBtnText: sanitySettings.bibtexBtnText || settings.bibtexBtnText,
+        vaultBtnText: sanitySettings.vaultBtnText || settings.vaultBtnText,
+        showInteractiveGraph: sanitySettings.showInteractiveGraph !== false,
+        epistemicWarning: sanitySettings.epistemicWarning || settings.epistemicWarning,
+        explorerLabel: sanitySettings.explorerLabel || settings.explorerLabel,
+        searchPlaceholder: sanitySettings.searchPlaceholder || settings.searchPlaceholder,
+        scratchpadKicker: sanitySettings.scratchpadKicker || settings.scratchpadKicker,
+        scratchpadSubtitle: sanitySettings.scratchpadSubtitle || settings.scratchpadSubtitle,
+        scratchpadBtnText: sanitySettings.scratchpadBtnText || settings.scratchpadBtnText,
+        memos: sanitySettings.memos && sanitySettings.memos.length > 0 ? sanitySettings.memos : MEMO_SLIPS,
       }
     }
   } catch (err) {

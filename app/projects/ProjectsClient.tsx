@@ -51,13 +51,13 @@ export function ProjectsClient({ projects, settings }: ProjectsClientProps) {
     <main className={`container ${styles.projectsContainer}`}>
       {/* ── 01: Top Status / Metadata Kicker ── */}
       <div className={styles.topStatusRow}>
-        <span className={styles.kickerPill}>Comp-Lab Suite v2.4</span>
+        <span className={styles.kickerPill}>{settings.statusKicker || 'Comp-Lab Suite v2.4'}</span>
         <span className={styles.metaDivider}>•</span>
-        <span className={styles.issnTag}>ISSN 2769-188X</span>
+        <span className={styles.issnTag}>{settings.issnTag || 'ISSN 2769-188X'}</span>
         <span className={styles.metaDivider}>•</span>
         <span className={styles.webglBadge}>
           <span className="status-dot status-dot-active" />
-          <span>WebGL 2.0 Active</span>
+          <span>{settings.webglBadge || 'WebGL 2.0 Active'}</span>
         </span>
       </div>
 
@@ -76,19 +76,19 @@ export function ProjectsClient({ projects, settings }: ProjectsClientProps) {
             <button
               type="button"
               className={styles.btnSecondaryAction}
-              onClick={() => window.open('https://pyodide.org/', '_blank')}
+              onClick={() => window.open(settings.secondaryButton?.url || 'https://pyodide.org/', '_blank')}
             >
               <Terminal size={14} />
-              <span>Jupyter Kernel (Pyodide)</span>
+              <span>{settings.secondaryButton?.label || 'Jupyter Kernel (Pyodide)'}</span>
             </button>
 
             <button
               type="button"
               className={styles.btnPrimaryAction}
-              onClick={() => window.open('https://github.com/Sudipjana2001/Synthese', '_blank')}
+              onClick={() => window.open(settings.primaryButton?.url || 'https://github.com/Sudipjana2001/Synthese', '_blank')}
             >
               <Code size={14} />
-              <span>Submit Algorithm</span>
+              <span>{settings.primaryButton?.label || 'Submit Algorithm'}</span>
             </button>
           </div>
         </div>
@@ -122,10 +122,10 @@ export function ProjectsClient({ projects, settings }: ProjectsClientProps) {
       <section className={styles.enclosuresSection}>
         <div className={styles.enclosuresHeader}>
           <div>
-            <span className={styles.arsenalKicker}>Active Algorithmic Arsenal</span>
-            <h2 className={styles.arsenalHeading}>Specialized Computation Enclosures</h2>
+            <span className={styles.arsenalKicker}>{settings.arsenalKicker || 'Active Algorithmic Arsenal'}</span>
+            <h2 className={styles.arsenalHeading}>{settings.arsenalHeading || 'Specialized Computation Enclosures'}</h2>
             <p className={styles.arsenalDesc}>
-              Drag parameters, test assumptions, and fork computational code sandbox states.
+              {settings.arsenalDesc || 'Drag parameters, test assumptions, and fork computational code sandbox states.'}
             </p>
           </div>
 
@@ -183,37 +183,43 @@ export function ProjectsClient({ projects, settings }: ProjectsClientProps) {
       </section>
 
       {/* ── 06: Embed Live Models Callout Card ── */}
-      <section className={styles.embedBox}>
-        <span className={styles.embedKicker}>Integrate Into Your Writing</span>
-        <h2 className={styles.embedTitle}>Embed Live Models in Academic Manuscripts</h2>
-        <p className={styles.embedDesc}>
-          Every widget in Synthese Lab compiles to a standalone, zero-dependency Web Component. Include fully
-          interactive, parameter-persisted mathematical figures in your Substack, Quarto document, or HTML publication.
-        </p>
+      {settings.ctaBox?.show !== false && (
+        <section className={styles.embedBox}>
+          <span className={styles.embedKicker}>Integrate Into Your Writing</span>
+          <h2 className={styles.embedTitle}>{settings.ctaBox?.title || 'Embed Live Models in Academic Manuscripts'}</h2>
+          <p className={styles.embedDesc}>
+            {settings.ctaBox?.description ||
+              'Every widget in Synthese Lab compiles to a standalone, zero-dependency Web Component. Include fully interactive, parameter-persisted mathematical figures in your Substack, Quarto document, or HTML publication.'}
+          </p>
 
-        <div className={styles.embedCodeRow}>
-          <div className={styles.codeSnippet}>
-            <code>&lt;synthese-model type=&quot;gray-scott&quot; f=&quot;0.054&quot; k=&quot;0.062&quot; /&gt;</code>
+          <div className={styles.embedCodeRow}>
+            <div className={styles.codeSnippet}>
+              <code>{settings.ctaBox?.snippetText || '<synthese-model type="gray-scott" f="0.054" k="0.062" />'}</code>
+            </div>
+
+            <div className={styles.embedButtons}>
+              <button
+                type="button"
+                className={styles.btnSecondaryAction}
+                onClick={() => {
+                  navigator.clipboard.writeText(settings.ctaBox?.snippetText || '<synthese-model type="gray-scott" f="0.054" k="0.062" />')
+                  setCopiedEmbed(true)
+                  setTimeout(() => setCopiedEmbed(false), 2000)
+                }}
+                aria-label="Copy embed code"
+              >
+                {copiedEmbed ? <Check size={13} color="var(--color-success)" /> : <Copy size={13} />}
+                <span>{copiedEmbed ? 'Copied to Clipboard' : 'Copy Embed Tag'}</span>
+              </button>
+
+              <Link href={settings.ctaBox?.buttonUrl || '/blog'} className={styles.btnPrimaryAction}>
+                <BookOpen size={13} />
+                <span>{settings.ctaBox?.buttonText || 'Explore Manuscripts'}</span>
+              </Link>
+            </div>
           </div>
-
-          <div className={styles.embedButtons}>
-            <button
-              type="button"
-              className={styles.btnSecondaryAction}
-              onClick={copyEmbedSnippet}
-              aria-label="Copy embed code"
-            >
-              {copiedEmbed ? <Check size={13} color="var(--color-success)" /> : <Copy size={13} />}
-              <span>{copiedEmbed ? 'Copied to Clipboard' : 'Copy Embed Tag'}</span>
-            </button>
-
-            <Link href="/blog" className={styles.btnPrimaryAction}>
-              <BookOpen size={13} />
-              <span>Explore Manuscripts</span>
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── Interactive Modal for Simulation Sandboxes ── */}
       {activeModalProject && (

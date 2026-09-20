@@ -72,7 +72,7 @@ export function Header({ settings = DEFAULT_SITE_SETTINGS }: HeaderProps) {
               <span>{ticker.doi}</span>
             </div>
             <div className={styles.tickerRight}>
-              <span>Sanity CMS Connected</span>
+              <span>{ticker.statusText || 'Sanity CMS Connected'}</span>
               <span>•</span>
               <span>{ticker.rightBadge}</span>
             </div>

@@ -49,8 +49,11 @@ export interface Post {
 }
 
 export interface BlogPageSettings {
+  kicker?: string
   title?: string
   description?: string
+  featuredBadge?: string
+  readManuscriptLabel?: string
   featuredSectionTitle?: string
   allPostsTitle?: string
   showSearchBar?: boolean

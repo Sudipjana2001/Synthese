@@ -50,7 +50,14 @@ export interface AboutData {
     activeSimulations: string
   }
   headline: string
+  statementHeading?: string
+  statementParagraph1?: string
   abstract: string
+  statementParagraph3?: string
+  githubUrl?: string
+  cvDownloadLabel?: string
+  bibtexArchiveLabel?: string
+  pillarsHeading?: string
   epistemicPillars: Array<{
     title: string
     discipline: string
@@ -59,11 +66,26 @@ export interface AboutData {
   skillsHeadline?: string
   skills?: string[]
   showTimeline?: boolean
+  timelineKicker?: string
   timelineHeading?: string
+  timelineSubtitle?: string
   resumeUrl?: string
   timeline: TimelineItem[]
+  publicationsKicker?: string
+  publicationsHeading?: string
+  publicationsSubtitle?: string
+  publicationsButtonText?: string
+  publicationsButtonUrl?: string
   publications: PublicationItem[]
+  instrumentariumKicker?: string
+  instrumentariumHeading?: string
+  instrumentariumSubtitle?: string
   instrumentarium: InstrumentItem[]
+  contactCards?: Array<{
+    heading: string
+    value: string
+    subtext?: string
+  }>
 }
 
 export const SAMPLE_ABOUT: AboutData = {
@@ -80,10 +102,19 @@ export const SAMPLE_ABOUT: AboutData = {
     publications: '24',
     activeSimulations: '14',
   },
+  githubUrl: 'https://github.com/Sudipjana2001/Synthese',
+  cvDownloadLabel: 'Download Complete CV (.md / .pdf)',
+  bibtexArchiveLabel: 'BibTeX Archive (.bib)',
   headline:
     'Investigating the mathematical continuum between non-equilibrium statistical mechanics, morphogenetic substrates, and synthetic cognitive architectures.',
+  statementHeading: 'The Epistemic Thesis of Synthese',
+  statementParagraph1:
+    'Modern artificial intelligence is overwhelmingly framed through the lens of static Euclidean parameter optimization in deep feed-forward topologies. While empirically formidable, this paradigm often neglects the thermodynamic and continuous dynamical substrates that give rise to physical morphogenesis and biological cognition.',
   abstract:
     'Our laboratory focuses on the fundamental question: How do self-organizing physical substrates spontaneously compute, minimize informational entropy, and manifest cognitive invariants? By unifying Turing reaction-diffusion dynamics, Friston variational mechanics, and differential geometric latent representations, Synthese operates as both a formal theoretical press and an executable experimental sandbox.',
+  statementParagraph3:
+    'Through the Synthese Computational Press, all theoretical treatises are formally accompanied by browser-native, interactive numerical simulations. Reviewers and fellows can directly perturb physical parameters, test boundary conditions, and verify mathematical lemmas in real time.',
+  pillarsHeading: 'Core Theoretical Pillars',
   epistemicPillars: [
     {
       title: 'Thermodynamic Morphogenesis',
@@ -237,4 +268,33 @@ export const SAMPLE_ABOUT: AboutData = {
       specs: ['JAX / Equinox Autodiff', 'WebGL 2.0 Compute Shaders', 'D3.js Force Simulation Engine', 'Rust / WASM PDE Solvers'],
     },
   ],
+  timelineKicker: 'CHRONOLOGY OF RESEARCH',
+  timelineHeading: 'Curriculum Temporale & Appointments',
+  timelineSubtitle: 'Academic milestones, fellowships, institutional directorships, and foundational research degrees.',
+  publicationsKicker: 'BIBLIOMETRIC RECORD',
+  publicationsHeading: 'Selected Treatises & Preprints',
+  publicationsSubtitle: 'Peer-reviewed papers, computational monographs, and conference proceedings with verified DOIs.',
+  publicationsButtonText: 'View Full Journal Archive →',
+  publicationsButtonUrl: '/blog',
+  instrumentariumKicker: 'LABORATORY INFRASTRUCTURE',
+  instrumentariumHeading: 'Computational Substrates & Tooling',
+  instrumentariumSubtitle: 'Specialized hardware nodes, formal verification engines, and numerical runtime kernels supporting Synthese press publications.',
+  contactCards: [
+    {
+      heading: 'Academic Inquiries',
+      value: 'investigator@synthese.press',
+      subtext: 'Encrypted PGP submissions encouraged',
+    },
+    {
+      heading: 'Laboratory Location',
+      value: 'Synthese Computational Press Labs',
+      subtext: 'Room 402, Inst. for Non-Equilibrium Systems',
+    },
+    {
+      heading: 'Fellowships & Sabbaticals',
+      value: 'Visiting Scholar Program',
+      subtext: 'Applications open annually for Autumn semester',
+    },
+  ],
 }
+

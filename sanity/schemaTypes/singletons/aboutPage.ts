@@ -5,19 +5,24 @@ export const aboutPage = defineType({
   title: 'Page: About & Curriculum Dossier',
   type: 'document',
   groups: [
-    { name: 'profile', title: '👤 Scholar Profile & Bio', default: true },
+    { name: 'profile', title: '👤 Scholar Profile', default: true },
+    { name: 'statement', title: '📜 Thesis & Statement' },
     { name: 'metrics', title: '📊 Bibliometrics' },
     { name: 'pillars', title: '🏛️ Theoretical Pillars' },
     { name: 'timeline', title: '⏱️ Timeline & Skills' },
+    { name: 'publications', title: '📚 Selected Publications' },
+    { name: 'instrumentarium', title: '🔬 Laboratory Substrates' },
+    { name: 'contact', title: '📬 Institutional Contact' },
     { name: 'seo', title: '🔍 SEO & Meta' },
   ],
   fields: [
+    // ── Scholar Profile ──
     {
       name: 'kicker',
       title: 'Top Monospace Kicker',
       type: 'string',
       group: 'profile',
-      description: '📍 Where it appears: Top telemetry tag on /about (e.g. CURRICULUM VITAE & SCHOLARLY DOSSIER).',
+      description: '📍 Where it appears: Top telemetry tag on /about.',
       placeholder: 'CURRICULUM VITAE & SCHOLARLY DOSSIER // DEPT. OF COGNITIVE COMPUTATION',
       initialValue: 'CURRICULUM VITAE & SCHOLARLY DOSSIER // DEPT. OF COGNITIVE COMPUTATION',
     },
@@ -36,7 +41,7 @@ export const aboutPage = defineType({
       title: 'Scholar Name',
       type: 'string',
       group: 'profile',
-      description: '📍 Where it appears: Large bold name on the left profile card on /about.',
+      description: '📍 Where it appears: Large bold name on the left profile card.',
       placeholder: 'Sudip Jana, Ph.D.',
       initialValue: 'Sudip Jana, Ph.D.',
     },
@@ -45,7 +50,7 @@ export const aboutPage = defineType({
       title: 'Role / Academic Title',
       type: 'string',
       group: 'profile',
-      description: '📍 Where it appears: Directly under your name in the profile card on /about.',
+      description: '📍 Where it appears: Directly under your name in the profile card.',
       placeholder: 'Principal Investigator & Editor-in-Chief',
       initialValue: 'Principal Investigator & Editor-in-Chief',
     },
@@ -54,7 +59,7 @@ export const aboutPage = defineType({
       title: 'Institutional Affiliation',
       type: 'string',
       group: 'profile',
-      description: '📍 Where it appears: Under your role in the profile card on /about.',
+      description: '📍 Where it appears: Under your role in the profile card.',
       placeholder: 'Synthese Computational Press & Laboratory',
       initialValue: 'Synthese Computational Press & Laboratory',
     },
@@ -63,7 +68,7 @@ export const aboutPage = defineType({
       title: 'Location',
       type: 'string',
       group: 'profile',
-      description: '📍 Where it appears: Location row in the profile card on /about.',
+      description: '📍 Where it appears: Location row in the profile card.',
       placeholder: 'Berlin, DE & Cambridge, MA',
       initialValue: 'Berlin, DE & Cambridge, MA',
     },
@@ -72,9 +77,18 @@ export const aboutPage = defineType({
       title: 'Dispatch / Contact Email',
       type: 'string',
       group: 'profile',
-      description: '📍 Where it appears: Dispatch email link in the profile card on /about.',
+      description: '📍 Where it appears: Dispatch email link in the profile card.',
       placeholder: 'investigator@synthese.press',
       initialValue: 'investigator@synthese.press',
+    },
+    {
+      name: 'githubUrl',
+      title: 'Repository GitHub URL',
+      type: 'url',
+      group: 'profile',
+      description: '📍 Where it appears: Repository link in the profile card.',
+      placeholder: 'https://github.com/Sudipjana2001/Synthese',
+      initialValue: 'https://github.com/Sudipjana2001/Synthese',
     },
     {
       name: 'profileImage',
@@ -91,35 +105,6 @@ export const aboutPage = defineType({
           placeholder: 'Sudip Jana portrait photo',
         },
       ],
-    },
-    {
-      name: 'headline',
-      title: 'Epistemic Thesis Headline',
-      type: 'text',
-      rows: 3,
-      group: 'profile',
-      description: '📍 Where it appears: Large serif quote and subtitle under the page title.',
-      placeholder: 'Investigating the mathematical continuum between non-equilibrium statistical mechanics, morphogenetic substrates, and synthetic cognitive architectures.',
-      initialValue:
-        'Investigating the mathematical continuum between non-equilibrium statistical mechanics, morphogenetic substrates, and synthetic cognitive architectures.',
-    },
-    {
-      name: 'abstract',
-      title: 'Scholarly Abstract / Bio Narrative',
-      type: 'text',
-      rows: 4,
-      group: 'profile',
-      description: '📍 Where it appears: The second paragraph under the Epistemic Thesis on /about.',
-      placeholder: 'Our laboratory focuses on the fundamental question: How do self-organizing physical substrates spontaneously compute, minimize informational entropy, and manifest cognitive invariants?',
-      initialValue:
-        'Our laboratory focuses on the fundamental question: How do self-organizing physical substrates spontaneously compute, minimize informational entropy, and manifest cognitive invariants? By unifying Turing reaction-diffusion dynamics, Friston variational mechanics, and differential geometric latent representations, Synthese operates as both a formal theoretical press and an executable experimental sandbox.',
-    },
-    {
-      name: 'bioStory',
-      title: 'Full Extended Biography (Portable Text)',
-      type: 'blockContent',
-      group: 'profile',
-      description: 'Optional rich-text story blocks for long-form biographies.',
     },
     {
       name: 'orcid',
@@ -140,6 +125,88 @@ export const aboutPage = defineType({
       initialValue: '0x8F3C9A1E 4D27 B901',
     },
     {
+      name: 'cvDownloadLabel',
+      title: 'CV Download Button Text',
+      type: 'string',
+      group: 'profile',
+      description: '📍 Where it appears: Primary download button under the about masthead.',
+      placeholder: 'Download Complete CV (.md / .pdf)',
+      initialValue: 'Download Complete CV (.md / .pdf)',
+    },
+    {
+      name: 'bibtexArchiveLabel',
+      title: 'BibTeX Archive Button Text',
+      type: 'string',
+      group: 'profile',
+      description: '📍 Where it appears: Secondary button to copy complete BibTeX archive.',
+      placeholder: 'BibTeX Archive (.bib)',
+      initialValue: 'BibTeX Archive (.bib)',
+    },
+
+    // ── Epistemic Statement & Narrative ──
+    {
+      name: 'headline',
+      title: 'Epistemic Thesis Headline (Quote)',
+      type: 'text',
+      rows: 3,
+      group: 'statement',
+      description: '📍 Where it appears: Large serif quote and subtitle under the page title.',
+      placeholder: 'Investigating the mathematical continuum between non-equilibrium statistical mechanics, morphogenetic substrates, and synthetic cognitive architectures.',
+      initialValue:
+        'Investigating the mathematical continuum between non-equilibrium statistical mechanics, morphogenetic substrates, and synthetic cognitive architectures.',
+    },
+    {
+      name: 'statementHeading',
+      title: 'Statement Section Title',
+      type: 'string',
+      group: 'statement',
+      description: '📍 Where it appears: Heading above the narrative statement.',
+      placeholder: 'The Epistemic Thesis of Synthese',
+      initialValue: 'The Epistemic Thesis of Synthese',
+    },
+    {
+      name: 'statementParagraph1',
+      title: 'Statement Paragraph 1 (Opening Context)',
+      type: 'text',
+      rows: 4,
+      group: 'statement',
+      description: '📍 Where it appears: First paragraph under the Epistemic Thesis quote.',
+      placeholder: 'Modern artificial intelligence is overwhelmingly framed through the lens of static Euclidean parameter optimization in deep feed-forward topologies...',
+      initialValue:
+        'Modern artificial intelligence is overwhelmingly framed through the lens of static Euclidean parameter optimization in deep feed-forward topologies. While empirically formidable, this paradigm often neglects the thermodynamic and continuous dynamical substrates that give rise to physical morphogenesis and biological cognition.',
+    },
+    {
+      name: 'abstract',
+      title: 'Statement Paragraph 2 / Core Abstract',
+      type: 'text',
+      rows: 4,
+      group: 'statement',
+      description: '📍 Where it appears: Second paragraph under the Epistemic Thesis.',
+      placeholder: 'Our laboratory focuses on the fundamental question: How do self-organizing physical substrates spontaneously compute, minimize informational entropy, and manifest cognitive invariants?',
+      initialValue:
+        'Our laboratory focuses on the fundamental question: How do self-organizing physical substrates spontaneously compute, minimize informational entropy, and manifest cognitive invariants? By unifying Turing reaction-diffusion dynamics, Friston variational mechanics, and differential geometric latent representations, Synthese operates as both a formal theoretical press and an executable experimental sandbox.',
+    },
+    {
+      name: 'statementParagraph3',
+      title: 'Statement Paragraph 3 (Executable Research)',
+      type: 'text',
+      rows: 4,
+      group: 'statement',
+      description: '📍 Where it appears: Third paragraph under the Epistemic Thesis.',
+      placeholder: 'Through the Synthese Computational Press, all theoretical treatises are formally accompanied by browser-native, interactive numerical simulations...',
+      initialValue:
+        'Through the Synthese Computational Press, all theoretical treatises are formally accompanied by browser-native, interactive numerical simulations. Reviewers and fellows can directly perturb physical parameters, test boundary conditions, and verify mathematical lemmas in real time.',
+    },
+    {
+      name: 'bioStory',
+      title: 'Full Extended Biography (Portable Text)',
+      type: 'blockContent',
+      group: 'statement',
+      description: 'Optional rich-text story blocks for long-form biographies.',
+    },
+
+    // ── Bibliometrics ──
+    {
       name: 'metrics',
       title: 'Bibliometric Highlights',
       type: 'object',
@@ -152,9 +219,19 @@ export const aboutPage = defineType({
         { name: 'activeSimulations', type: 'string', title: 'Active Models', placeholder: '14', initialValue: '14' },
       ],
     },
+
+    // ── Core Theoretical Pillars ──
+    {
+      name: 'pillarsHeading',
+      title: 'Pillars Section Heading',
+      type: 'string',
+      group: 'pillars',
+      placeholder: 'Core Theoretical Pillars',
+      initialValue: 'Core Theoretical Pillars',
+    },
     {
       name: 'epistemicPillars',
-      title: 'Core Theoretical Pillars',
+      title: 'Core Theoretical Pillars Cards',
       type: 'array',
       group: 'pillars',
       description: '📍 Where it appears: 3 cards showing your primary research pillars on /about.',
@@ -192,6 +269,8 @@ export const aboutPage = defineType({
         },
       ],
     },
+
+    // ── Skills & Timeline ──
     {
       name: 'skillsHeadline',
       title: 'Skills Section Title',
@@ -218,12 +297,28 @@ export const aboutPage = defineType({
       initialValue: true,
     },
     {
+      name: 'timelineKicker',
+      title: 'Timeline Kicker',
+      type: 'string',
+      group: 'timeline',
+      placeholder: 'CHRONOLOGY OF RESEARCH',
+      initialValue: 'CHRONOLOGY OF RESEARCH',
+    },
+    {
       name: 'timelineHeading',
       title: 'Timeline Section Heading',
       type: 'string',
       group: 'timeline',
       placeholder: 'Curriculum Temporale & Appointments',
       initialValue: 'Curriculum Temporale & Appointments',
+    },
+    {
+      name: 'timelineSubtitle',
+      title: 'Timeline Subtitle',
+      type: 'string',
+      group: 'timeline',
+      placeholder: 'Academic milestones, fellowships, institutional directorships, and foundational research degrees.',
+      initialValue: 'Academic milestones, fellowships, institutional directorships, and foundational research degrees.',
     },
     {
       name: 'resumeUrl',
@@ -233,6 +328,145 @@ export const aboutPage = defineType({
       description: 'Optional link to a hosted PDF CV. If blank, clicking download generates an instant markdown dossier.',
       placeholder: 'https://example.com/cv.pdf',
     },
+
+    // ── Selected Publications ──
+    {
+      name: 'publicationsKicker',
+      title: 'Publications Section Kicker',
+      type: 'string',
+      group: 'publications',
+      placeholder: 'BIBLIOMETRIC RECORD',
+      initialValue: 'BIBLIOMETRIC RECORD',
+    },
+    {
+      name: 'publicationsHeading',
+      title: 'Publications Section Heading',
+      type: 'string',
+      group: 'publications',
+      placeholder: 'Selected Treatises & Preprints',
+      initialValue: 'Selected Treatises & Preprints',
+    },
+    {
+      name: 'publicationsSubtitle',
+      title: 'Publications Section Subtitle',
+      type: 'string',
+      group: 'publications',
+      placeholder: 'Peer-reviewed papers, computational monographs, and conference proceedings with verified DOIs.',
+      initialValue: 'Peer-reviewed papers, computational monographs, and conference proceedings with verified DOIs.',
+    },
+    {
+      name: 'publicationsButtonText',
+      title: 'Publications Button Text',
+      type: 'string',
+      group: 'publications',
+      placeholder: 'View Full Journal Archive →',
+      initialValue: 'View Full Journal Archive →',
+    },
+    {
+      name: 'publicationsButtonUrl',
+      title: 'Publications Button Link',
+      type: 'string',
+      group: 'publications',
+      placeholder: '/blog',
+      initialValue: '/blog',
+    },
+    {
+      name: 'publications',
+      title: 'Selected Publications List',
+      type: 'array',
+      group: 'publications',
+      description: '📍 Where it appears: The full list of papers, preprints, and DOIs on /about.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'id', type: 'string', title: 'Citation ID (e.g. jana2026topological)' },
+            { name: 'title', type: 'string', title: 'Paper Title' },
+            { name: 'authors', type: 'string', title: 'Authors (e.g. Sudip Jana)' },
+            { name: 'venue', type: 'string', title: 'Publication Venue / Journal' },
+            { name: 'year', type: 'string', title: 'Year' },
+            { name: 'doi', type: 'string', title: 'DOI (e.g. 10.48550/SYNTHESE.2026.04229)' },
+            {
+              name: 'type',
+              type: 'string',
+              title: 'Type Badge',
+              options: {
+                list: ['Peer-Reviewed Journal', 'Conference Proceedings', 'Preprint Monograph'],
+              },
+            },
+            { name: 'abstract', type: 'text', rows: 2, title: 'Brief Abstract' },
+            { name: 'slug', type: 'string', title: 'Internal Manuscript Slug (e.g. emergence-of-spontaneous-coordination)' },
+            { name: 'externalUrl', type: 'url', title: 'External Paper URL' },
+          ],
+        },
+      ],
+    },
+
+    // ── Laboratory Substrates & Instrumentarium ──
+    {
+      name: 'instrumentariumKicker',
+      title: 'Substrates Section Kicker',
+      type: 'string',
+      group: 'instrumentarium',
+      placeholder: 'LABORATORY INFRASTRUCTURE',
+      initialValue: 'LABORATORY INFRASTRUCTURE',
+    },
+    {
+      name: 'instrumentariumHeading',
+      title: 'Substrates Section Heading',
+      type: 'string',
+      group: 'instrumentarium',
+      placeholder: 'Computational Substrates & Tooling',
+      initialValue: 'Computational Substrates & Tooling',
+    },
+    {
+      name: 'instrumentariumSubtitle',
+      title: 'Substrates Section Subtitle',
+      type: 'string',
+      group: 'instrumentarium',
+      placeholder: 'Specialized hardware nodes, formal verification engines, and numerical runtime kernels supporting Synthese press publications.',
+      initialValue:
+        'Specialized hardware nodes, formal verification engines, and numerical runtime kernels supporting Synthese press publications.',
+    },
+    {
+      name: 'instrumentarium',
+      title: 'Laboratory Instrumentarium Cards',
+      type: 'array',
+      group: 'instrumentarium',
+      description: 'Hardware, software kernels, and formal proof assistants used in the lab.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'category', type: 'string', title: 'Category (e.g. HIGH-PERFORMANCE COMPUTE)' },
+            { name: 'name', type: 'string', title: 'Substrate Name (e.g. 8x NVIDIA H100 SXM5 Cluster)' },
+            { name: 'description', type: 'text', rows: 2, title: 'Description' },
+            { name: 'specs', type: 'array', title: 'Specifications List', of: [{ type: 'string' }] },
+          ],
+        },
+      ],
+    },
+
+    // ── Institutional Contact Cards ──
+    {
+      name: 'contactCards',
+      title: 'Institutional Contact Drawer Cards',
+      type: 'array',
+      group: 'contact',
+      description: '📍 Where it appears: 3 contact information columns at the bottom of /about.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            { name: 'heading', type: 'string', title: 'Card Heading (e.g. Academic Inquiries)' },
+            { name: 'value', type: 'string', title: 'Main Text / Email / Location' },
+            { name: 'subtext', type: 'string', title: 'Subtext / Note' },
+          ],
+        },
+      ],
+    },
+
+    // ── SEO ──
     {
       name: 'seo',
       title: 'About Page SEO',

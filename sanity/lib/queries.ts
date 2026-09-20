@@ -105,44 +105,64 @@ export const categoriesQuery = groq`
 // Fetch blog page singleton settings (titles, toggles, descriptions)
 export const blogPageSettingsQuery = groq`
   *[_type == "blogPage"][0] {
+    kicker,
     title,
     description,
+    featuredBadge,
+    readManuscriptLabel,
     featuredSectionTitle,
     allPostsTitle,
     showSearchBar,
     searchPlaceholder,
     showCategoryFilter,
     postsPerPage,
-    showNewsletter,
-    newsletterTitle,
-    newsletterDescription,
     seo
   }
 `
 
-// Fetch about page singleton settings (bio, skills, headline, resume, pillars, metrics)
+// Fetch about page singleton settings (bio, skills, headline, resume, pillars, metrics, publications, instrumentarium, contact)
 export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0] {
-    title,
     kicker,
+    title,
     name,
     role,
     affiliation,
     location,
     email,
-    headline,
-    abstract,
-    profileImage,
-    bioStory,
+    githubUrl,
     orcid,
     pgpKey,
+    cvDownloadLabel,
+    bibtexArchiveLabel,
+    profileImage,
+    bioStory,
+    headline,
+    statementHeading,
+    statementParagraph1,
+    abstract,
+    statementParagraph3,
     metrics,
+    pillarsHeading,
     epistemicPillars,
     skillsHeadline,
     skills,
     showTimeline,
+    timelineKicker,
     timelineHeading,
+    timelineSubtitle,
     resumeUrl,
+    publicationsKicker,
+    publicationsHeading,
+    publicationsSubtitle,
+    publicationsButtonText,
+    publicationsButtonUrl,
+    publications,
+    instrumentariumKicker,
+    instrumentariumHeading,
+    instrumentariumSubtitle,
+    instrumentarium,
+    contactCards,
     seo
   }
 `
@@ -165,11 +185,19 @@ export const timelineQuery = groq`
 export const homePageQuery = groq`
   *[_type == "homePage"][0] {
     kicker,
+    authorSubtitle,
     heroHeadline,
     heroSubheadline,
     heroPrimaryCta,
     heroSecondaryCta,
     velocityCard,
+    featuredPaperCard,
+    essaysSectionHeading,
+    fieldNotesTitle,
+    fieldNotesBadge,
+    fieldNotesLinkText,
+    fieldNotesLinkUrl,
+    fieldNotes,
     epistemicQuote,
     newsletter,
     seo
@@ -182,6 +210,7 @@ export const siteSettingsQuery = groq`
     siteName,
     siteDescription,
     authorName,
+    authorRole,
     ticker,
     socialLinks,
     footerBio,
@@ -193,9 +222,17 @@ export const siteSettingsQuery = groq`
 // Fetch projects page singleton
 export const projectsPageQuery = groq`
   *[_type == "projectsPage"][0] {
+    statusKicker,
+    issnTag,
+    webglBadge,
     title,
     description,
+    primaryButton,
+    secondaryButton,
     showFilter,
+    arsenalKicker,
+    arsenalHeading,
+    arsenalDesc,
     ctaBox,
     seo
   }
@@ -224,10 +261,19 @@ export const projectsQuery = groq`
 // Fetch digital garden singleton
 export const gardenPageQuery = groq`
   *[_type == "gardenPage"][0] {
+    mastheadKicker,
     title,
     description,
+    bibtexBtnText,
+    vaultBtnText,
+    showInteractiveGraph,
     epistemicWarning,
-    showStats,
+    explorerLabel,
+    searchPlaceholder,
+    scratchpadKicker,
+    scratchpadSubtitle,
+    scratchpadBtnText,
+    memos,
     seo
   }
 `
