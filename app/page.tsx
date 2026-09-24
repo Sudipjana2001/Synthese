@@ -2,8 +2,7 @@ import type { Metadata } from 'next'
 import { getHomePageData } from '../lib/getHomePage'
 import { HomeClient } from './HomeClient'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const home = await getHomePageData()

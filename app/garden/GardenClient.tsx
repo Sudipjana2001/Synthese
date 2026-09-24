@@ -1,9 +1,33 @@
 'use client'
 
 import React, { useState, useMemo, useRef, useCallback } from 'react'
+import dynamic from 'next/dynamic'
 import { Download, FileText, Search, Database, BookOpen } from 'lucide-react'
-import { KnowledgeGraph } from '../../components/KnowledgeGraph'
 import { SynapticInspector } from '../../components/SynapticInspector'
+
+const KnowledgeGraph = dynamic(
+  () => import('../../components/KnowledgeGraph').then((mod) => mod.KnowledgeGraph),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '520px',
+          background: 'var(--color-surface)',
+          border: '1px solid var(--color-border)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.85rem',
+          color: 'var(--color-text-tertiary)',
+        }}
+      >
+        Initializing synaptic topology graph...
+      </div>
+    ),
+  }
+)
 import { DISCIPLINES, MEMO_SLIPS } from '../../lib/sampleGarden'
 import { GardenNote, GrowthStage } from '../../types/garden'
 import { GardenPageSettings } from '../../lib/getGarden'

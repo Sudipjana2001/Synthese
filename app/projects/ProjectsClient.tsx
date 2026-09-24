@@ -11,8 +11,32 @@ import {
   Check,
   Play,
 } from 'lucide-react'
-import { ReactionDiffusionCanvas } from '../../components/ReactionDiffusionCanvas'
+import dynamic from 'next/dynamic'
 import { EnclosurePreview } from '../../components/EnclosurePreview'
+
+const ReactionDiffusionCanvas = dynamic(
+  () => import('../../components/ReactionDiffusionCanvas').then((mod) => mod.ReactionDiffusionCanvas),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        style={{
+          width: '100%',
+          height: '240px',
+          background: 'var(--color-surface)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.8rem',
+          color: 'var(--color-text-tertiary)',
+        }}
+      >
+        Initializing reaction-diffusion simulation...
+      </div>
+    ),
+  }
+)
 import { ScrollReveal } from '../../components/ScrollReveal'
 import { Project } from '../../types/project'
 import { ProjectsPageSettings } from '../../lib/getProjects'

@@ -1,8 +1,25 @@
 import { revalidatePath } from 'next/cache'
 import { clearSanityCache } from '../../../sanity/lib/client'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET() {
+function validateSecret(request: NextRequest): boolean {
+  const secret = request.nextUrl.searchParams.get('secret')
+  const expected = process.env.REVALIDATION_SECRET
+  if (!expected) {
+    console.warn('REVALIDATION_SECRET is not set — revalidation endpoint is disabled.')
+    return false
+  }
+  return secret === expected
+}
+
+export async function GET(request: NextRequest) {
+  if (!validateSecret(request)) {
+    return NextResponse.json(
+      { revalidated: false, message: 'Invalid or missing secret.' },
+      { status: 401 }
+    )
+  }
+
   clearSanityCache()
   revalidatePath('/', 'layout')
   return NextResponse.json({
@@ -12,7 +29,14 @@ export async function GET() {
   })
 }
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  if (!validateSecret(request)) {
+    return NextResponse.json(
+      { revalidated: false, message: 'Invalid or missing secret.' },
+      { status: 401 }
+    )
+  }
+
   clearSanityCache()
   revalidatePath('/', 'layout')
   return NextResponse.json({
@@ -21,3 +45,4 @@ export async function POST() {
     now: new Date().toISOString(),
   })
 }
+

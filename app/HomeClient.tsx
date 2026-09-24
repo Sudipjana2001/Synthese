@@ -45,6 +45,38 @@ export function HomeClient({ home }: HomeClientProps) {
     return home.papers.filter((p) => p.discipline === selectedDiscipline)
   }, [selectedDiscipline, home.papers])
 
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [newsletterMessage, setNewsletterMessage] = useState('')
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newsletterEmail.trim() || newsletterStatus === 'loading') return
+
+    setNewsletterStatus('loading')
+    setNewsletterMessage('')
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail }),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setNewsletterStatus('success')
+        setNewsletterMessage(data.message || 'Subscribed successfully!')
+        setNewsletterEmail('')
+      } else {
+        setNewsletterStatus('error')
+        setNewsletterMessage(data.error || 'Subscription failed. Please try again.')
+      }
+    } catch {
+      setNewsletterStatus('error')
+      setNewsletterMessage('Network error. Please try again later.')
+    }
+  }
+
   const featured = home.featuredPaperCard
 
   return (
@@ -355,20 +387,39 @@ export function HomeClient({ home }: HomeClientProps) {
               {home.newsletter.description}
             </p>
 
-            <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
+            <form className={styles.newsletterForm} onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
                 className={styles.newsletterInput}
                 placeholder={home.newsletter.placeholder || 'researcher@institute.edu or scholar@domain.org'}
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                disabled={newsletterStatus === 'loading'}
                 required
               />
-              <button type="submit" className={styles.newsletterButton}>
-                {home.newsletter.buttonText || 'Subscribe to Dispatch →'}
+              <button
+                type="submit"
+                className={styles.newsletterButton}
+                disabled={newsletterStatus === 'loading'}
+              >
+                {newsletterStatus === 'loading'
+                  ? 'Transmitting...'
+                  : home.newsletter.buttonText || 'Subscribe to Dispatch →'}
               </button>
             </form>
 
+            {newsletterMessage && (
+              <div
+                className={`${styles.newsletterFeedback} ${
+                  newsletterStatus === 'success' ? styles.newsletterSuccess : styles.newsletterError
+                }`}
+              >
+                {newsletterMessage}
+              </div>
+            )}
+
             {home.newsletter.privacyPerks && home.newsletter.privacyPerks.length > 0 && (
-              <div style={{ display: 'flex', gap: 'var(--space-4)', marginTop: 'var(--space-4)', fontSize: '11px', color: '#64748b' }}>
+              <div className={styles.newsletterPerks}>
                 {home.newsletter.privacyPerks.map((perk, pIdx) => (
                   <React.Fragment key={pIdx}>
                     {pIdx > 0 && <span>•</span>}

@@ -3,8 +3,8 @@ import { getAllPosts, getFeaturedPost, getBlogSettings, getAllCategories } from 
 import { BlogListClient } from '../../components/BlogListClient'
 import styles from './blog.module.css'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+export const revalidate = 60
+
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getBlogSettings()

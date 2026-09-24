@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server'
-import { SAMPLE_POSTS } from '../../lib/samplePosts'
+import { getAllPosts } from '../../lib/getPosts'
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://synthese.blog'
+  const posts = await getAllPosts()
 
-  const rssItemsXml = SAMPLE_POSTS.map((post) => {
+  const rssItemsXml = posts.map((post) => {
     const postUrl = `${baseUrl}/blog/${post.slug.current}`
     const pubDate = post.publishedAt ? new Date(post.publishedAt).toUTCString() : new Date().toUTCString()
 
@@ -14,8 +15,8 @@ export async function GET() {
       <link>${postUrl}</link>
       <guid isPermaLink="true">${postUrl}</guid>
       <pubDate>${pubDate}</pubDate>
-      <author>investigator@synthese.press (Sudip Jana)</author>
-      <description><![CDATA[${post.excerpt}]]></description>
+      <author>investigator@synthese.press (${post.author?.name || 'Sudip Jana'})</author>
+      <description><![CDATA[${post.excerpt || ''}]]></description>
       <category>${post.categories?.[0]?.title || 'Cognitive Computation'}</category>
     </item>`
   }).join('')

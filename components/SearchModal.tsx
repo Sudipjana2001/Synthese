@@ -1,27 +1,24 @@
 'use client'
 
-import React, { useEffect, useState, useRef, useMemo } from 'react'
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   Search,
   FileText,
   Compass,
   Sparkles,
-  Sliders,
   Sprout,
   Cpu,
   User,
-  ArrowRight,
   BookOpen,
 } from 'lucide-react'
-import { SAMPLE_POSTS } from '../lib/samplePosts'
-import { SAMPLE_PROJECTS } from '../lib/sampleProjects'
-import { SAMPLE_GARDEN_NOTES } from '../lib/sampleGarden'
+import type { SearchCorpus, SearchIndexItem } from '../lib/getSiteSettings'
 import styles from './SearchModal.module.css'
 
 interface SearchModalProps {
   isOpen: boolean
   onClose: () => void
+  searchCorpus?: SearchCorpus
 }
 
 interface SearchResultItem {
@@ -42,46 +39,44 @@ const PAGE_LINKS: SearchResultItem[] = [
   { id: 'p-about', title: 'About & Curriculum Dossier', subtitle: 'Scholar bio, academic timeline & laboratory instrumentarium', href: '/about', tag: 'About', icon: User, category: 'Pages' },
 ]
 
-export function SearchModal({ isOpen, onClose }: SearchModalProps) {
+function mapCorpusToSearchItems(corpus?: SearchCorpus): SearchResultItem[] {
+  if (!corpus) return []
+
+  const iconMap: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
+    Manuscripts: BookOpen,
+    Simulations: Cpu,
+    'Garden Notes': Sprout,
+  }
+
+  const mapItems = (items: SearchIndexItem[]): SearchResultItem[] =>
+    items.map((item) => ({
+      id: item.id,
+      title: item.title,
+      subtitle: item.subtitle,
+      href: item.href,
+      tag: item.tag,
+      icon: iconMap[item.category] || FileText,
+      category: item.category,
+    }))
+
+  return [
+    ...mapItems(corpus.posts),
+    ...mapItems(corpus.projects),
+    ...mapItems(corpus.gardenNotes),
+  ]
+}
+
+export function SearchModal({ isOpen, onClose, searchCorpus }: SearchModalProps) {
   const [query, setQuery] = useState('')
   const [activeIndex, setActiveIndex] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
-  // Compile universal search corpus
+  // Build search corpus from live data passed via props
   const allSearchItems = useMemo<SearchResultItem[]>(() => {
-    const postItems: SearchResultItem[] = SAMPLE_POSTS.map((p) => ({
-      id: `post-${p._id}`,
-      title: p.title,
-      subtitle: `${p.author?.name || 'Sudip Jana'} • ${p.readingTime} min read`,
-      href: `/blog/${p.slug.current}`,
-      tag: p.tags?.[0] || 'Paper',
-      icon: BookOpen,
-      category: 'Manuscripts',
-    }))
-
-    const projectItems: SearchResultItem[] = SAMPLE_PROJECTS.map((prj) => ({
-      id: `project-${prj._id}`,
-      title: prj.title,
-      subtitle: `${prj.category} • ${prj.metrics.label1}: ${prj.metrics.value1}`,
-      href: '/projects',
-      tag: prj.disciplineTag || 'Lab',
-      icon: Cpu,
-      category: 'Simulations',
-    }))
-
-    const gardenItems: SearchResultItem[] = SAMPLE_GARDEN_NOTES.map((n) => ({
-      id: `garden-${n.id}`,
-      title: `${n.id}: ${n.title}`,
-      subtitle: `${n.discipline} • ${n.stage.toUpperCase()}`,
-      href: '/garden',
-      tag: n.stage,
-      icon: Sprout,
-      category: 'Garden Notes',
-    }))
-
-    return [...PAGE_LINKS, ...postItems, ...projectItems, ...gardenItems]
-  }, [])
+    const corpusItems = mapCorpusToSearchItems(searchCorpus)
+    return [...PAGE_LINKS, ...corpusItems]
+  }, [searchCorpus])
 
   // Filter items based on active query
   const filteredResults = useMemo(() => {
@@ -97,34 +92,38 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
     ).slice(0, 12)
   }, [query, allSearchItems])
 
-  useEffect(() => {
-    setActiveIndex(0)
-  }, [filteredResults])
+  const clampedActiveIndex = Math.min(activeIndex, Math.max(0, filteredResults.length - 1))
 
+  // Manage body scroll lock and focus
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 50)
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
-      setQuery('')
     }
     return () => {
       document.body.style.overflow = ''
     }
   }, [isOpen])
 
-  const handleSelect = (href: string) => {
+  const handleClose = useCallback(() => {
+    setQuery('')
+    setActiveIndex(0)
     onClose()
+  }, [onClose])
+
+  const handleSelect = useCallback((href: string) => {
+    handleClose()
     router.push(href)
-  }
+  }, [handleClose, router])
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return
       if (e.key === 'Escape') {
-        onClose()
+        handleClose()
       } else if (e.key === 'ArrowDown') {
         e.preventDefault()
         setActiveIndex((prev) => (prev + 1) % (filteredResults.length || 1))
@@ -133,19 +132,19 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         setActiveIndex((prev) => (prev - 1 + filteredResults.length) % (filteredResults.length || 1))
       } else if (e.key === 'Enter') {
         e.preventDefault()
-        if (filteredResults[activeIndex]) {
-          handleSelect(filteredResults[activeIndex].href)
+        if (filteredResults[clampedActiveIndex]) {
+          handleSelect(filteredResults[clampedActiveIndex].href)
         }
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, filteredResults, activeIndex, onClose])
+  }, [isOpen, filteredResults, clampedActiveIndex, handleClose, handleSelect])
 
   if (!isOpen) return null
 
   return (
-    <div className={styles.backdrop} onClick={onClose} role="dialog" aria-modal="true">
+    <div className={styles.backdrop} onClick={handleClose} role="dialog" aria-modal="true">
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.searchHeader}>
           <Search size={18} />
@@ -155,7 +154,10 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             className={styles.input}
             placeholder="Search papers, simulations, garden notes, or pages..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setActiveIndex(0)
+            }}
           />
           <span className={styles.escKey}>ESC</span>
         </div>
@@ -170,7 +172,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           {filteredResults.length > 0 ? (
             filteredResults.map((item, idx) => {
               const Icon = item.icon
-              const isActive = idx === activeIndex
+              const isActive = idx === clampedActiveIndex
               return (
                 <button
                   key={item.id}

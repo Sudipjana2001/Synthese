@@ -9,8 +9,7 @@ import { TableOfContents } from '../../../components/TableOfContents'
 import { ReadingProgressBar } from '../../../components/ReadingProgressBar'
 import styles from './post.module.css'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+export const revalidate = 60
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -24,12 +23,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: 'Publication Not Found' }
   }
 
+  const metaTitle = post.seo?.metaTitle || `${post.title} | Synthese`
+  const metaDescription = post.seo?.metaDescription || post.excerpt || 'A computational treatise published by Synthese Scholarly Press.'
+
   return {
-    title: `${post.title} | Synthese`,
-    description: post.excerpt || 'A computational treatise published by Synthese Scholarly Press.',
+    title: metaTitle,
+    description: metaDescription,
+    ...(post.seo?.canonicalUrl ? { alternates: { canonical: post.seo.canonicalUrl } } : {}),
+    ...(post.seo?.noIndex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: post.seo?.metaTitle || post.title,
+      description: metaDescription,
       type: 'article',
       publishedTime: post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,

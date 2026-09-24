@@ -61,3 +61,5 @@ export const getSiteSettings = cache(async function getSiteSettings(): Promise<S
 
   return DEFAULT_SITE_SETTINGS
 })
+
+export { getSearchCorpus, type SearchCorpus, type SearchIndexItem } from './getSearchCorpus'

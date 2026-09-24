@@ -17,13 +17,14 @@ const NAV_TABS = [
   { label: 'About & Curriculum', href: '/about' },
 ]
 
-import { SiteSettingsData, DEFAULT_SITE_SETTINGS } from '../lib/getSiteSettings'
+import { SiteSettingsData, DEFAULT_SITE_SETTINGS, type SearchCorpus } from '../lib/getSiteSettings'
 
 interface HeaderProps {
   settings?: SiteSettingsData
+  searchCorpus?: SearchCorpus
 }
 
-export function Header({ settings = DEFAULT_SITE_SETTINGS }: HeaderProps) {
+export function Header({ settings = DEFAULT_SITE_SETTINGS, searchCorpus }: HeaderProps) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [searchModalOpen, setSearchModalOpen] = useState(false)
@@ -214,6 +215,7 @@ export function Header({ settings = DEFAULT_SITE_SETTINGS }: HeaderProps) {
       <SearchModal
         isOpen={searchModalOpen}
         onClose={() => setSearchModalOpen(false)}
+        searchCorpus={searchCorpus}
       />
     </>
   )

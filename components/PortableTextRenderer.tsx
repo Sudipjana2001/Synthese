@@ -6,15 +6,9 @@ import Link from 'next/link'
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import { Check, Copy, Info, AlertTriangle, Lightbulb, ShieldAlert, Code } from 'lucide-react'
 import { urlForImage } from '../sanity/lib/image'
+import { slugify } from '../lib/toc'
 import styles from './PortableTextRenderer.module.css'
 
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
 
 function CodeBlockComponent({ value }: { value: any }) {
   const [copied, setCopied] = useState(false)

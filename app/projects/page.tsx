@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { getProjectsData } from '../../lib/getProjects'
 import { ProjectsClient } from './ProjectsClient'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+export const revalidate = 60
+
 
 export async function generateMetadata(): Promise<Metadata> {
   const { settings } = await getProjectsData()

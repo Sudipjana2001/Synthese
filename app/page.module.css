@@ -768,6 +768,37 @@
   background-color: #1d4ed8;
 }
 
+.newsletterButton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.newsletterPerks {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  font-size: 11px;
+  color: #64748b;
+  flex-wrap: wrap;
+}
+
+.newsletterFeedback {
+  margin-top: var(--space-3);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.newsletterSuccess {
+  color: #34d399;
+}
+
+.newsletterError {
+  color: #f87171;
+}
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
   .heroGrid,

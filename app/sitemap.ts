@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next'
-import { SAMPLE_POSTS } from '../lib/samplePosts'
+import { getAllPosts } from '../lib/getPosts'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://synthese.blog'
   const currentDate = new Date()
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -38,7 +38,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  const postRoutes: MetadataRoute.Sitemap = SAMPLE_POSTS.map((post) => ({
+  const posts = await getAllPosts()
+
+  const postRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug.current}`,
     lastModified: post.publishedAt ? new Date(post.publishedAt) : currentDate,
     changeFrequency: 'monthly',
